@@ -20,6 +20,7 @@ local faces = {
 minetest.register_node("crops:melon_seed", {
 	description = "melon seed",
 	inventory_image = "crops_melon_seed.png",
+	wield_image = "crops_melon_seed.png",
 	tiles = { "crops_melon_plant_1.png" },
 	drawtype = "plantlike",
 	sunlight_propagates = false,
