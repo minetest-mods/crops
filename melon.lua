@@ -52,7 +52,7 @@ minetest.register_node("crops:melon_plant_" .. stage , {
 	drop = "crops:melon_seed",
 	selection_box = {
 		type = "fixed",
-		fixed = {-0.5, -0.5, -0.5,  0.5, -0.5 + (((3 * stage) + 1) / 16), 0.5}
+		fixed = {-0.5, -0.5, -0.5,  0.5, -0.5 + (((math.min(stage, 4)) + 1) / 5), 0.5}
 	}
 })
 end
@@ -61,7 +61,7 @@ minetest.register_node("crops:melon_plant_5_attached", {
 	visual = "mesh",
 	mesh = "crops_plant_extra_face.obj",
 	description = "melon plant",
-	tiles = { "crops_melon_stem.png", "crops_melon_plant_5_attached.png" },
+	tiles = { "crops_melon_stem.png", "crops_melon_plant_4.png" },
 	drawtype = "mesh",
 	paramtype2 = "facedir",
 	sunlight_propagates = true,
