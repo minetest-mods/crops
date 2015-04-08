@@ -115,7 +115,7 @@ minetest.register_node("crops:melon", {
 			if n.name == "crops:melon_plant_5_attached" then
 				-- make sure it was actually attached to this stem
 				if n.param2 == faces[face].o then
-					minetest.set_node(s, { name = "crops:melon_plant_5" })
+					minetest.set_node(s, { name = "crops:melon_plant_4" })
 					return code
 				end
 			end
@@ -195,6 +195,6 @@ minetest.register_abm({
 				return
 			end
 		end
-		minetest.set_node(pos, {name = "crops:melon_plant_5" })
+		minetest.set_node(pos, {name = "crops:melon_plant_4" })
 	end
 })
