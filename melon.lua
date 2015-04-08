@@ -59,7 +59,7 @@ minetest.register_node("crops:melon_plant_5_attached", {
 	use_texture_alpha = true,
 	walkable = false,
 	paramtype = "light",
-	groups = { snappy=3, flammable=3, flora=1, attached_node=1,  },
+	groups = { snappy=3, flammable=3, flora=1, attached_node=1, not_in_creative_inventory=1 },
 	drop = "crops:melon_seed",
 })
 
