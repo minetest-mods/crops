@@ -61,7 +61,7 @@ minetest.register_node("crops:melon_plant_5_attached", {
 	visual = "mesh",
 	mesh = "crops_plant_extra_face.obj",
 	description = "melon plant",
-	tiles = { "crops_melon_stem.png", "crops_melon_plant_5.png" },
+	tiles = { "crops_melon_stem.png", "crops_melon_plant_5_attached.png" },
 	drawtype = "mesh",
 	paramtype2 = "facedir",
 	sunlight_propagates = true,
