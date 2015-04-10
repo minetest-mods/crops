@@ -140,6 +140,8 @@ minetest.register_node("crops:corn_base_2", {
 		local above = {x = pos.x, y = pos.y + 1, z = pos.z}
 		if minetest.get_node(above) == "crops:corn_top_1" or minetest.get_node(above) == "crops:corn_top_2" then
 			minetest.remove_node(above)
+			minetest.remove_node(pos)
+			return
 		end
 		if not minetest.get_node(above) == "crops:corn_top_3" then
 			minetest.remove_node(pos)
