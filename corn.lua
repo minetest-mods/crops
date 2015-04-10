@@ -190,6 +190,14 @@ minetest.register_node("crops:corn_top_1", {
 	paramtype = "light",
 	groups = { snappy=3,flammable=3,flora=1,not_in_creative_inventory=1 },
 	drop = {},
+	on_dig = function(pos, node, digger)
+		local below = {x = pos.x, y = pos.y - 1, z = pos.z}
+		if not minetest.get_node(below).name == "crops:base_2" then
+			return
+		end
+		minetest.remove_node(below)
+		minetest.remove_node(pos)
+	end
 })
 
 minetest.register_abm({
@@ -216,6 +224,14 @@ minetest.register_node("crops:corn_top_2", {
 	paramtype = "light",
 	groups = { snappy=3,flammable=3,flora=1,not_in_creative_inventory=1 },
 	drop = {},
+	on_dig = function(pos, node, digger)
+		local below = {x = pos.x, y = pos.y - 1, z = pos.z}
+		if not minetest.get_node(below).name == "crops:base_2" then
+			return
+		end
+		minetest.remove_node(below)
+		minetest.remove_node(pos)
+	end
 })
 
 minetest.register_abm({
