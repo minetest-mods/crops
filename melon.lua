@@ -17,8 +17,8 @@ local faces = {
 	[4] = { x = 0, z = 1, r = 0, o = 2,  m = 11 }
 }
 
-local interval = 30
-local chance = 10
+local interval = 90
+local chance = 2
 
 minetest.register_node("crops:melon_seed", {
 	description = "melon seed",

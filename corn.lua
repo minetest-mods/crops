@@ -10,8 +10,8 @@ of the license, or (at your option) any later version.
 
 --]]
 
-local interval = 30
-local chance = 10
+local interval = 90
+local chance = 2
 
 minetest.register_node("crops:corn", {
 	description = "corn",
