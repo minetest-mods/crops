@@ -1,0 +1,271 @@
+
+--[[
+
+Copyright (C) 2015 - Auke Kok <sofar@foo-projects.org>
+
+"crops" is free software; you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as
+published by the Free Software Foundation; either version 2.1
+of the license, or (at your option) any later version.
+
+--]]
+
+local interval = 30
+local chance = 10
+
+minetest.register_node("crops:corn", {
+	description = "corn",
+	inventory_image = "crops_corn.png",
+	wield_image = "crops_corn.png",
+	tiles = { "crops_corn_base_seed.png" },
+	drawtype = "mesh",
+	visual = "mesh",
+	mesh = "crops_orthogonal_plant.obj",
+	sunlight_propagates = true,
+	use_texture_alpha = true,
+	walkable = true,
+	paramtype = "light",
+	groups = { snappy=3,flammable=3,flora=1,attached_node=1 },
+	drop = {},
+
+	on_place = function(itemstack, placer, pointed_thing)
+		local under = minetest.get_node(pointed_thing.under)
+		if minetest.get_item_group(under.name, "soil") <= 1 then
+			return
+		end
+		minetest.set_node(pointed_thing.above, {name="crops:corn_base_seed"})
+		if not minetest.setting_getbool("creative_mode") then
+			itemstack:take_item()
+		end
+		return itemstack
+	end
+})
+
+minetest.register_craftitem("crops:corn_cob", {
+	description = "Corn Cob",
+	inventory_image = "crops_corn_cob.png",
+})
+
+minetest.register_craft({
+	type = "shapeless",
+	output = "crops:corn",
+	recipe = { "crops:corn_cob" }
+})
+
+minetest.register_craftitem("crops:corn_on_the_cob", {
+	description = "Corn on the Cob",
+	inventory_image = "crops_corn_on_the_cob.png",
+	on_use = minetest.item_eat(1)
+})
+
+minetest.register_craft({
+	type = "cooking",
+	output = "crops:corn_on_the_cob",
+	recipe = "crops:corn_cob"
+})
+
+minetest.register_node("crops:corn_base_seed", {
+	visual = "mesh",
+	description = "corn plant",
+	drawtype = "mesh",
+	mesh = "crops_orthogonal_plant.obj",
+	tiles = { "crops_corn_base_seed.png" },
+	use_texture_alpha = true,
+	walkable = false,
+	sunlight_propagates = true,
+	paramtype = "light",
+	groups = { snappy=3,flammable=3,flora=1,attached_node=1,not_in_creative_inventory=1 },
+	drop = {},
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.5, -0.5, -0.5,  0.5, -0.3, 0.5}
+	},
+})
+
+minetest.register_abm({
+	nodenames = { "crops:corn_base_seed" },
+	interval = interval,
+	chance = chance,
+	action = function(pos, node, active_object_count, active_object_count_wider)
+		if minetest.get_node_light(pos, nil) < 13 then
+			return
+		end
+		minetest.set_node(pos, { name = "crops:corn_base_1" })
+	end
+})
+
+minetest.register_node("crops:corn_base_1", {
+	visual = "mesh",
+	description = "corn plant",
+	drawtype = "mesh",
+	mesh = "crops_orthogonal_plant.obj",
+	tiles = { "crops_corn_base_1.png" },
+	use_texture_alpha = true,
+	walkable = false,
+	sunlight_propagates = true,
+	paramtype = "light",
+	groups = { snappy=3,flammable=3,flora=1,attached_node=1,not_in_creative_inventory=1 },
+	drop = {},
+})
+
+minetest.register_abm({
+	nodenames = { "crops:corn_base_1" },
+	interval = interval,
+	chance = chance,
+	action = function(pos, node, active_object_count, active_object_count_wider)
+		if minetest.get_node_light(pos, nil) < 13 then
+			return
+		end
+		if not minetest.get_node({x = pos.x, y = pos.y + 1, z = pos.z}).name == "air" then
+			return
+		end
+		minetest.set_node(pos, { name = "crops:corn_base_2" })
+		minetest.set_node({x = pos.x, y = pos.y + 1, z = pos.z} , { name = "crops:corn_top_1" })
+	end
+})
+
+minetest.register_node("crops:corn_base_2", {
+	visual = "mesh",
+	description = "corn plant",
+	drawtype = "mesh",
+	mesh = "crops_orthogonal_plant.obj",
+	tiles = { "crops_corn_base_2.png" },
+	use_texture_alpha = true,
+	walkable = false,
+	sunlight_propagates = true,
+	paramtype = "light",
+	groups = { snappy=3,flammable=3,flora=1,attached_node=1,not_in_creative_inventory=1 },
+	drop = {},
+	on_dig = function(pos, node, digger)
+		local above = {x = pos.x, y = pos.y + 1, z = pos.z}
+		if not minetest.get_node(above) == "crops:corn_top_3" then
+			minetest.remove_node(pos)
+		end
+
+		local drops = {}
+		for i = 1,math.random(2,4) do
+			table.insert(drops, ('crops:corn_cob'))
+		end
+		minetest.set_node(pos, { name = "crops:corn_base_3" })
+		minetest.set_node(above, { name = "crops:corn_top_4" })
+		core.handle_node_drops(above, drops, digger)
+	end
+})
+
+minetest.register_node("crops:corn_base_3", {
+	visual = "mesh",
+	description = "corn plant",
+	drawtype = "mesh",
+	mesh = "crops_orthogonal_plant.obj",
+	tiles = { "crops_corn_base_3.png" },
+	use_texture_alpha = true,
+	walkable = false,
+	sunlight_propagates = true,
+	paramtype = "light",
+	groups = { snappy=3,flammable=3,flora=1,attached_node=1,not_in_creative_inventory=1 },
+	drop = {},
+	on_dig = function(pos, node, digger)
+		local above = {x = pos.x, y = pos.y + 1, z = pos.z}
+		if minetest.get_node(above).name == "crops:corn_top_4" then
+			minetest.remove_node(above)
+		end
+		minetest.remove_node(pos)
+	end
+})
+
+minetest.register_node("crops:corn_top_1", {
+	visual = "mesh",
+	description = "corn plant",
+	drawtype = "mesh",
+	mesh = "crops_orthogonal_plant.obj",
+	tiles = { "crops_corn_base_1.png" },
+	use_texture_alpha = true,
+	walkable = false,
+	sunlight_propagates = true,
+	paramtype = "light",
+	groups = { snappy=3,flammable=3,flora=1,not_in_creative_inventory=1 },
+	drop = {},
+})
+
+minetest.register_abm({
+	nodenames = { "crops:corn_top_1" },
+	interval = interval,
+	chance = chance,
+	action = function(pos, node, active_object_count, active_object_count_wider)
+		if minetest.get_node_light(pos, nil) < 13 then
+			return
+		end
+		minetest.set_node(pos, { name = "crops:corn_top_2" })
+	end
+})
+
+minetest.register_node("crops:corn_top_2", {
+	visual = "mesh",
+	description = "corn plant",
+	drawtype = "mesh",
+	mesh = "crops_orthogonal_plant.obj",
+	tiles = { "crops_corn_top_1.png" },
+	use_texture_alpha = true,
+	walkable = false,
+	sunlight_propagates = true,
+	paramtype = "light",
+	groups = { snappy=3,flammable=3,flora=1,not_in_creative_inventory=1 },
+	drop = {},
+})
+
+minetest.register_abm({
+	nodenames = { "crops:corn_top_2" },
+	interval = interval,
+	chance = chance,
+	action = function(pos, node, active_object_count, active_object_count_wider)
+		if minetest.get_node_light(pos, nil) < 13 then
+			return
+		end
+		minetest.set_node(pos, { name = "crops:corn_top_3" })
+	end
+})
+
+minetest.register_node("crops:corn_top_3", {
+	visual = "mesh",
+	description = "corn plant",
+	drawtype = "mesh",
+	mesh = "crops_orthogonal_plant.obj",
+	tiles = { "crops_corn_top_2.png" },
+	use_texture_alpha = true,
+	walkable = false,
+	sunlight_propagates = true,
+	paramtype = "light",
+	groups = { snappy=3,flammable=3,flora=1,not_in_creative_inventory=1 },
+	drop = {},
+	on_dig = function(pos, node, digger)
+		local drops = {}
+		for i = 1,math.random(2,4) do
+			table.insert(drops, ('crops:corn_cob'))
+		end
+		minetest.set_node(pos, { name = "crops:corn_top_4" })
+		minetest.set_node({x = pos.x, y = pos.y - 1, z = pos.z}, { name = "crops:corn_base_3" })
+		core.handle_node_drops(pos, drops, digger)
+	end
+})
+
+minetest.register_node("crops:corn_top_4", {
+	visual = "mesh",
+	description = "corn plant",
+	drawtype = "mesh",
+	mesh = "crops_orthogonal_plant.obj",
+	tiles = { "crops_corn_top_3.png" },
+	use_texture_alpha = true,
+	walkable = false,
+	sunlight_propagates = true,
+	paramtype = "light",
+	groups = { snappy=3,flammable=3,flora=1,not_in_creative_inventory=1 },
+	drop = {},
+	on_dig = function(pos, node, digger)
+		local below = {x = pos.x, y = pos.y - 1, z = pos.z}
+		if minetest.get_node(below).name == "crops:corn_base_3" then
+			minetest.remove_node(below)
+		end
+		minetest.remove_node(pos)
+	end
+})
+
