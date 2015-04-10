@@ -11,10 +11,10 @@ of the license, or (at your option) any later version.
 --]]
 
 local faces = {
-	[1] = { x = -1, z = 0, r = 3, o = 1 } ,
-	[2] = { x = 1, z = 0, r = 1, o = 3 } ,
-	[3] = { x = 0, z = -1, r = 2, o = 0 } ,
-	[4] = { x = 0, z = 1, r = 0, o = 2 }
+	[1] = { x = -1, z = 0, r = 3, o = 1, m = 14 },
+	[2] = { x = 1, z = 0, r = 1, o = 3,  m = 16 },
+	[3] = { x = 0, z = -1, r = 2, o = 0, m = 5  },
+	[4] = { x = 0, z = 1, r = 0, o = 2,  m = 11 }
 }
 
 local interval = 30
@@ -102,6 +102,7 @@ minetest.register_node("crops:melon", {
 	use_texture_alpha = false,
 	walkable = true,
 	groups = { snappy=3, flammable=3, oddly_breakable_by_hand=2 },
+	paramtype2 = "facedir",
 	drop = {max_items = 5, items = {
 		{ items = {'crops:melon_slice'}, rarity = 1 },
 		{ items = {'crops:melon_slice'}, rarity = 1 },
@@ -180,7 +181,7 @@ minetest.register_abm({
 		if minetest.registered_nodes[n.name].drawtype == "plantlike" or
 		   minetest.registered_nodes[n.name].groups.flora == 1 or
 		   n.name == "air" then
-			minetest.set_node(t, {name = "crops:melon"})
+			minetest.set_node(t, {name = "crops:melon", param2 = faces[r].m})
 			minetest.set_node(pos, {name = "crops:melon_plant_5_attached", param2 = faces[r].r})
 		end
 	end
