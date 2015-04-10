@@ -84,6 +84,7 @@ minetest.register_node("crops:corn_base_seed", {
 
 minetest.register_abm({
 	nodenames = { "crops:corn_base_seed" },
+	neighbors = { "group:soil" },
 	interval = interval,
 	chance = chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
@@ -110,6 +111,7 @@ minetest.register_node("crops:corn_base_1", {
 
 minetest.register_abm({
 	nodenames = { "crops:corn_base_1" },
+	neighbors = { "group:soil" },
 	interval = interval,
 	chance = chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
@@ -202,6 +204,7 @@ minetest.register_node("crops:corn_top_1", {
 
 minetest.register_abm({
 	nodenames = { "crops:corn_top_1" },
+	neighbors = { "crops:corn_base_2" },
 	interval = interval,
 	chance = chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
@@ -236,6 +239,7 @@ minetest.register_node("crops:corn_top_2", {
 
 minetest.register_abm({
 	nodenames = { "crops:corn_top_2" },
+	neighbors = { "crops:corn_base_2" },
 	interval = interval,
 	chance = chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
