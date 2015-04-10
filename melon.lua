@@ -17,6 +17,9 @@ local faces = {
 	[4] = { x = 0, z = 1, r = 0, o = 2 }
 }
 
+local interval = 30
+local chance = 10
+
 minetest.register_node("crops:melon_seed", {
 	description = "melon seed",
 	inventory_image = "crops_melon_seed.png",
@@ -132,8 +135,8 @@ minetest.register_node("crops:melon", {
 --
 minetest.register_abm({
 	nodenames = { "crops:melon_plant_1", "crops:melon_plant_2", "crops:melon_plant_3","crops:melon_plant_4" },
-	interval = 30,
-	chance = 10,
+	interval = interval,
+	chance = chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
 		if minetest.get_node_light(pos, nil) < 13 then
 			return
@@ -151,8 +154,8 @@ minetest.register_abm({
 --
 minetest.register_abm({
 	nodenames = { "crops:melon_plant_5" },
-	interval = 30,
-	chance = 10,
+	interval = interval,
+	chance = chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
 		if minetest.get_node_light(pos, nil) < 13 then
 			return
@@ -189,7 +192,7 @@ minetest.register_abm({
 --
 minetest.register_abm({
 	nodenames = { "crops:melon_plant_5_attached" },
-	interval = 30,
+	interval = interval,
 	chance = 1,
 	action = function(pos, node, active_object_count, active_object_count_wider)
 		for face = 1, 4 do
