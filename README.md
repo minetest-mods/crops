@@ -27,3 +27,12 @@ Digging a mature plant yields the corn cob. A harvested corn plant
 be left as ornamental 2-block plant. Digging either top or bottom
 block works in all cases.
 
+3. Tomatoes.
+
+Tomatoes appear to work simple enough, until you harvest them
+the first time: The plant stays! However, after the 3rd to 5th
+harvest, the plant wilts and needs to be removed, since no more
+tomatoes will grow on the plant. Per harvest you can get 1-2
+tomatoes only. You can craft the tomatoes to tomato seeds, as
+expected.
+
