@@ -12,5 +12,6 @@ of the license, or (at your option) any later version.
 
 dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/melon.lua")
 dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/corn.lua")
+dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/tomato.lua")
 
 minetest.log("action", "[crops] loaded.")
