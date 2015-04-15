@@ -36,3 +36,16 @@ tomatoes will grow on the plant. Per harvest you can get 1-2
 tomatoes only. You can craft the tomatoes to tomato seeds, as
 expected.
 
+4. Potatoes.
+
+The plants themselves don't drop anything. Only if the plant matures
+can you dig potatoes from the soil. If you can reach the soil from the
+side you can save yourself one dig by digging the soil as that will
+remove the plant from the top, but otherwise you need to dig twice:
+once to remove the plant, once to dig out the potatoes.
+
+You get 3-5 potatoes. Each potato gives one (set of) "potato eyes"
+which are the clones that can grow back to potatoes. Be careful not
+to dig the plant when there's flowers! You have to wait until the soil
+below shows potatoes. It's fairly easy to see the difference, though.
+
