@@ -51,8 +51,6 @@ below shows potatoes. It's fairly easy to see the difference, though.
 
 5. Green Beans
 
-Green Beans.
-
 These green beans are unnaturally green, but there's so many
 of them that grow on a vine! Sadly, these beans don't grow beans
 unsupported, so you stick some sticks together to make a beanpole,
