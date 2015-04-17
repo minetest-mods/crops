@@ -49,3 +49,26 @@ which are the clones that can grow back to potatoes. Be careful not
 to dig the plant when there's flowers! You have to wait until the soil
 below shows potatoes. It's fairly easy to see the difference, though.
 
+5. Green Beans
+
+Green Beans.
+
+These green beans are unnaturally green, but there's so many
+of them that grow on a vine! Sadly, these beans don't grow beans
+unsupported, so you stick some sticks together to make a beanpole,
+something like this way:
+
+empty empty empty
+stick empty stick
+stick empty stick
+
+There, that should help the viney bean plant to grow to 2 meters
+high. It has remarkable purple flowers, that pop all over the plant
+just before the beans grow.
+
+Sadly, once the beans are picked, this plant turns into an unusable
+mess that makes it hard for the next plant to grow on the beanpole,
+so you salvage the beanpole's sticks after harvesting in order to
+make more beanpoles again. It's a bit of work, but worth it, these
+beans are delicious!
+
