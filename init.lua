@@ -17,5 +17,6 @@ dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/melon.lua")
 dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/corn.lua")
 dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/tomato.lua")
 dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/potato.lua")
+dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/polebean.lua")
 
 minetest.log("action", "[crops] loaded.")
