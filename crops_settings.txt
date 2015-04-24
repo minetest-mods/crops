@@ -6,6 +6,9 @@
 -- the "easy" or "difficult" settings if you wish, or come up with your own values.
 --
 
+-- more settings *MAY* be added to this file at a later stage, so make sure to get
+-- a fresh copy from the mod folder if you decide to use non-default settings here.
+
 --[[
 -- easy --
 crops.chance = 4
