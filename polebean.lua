@@ -10,9 +10,6 @@ of the license, or (at your option) any later version.
 
 --]]
 
-local interval = crops_interval
-local chance = crops_chance
-
 minetest.register_craft({
 	output = "crops:beanpoles",
 	recipe = {
@@ -238,11 +235,11 @@ end
 
 minetest.register_abm({
 	nodenames = { "crops:beanpole_plant_base_1", "crops:beanpole_plant_base_2", "crops:beanpole_plant_base_3", "crops:beanpole_plant_base_4" },
-	interval = interval,
-	chance = chance,
+	interval = crops.interval,
+	chance = crops.chance,
 	neighbors = { "group:soil" },
 	action = function(pos, node, active_object_count, active_object_count_wider)
-		if minetest.get_node_light(pos, nil) < 13 then
+		if minetest.get_node_light(pos, nil) < crops.light then
 			return
 		end
 		if node.name == "crops:beanpole_plant_base_1" then

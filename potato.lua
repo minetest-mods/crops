@@ -10,9 +10,6 @@ of the license, or (at your option) any later version.
 
 --]]
 
-local interval = crops_interval
-local chance = crops_chance
-
 minetest.register_node("crops:potato_eyes", {
 	description = "potato eyes",
 	inventory_image = "crops_potato_eyes.png",
@@ -110,14 +107,14 @@ minetest.register_node("crops:soil_with_potatoes", {
 minetest.register_abm({
 	nodenames = { "crops:potato_plant_1", "crops:potato_plant_2", "crops:potato_plant_3" },
 	neighbors = { "group:soil" },
-	interval = interval,
-	chance = chance,
+	interval = crops.interval,
+	chance = crops.chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
 		local below = { x = pos.x, y = pos.y - 1, z = pos.z }
 		if not minetest.registered_nodes[minetest.get_node(below).name].groups.soil then
 			return
 		end
-		if minetest.get_node_light(pos, nil) < 13 then
+		if minetest.get_node_light(pos, nil) < crops.light then
 			return
 		end
 		local n = string.gsub(node.name, "3", "4")
@@ -133,10 +130,10 @@ minetest.register_abm({
 minetest.register_abm({
 	nodenames = { "crops:potato_plant_4" },
 	neighbors = { "group:soil" },
-	interval = interval,
-	chance = chance,
+	interval = crops.interval,
+	chance = crops.chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
-		if minetest.get_node_light(pos, nil) < 13 then
+		if minetest.get_node_light(pos, nil) < crops.light then
 			return
 		end
 		local below = { x = pos.x, y = pos.y - 1, z = pos.z }

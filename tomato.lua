@@ -10,9 +10,6 @@ of the license, or (at your option) any later version.
 
 --]]
 
-local interval = crops_interval
-local chance = crops_chance
-
 minetest.register_node("crops:tomato_seed", {
 	description = "tomato seed",
 	inventory_image = "crops_tomato_seed.png",
@@ -124,10 +121,10 @@ minetest.register_craft({
 minetest.register_abm({
 	nodenames = { "crops:tomato_plant_1", "crops:tomato_plant_2", "crops:tomato_plant_3" },
 	neighbors = { "group:soil" },
-	interval = interval,
-	chance = chance,
+	interval = crops.interval,
+	chance = crops.chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
-		if minetest.get_node_light(pos, nil) < 13 then
+		if minetest.get_node_light(pos, nil) < crops.light then
 			return
 		end
 		local n = string.gsub(node.name, "4", "5")
@@ -144,10 +141,10 @@ minetest.register_abm({
 minetest.register_abm({
 	nodenames = { "crops:tomato_plant_4" },
 	neighbors = { "group:soil" },
-	interval = interval,
-	chance = chance,
+	interval = crops.interval,
+	chance = crops.chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
-		if minetest.get_node_light(pos, nil) < 13 then
+		if minetest.get_node_light(pos, nil) < crops.light then
 			return
 		end
 		local meta = minetest.get_meta(pos)

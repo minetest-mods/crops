@@ -1,0 +1,26 @@
+
+--
+-- crops_settings.txt
+--
+-- These are the default difficulty settings for the crops mod. You can uncomment
+-- the "easy" or "difficult" settings if you wish, or come up with your own values.
+--
+
+--[[
+-- easy --
+crops.chance = 4
+crops.interval = 30
+crops.light = 8
+--]]
+
+-- normal --
+crops.chance = 8
+crops.interval = 30
+crops.light = 10
+
+--[[
+-- difficult --
+crops.chance = 16
+crops.interval = 30
+crops.light = 13
+--]]

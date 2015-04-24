@@ -10,9 +10,6 @@ of the license, or (at your option) any later version.
 
 --]]
 
-local interval = crops_interval
-local chance = crops_chance
-
 minetest.register_node("crops:corn", {
 	description = "corn",
 	inventory_image = "crops_corn.png",
@@ -87,10 +84,10 @@ minetest.register_node("crops:corn_base_seed", {
 minetest.register_abm({
 	nodenames = { "crops:corn_base_seed" },
 	neighbors = { "group:soil" },
-	interval = interval,
-	chance = chance,
+	interval = crops.interval,
+	chance = crops.chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
-		if minetest.get_node_light(pos, nil) < 13 then
+		if minetest.get_node_light(pos, nil) < crops.light then
 			return
 		end
 		minetest.set_node(pos, { name = "crops:corn_base_1" })
@@ -115,10 +112,10 @@ minetest.register_node("crops:corn_base_1", {
 minetest.register_abm({
 	nodenames = { "crops:corn_base_1" },
 	neighbors = { "group:soil" },
-	interval = interval,
-	chance = chance,
+	interval = crops.interval,
+	chance = crops.chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
-		if minetest.get_node_light(pos, nil) < 13 then
+		if minetest.get_node_light(pos, nil) < crops.light then
 			return
 		end
 		if not minetest.get_node({x = pos.x, y = pos.y + 1, z = pos.z}).name == "air" then
@@ -211,10 +208,10 @@ minetest.register_node("crops:corn_top_1", {
 minetest.register_abm({
 	nodenames = { "crops:corn_top_1" },
 	neighbors = { "crops:corn_base_2" },
-	interval = interval,
-	chance = chance,
+	interval = crops.interval,
+	chance = crops.chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
-		if minetest.get_node_light(pos, nil) < 13 then
+		if minetest.get_node_light(pos, nil) < crops.light then
 			return
 		end
 		minetest.set_node(pos, { name = "crops:corn_top_2" })
@@ -247,10 +244,10 @@ minetest.register_node("crops:corn_top_2", {
 minetest.register_abm({
 	nodenames = { "crops:corn_top_2" },
 	neighbors = { "crops:corn_base_2" },
-	interval = interval,
-	chance = chance,
+	interval = crops.interval,
+	chance = crops.chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
-		if minetest.get_node_light(pos, nil) < 13 then
+		if minetest.get_node_light(pos, nil) < crops.light then
 			return
 		end
 		minetest.set_node(pos, { name = "crops:corn_top_3" })

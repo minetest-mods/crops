@@ -17,9 +17,6 @@ local faces = {
 	[4] = { x = 0, z = 1, r = 0, o = 2,  m = 11 }
 }
 
-local interval = crops_interval
-local chance = crops_chance
-
 minetest.register_node("crops:melon_seed", {
 	description = "melon seed",
 	inventory_image = "crops_melon_seed.png",
@@ -141,10 +138,10 @@ minetest.register_node("crops:melon", {
 minetest.register_abm({
 	nodenames = { "crops:melon_plant_1", "crops:melon_plant_2", "crops:melon_plant_3","crops:melon_plant_4" },
 	neighbors = { "group:soil" },
-	interval = interval,
-	chance = chance,
+	interval = crops.interval,
+	chance = crops.chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
-		if minetest.get_node_light(pos, nil) < 13 then
+		if minetest.get_node_light(pos, nil) < crops.light then
 			return
 		end
 		local n = string.gsub(node.name, "4", "5")
@@ -161,10 +158,10 @@ minetest.register_abm({
 minetest.register_abm({
 	nodenames = { "crops:melon_plant_5" },
 	neighbors = { "group:soil" },
-	interval = interval,
-	chance = chance,
+	interval = crops.interval,
+	chance = crops.chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
-		if minetest.get_node_light(pos, nil) < 13 then
+		if minetest.get_node_light(pos, nil) < crops.light then
 			return
 		end
 		for face = 1, 4 do
@@ -199,7 +196,7 @@ minetest.register_abm({
 --
 minetest.register_abm({
 	nodenames = { "crops:melon_plant_5_attached" },
-	interval = interval,
+	interval = crops.interval,
 	chance = 1,
 	action = function(pos, node, active_object_count, active_object_count_wider)
 		for face = 1, 4 do
