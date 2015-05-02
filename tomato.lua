@@ -10,6 +10,8 @@ of the license, or (at your option) any later version.
 
 --]]
 
+local wateruse = 1
+
 minetest.register_node("crops:tomato_seed", {
 	description = "tomato seed",
 	inventory_image = "crops_tomato_seed.png",
@@ -30,7 +32,7 @@ minetest.register_node("crops:tomato_seed", {
 		if minetest.get_item_group(under.name, "soil") <= 1 then
 			return
 		end
-		minetest.set_node(pointed_thing.above, {name="crops:tomato_plant_1"})
+		crops.plant(pointed_thing.above, {name="crops:tomato_plant_1"})
 		if not minetest.setting_getbool("creative_mode") then
 			itemstack:take_item()
 		end
@@ -79,6 +81,8 @@ minetest.register_node("crops:tomato_plant_5" , {
 
 		local meta = minetest.get_meta(pos)
 		local ttl = meta:get_int("crops_tomato_ttl")
+		local water = meta:get_int("crops_water")
+		local damage = meta:get_int("crops_damage")
 		if ttl > 1 then
 			minetest.set_node(pos, { name = "crops:tomato_plant_4"})
 			meta:set_int("crops_tomato_ttl", ttl - 1)
@@ -86,6 +90,8 @@ minetest.register_node("crops:tomato_plant_5" , {
 			minetest.set_node(pos, { name = "crops:tomato_plant_6"})
 			meta:set_int("crops_tomato_ttl", 0)
 		end
+		meta:set_int("crops_water", water)
+		meta:set_int("crops_damage", damage)
 	end
 })
 
@@ -124,14 +130,19 @@ minetest.register_abm({
 	interval = crops.interval,
 	chance = crops.chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
-		if minetest.get_node_light(pos, nil) < crops.light then
+		if not crops.can_grow(pos) then
 			return
 		end
+		local meta = minetest.get_meta(pos)
+		local water = meta:get_int("crops_water")
+		local damage = meta:get_int("crops_damage")
 		local n = string.gsub(node.name, "4", "5")
 		n = string.gsub(n, "3", "4")
 		n = string.gsub(n, "2", "3")
 		n = string.gsub(n, "1", "2")
 		minetest.set_node(pos, { name = n })
+		meta:set_int("crops_water", water)
+		meta:set_int("crops_damage", damage)
 	end
 })
 
@@ -144,16 +155,38 @@ minetest.register_abm({
 	interval = crops.interval,
 	chance = crops.chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
-		if minetest.get_node_light(pos, nil) < crops.light then
+		if not crops.can_grow(pos) then
 			return
 		end
 		local meta = minetest.get_meta(pos)
 		local ttl = meta:get_int("crops_tomato_ttl")
+		local water = meta:get_int("crops_water")
+		local damage = meta:get_int("crops_damage")
 		if ttl == 0 then
-			ttl = math.random(4, 6)
+			-- damage 0   - drops 4-6
+			-- damage 50  - drops 2-3
+			-- damage 100 - drops 0-1
+			ttl = math.random(4 - (4 * (damage / 100)), 6 - (5 * (damage / 100)))
 		end
-		minetest.set_node(pos, { name = "crops:tomato_plant_5" })
-		meta:set_int("crops_tomato_ttl", ttl)
+		if ttl > 1 then
+			minetest.set_node(pos, { name = "crops:tomato_plant_5" })
+			meta:set_int("crops_tomato_ttl", ttl)
+			meta:set_int("crops_water", water)
+			meta:set_int("crops_damage", damage)
+		else
+			-- no luck, plant dead!
+			minetest.set_node(pos, { name = "crops:tomato_plant_6" })
+		end
 	end
 })
+
+crops.tomato_die = function(pos)
+	minetest.set_node(pos, { name = "crops:tomato_plant_6" })
+end
+
+table.insert(crops.plants, { name = "crops:tomato_plant_1", wateruse = 1.0, wither = crops.tomato_die })
+table.insert(crops.plants, { name = "crops:tomato_plant_2", wateruse = 1.0, wither = crops.tomato_die })
+table.insert(crops.plants, { name = "crops:tomato_plant_3", wateruse = 1.0, wither = crops.tomato_die })
+table.insert(crops.plants, { name = "crops:tomato_plant_4", wateruse = 1.0, wither = crops.tomato_die })
+table.insert(crops.plants, { name = "crops:tomato_plant_5", wateruse = 1.0, wither = crops.tomato_die })
 

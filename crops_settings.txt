@@ -20,6 +20,17 @@ crops.light = 8
 crops.chance = 8
 crops.interval = 30
 crops.light = 10
+crops.watercan = 25
+crops.watercan_max = 89
+crops.watercanuses = 20
+crops.waterstart = 50
+crops.wateruse = 1
+crops.night = 5
+crops.soak = 80
+crops.soak_damage = 90
+crops.wither = 20
+crops.wither_damage = 10
+crops.max_damage = 50
 
 --[[
 -- difficult --
