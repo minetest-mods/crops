@@ -89,8 +89,12 @@ minetest.register_node("crops:soil_with_potatoes", {
 	sounds = default.node_sound_dirt_defaults(),
 	on_dig = function(pos, node, digger)
 		local drops = {}
-		-- fixme account for damage
-		for i = 1, math.random(3, 5) do
+		-- damage 0   = drops 3-5
+		-- damage 50  = drops 1-3
+		-- damage 100 = drops 0-1
+		local meta = minetest.get_meta(pos)
+		local damage = meta:get_int("crops_damage")
+		for i = 1, math.random(3 - (3 * damage / 100), 5 - (4 * (damage / 100))) do
 			table.insert(drops, "crops:potato")
 		end
 		core.handle_node_drops(pos, drops, digger)
@@ -121,6 +125,10 @@ minetest.register_abm({
 		local meta = minetest.get_meta(pos)
 		local water = meta:get_int("crops_water")
 		local damage = meta:get_int("crops_damage")
+		if damage == 100 then
+			minetest.set_node(pos, { name = "crops:potato_plant_5" })
+			return
+		end
 		local n = string.gsub(node.name, "3", "4")
 		n = string.gsub(n, "2", "3")
 		n = string.gsub(n, "1", "2")
@@ -151,6 +159,8 @@ minetest.register_abm({
 		local damage = meta:get_int("crops_damage")
 		local below = { x = pos.x, y = pos.y - 1, z = pos.z}
 		minetest.set_node(below, { name = "crops:soil_with_potatoes" })
+		local meta = minetest.get_meta(below)
+		meta:set_int("crops_damage", damage)
 	end
 })
 
