@@ -41,6 +41,7 @@ local find_plant = function(node)
 			return crops.plants[i]
 		end
 	end
+	minetest.log("error", "Unable to find plant \"" .. node.name .. "\" in crops table")
 	return nil
 end
 
@@ -68,7 +69,8 @@ crops.can_grow = function(pos)
 			return false
 		end
 	end
-	local plant = find_plant(pos)
+	local node = minetest.get_node(pos)
+	local plant = find_plant(node)
 	if not plant then
 		return false
 	end
@@ -213,7 +215,8 @@ dofile(modpath .. "/polebean.lua")
 -- water handling code
 minetest.register_abm({
 	nodenames = {
-		"crops:tomato_plant_1", "crops:tomato_plant_2", "crops:tomato_plant_3", "crops:tomato_plant_4", "crops:tomato_plant_5"
+		"crops:tomato_plant_1", "crops:tomato_plant_2", "crops:tomato_plant_3", "crops:tomato_plant_4", "crops:tomato_plant_5",
+		"crops:potato_plant_1", "crops:potato_plant_2", "crops:potato_plant_3", "crops:potato_plant_4"
 	},
 	interval = crops.interval,
 	chance = crops.chance,
@@ -225,7 +228,6 @@ minetest.register_abm({
 		-- get plant specific data
 		local plant = find_plant(node)
 		if plant == nil then
-			-- FIXME - throw error?
 			return
 		end
 

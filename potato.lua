@@ -28,7 +28,7 @@ minetest.register_node("crops:potato_eyes", {
 		if minetest.get_item_group(under.name, "soil") <= 1 then
 			return
 		end
-		minetest.set_node(pointed_thing.above, {name="crops:potato_plant_1"})
+		crops.plant(pointed_thing.above, {name="crops:potato_plant_1"})
 		if not minetest.setting_getbool("creative_mode") then
 			itemstack:take_item()
 		end
@@ -36,7 +36,7 @@ minetest.register_node("crops:potato_eyes", {
 	end
 })
 
-for stage = 1, 4 do
+for stage = 1, 5 do
 minetest.register_node("crops:potato_plant_" .. stage , {
 	description = "potato plant",
 	tiles = { "crops_potato_plant_" .. stage .. ".png" },
@@ -89,6 +89,7 @@ minetest.register_node("crops:soil_with_potatoes", {
 	sounds = default.node_sound_dirt_defaults(),
 	on_dig = function(pos, node, digger)
 		local drops = {}
+		-- fixme account for damage
 		for i = 1, math.random(3, 5) do
 			table.insert(drops, "crops:potato")
 		end
@@ -110,17 +111,22 @@ minetest.register_abm({
 	interval = crops.interval,
 	chance = crops.chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
+		if not crops.can_grow(pos) then
+			return
+		end
 		local below = { x = pos.x, y = pos.y - 1, z = pos.z }
 		if not minetest.registered_nodes[minetest.get_node(below).name].groups.soil then
 			return
 		end
-		if minetest.get_node_light(pos, nil) < crops.light then
-			return
-		end
+		local meta = minetest.get_meta(pos)
+		local water = meta:get_int("crops_water")
+		local damage = meta:get_int("crops_damage")
 		local n = string.gsub(node.name, "3", "4")
 		n = string.gsub(n, "2", "3")
 		n = string.gsub(n, "1", "2")
 		minetest.set_node(pos, { name = n })
+		meta:set_int("crops_water", water)
+		meta:set_int("crops_damage", damage)
 	end
 })
 
@@ -133,15 +139,32 @@ minetest.register_abm({
 	interval = crops.interval,
 	chance = crops.chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
-		if minetest.get_node_light(pos, nil) < crops.light then
+		if not crops.can_grow(pos) then
 			return
 		end
 		local below = { x = pos.x, y = pos.y - 1, z = pos.z }
 		if not minetest.registered_nodes[minetest.get_node(below).name].groups.soil then
 			return
 		end
+		local meta = minetest.get_meta(pos)
+		local water = meta:get_int("crops_water")
+		local damage = meta:get_int("crops_damage")
 		local below = { x = pos.x, y = pos.y - 1, z = pos.z}
 		minetest.set_node(below, { name = "crops:soil_with_potatoes" })
 	end
 })
 
+crops.potato_die = function(pos)
+	minetest.set_node(pos, { name = "crops:potato_plant_5" })
+	local below = { x = pos.x, y = pos.y - 1, z = pos.z }
+	local node = minetest.get_node(below)
+	if node.name == "crops:soil_with_potatoes" then
+		local meta = minetest.get_meta(below)
+		meta:set_int("crops_damage", 100)
+	end
+end
+
+table.insert(crops.plants, { name = "crops:potato_plant_1", wateruse = 1.0, wither = crops.potato_die })
+table.insert(crops.plants, { name = "crops:potato_plant_2", wateruse = 1.0, wither = crops.potato_die })
+table.insert(crops.plants, { name = "crops:potato_plant_3", wateruse = 1.0, wither = crops.potato_die })
+table.insert(crops.plants, { name = "crops:potato_plant_4", wateruse = 1.0, wither = crops.potato_die })
