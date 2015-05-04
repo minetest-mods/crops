@@ -35,7 +35,7 @@ minetest.register_node("crops:melon_seed", {
 		if minetest.get_item_group(under.name, "soil") <= 1 then
 			return
 		end
-		minetest.set_node(pointed_thing.above, {name="crops:melon_plant_1"})
+		crops.plant(pointed_thing.above, {name="crops:melon_plant_1"})
 		if not minetest.setting_getbool("creative_mode") then
 			itemstack:take_item()
 		end
@@ -43,7 +43,7 @@ minetest.register_node("crops:melon_seed", {
 	end
 })
 
-for stage = 1, 5 do
+for stage = 1, 6 do
 minetest.register_node("crops:melon_plant_" .. stage , {
 	description = "melon plant",
 	tiles = { "crops_melon_plant_" .. stage .. ".png" },
@@ -116,6 +116,7 @@ minetest.register_node("crops:melon", {
 		dug = { name = "default_dig_choppy" }
 	}),
 	on_dig = function(pos, node, digger)
+		-- FIXME correct for damage
 		local code = minetest.node_dig(pos, node, digger)
 		for face = 1, 4 do
 			local s = { x = pos.x + faces[face].x, y = pos.y, z = pos.z + faces[face].z }
@@ -123,7 +124,7 @@ minetest.register_node("crops:melon", {
 			if n.name == "crops:melon_plant_5_attached" then
 				-- make sure it was actually attached to this stem
 				if n.param2 == faces[face].o then
-					minetest.set_node(s, { name = "crops:melon_plant_4" })
+					minetest.swap_node(s, { name = "crops:melon_plant_4" })
 					return code
 				end
 			end
@@ -141,14 +142,15 @@ minetest.register_abm({
 	interval = crops.interval,
 	chance = crops.chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
-		if minetest.get_node_light(pos, nil) < crops.light then
+		if not crops.can_grow(pos) then
 			return
 		end
+		local meta = minetest.get_meta(pos)
 		local n = string.gsub(node.name, "4", "5")
 		n = string.gsub(n, "3", "4")
 		n = string.gsub(n, "2", "3")
 		n = string.gsub(n, "1", "2")
-		minetest.set_node(pos, { name = n })
+		minetest.swap_node(pos, { name = n })
 	end
 })
 
@@ -161,7 +163,7 @@ minetest.register_abm({
 	interval = crops.interval,
 	chance = crops.chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
-		if minetest.get_node_light(pos, nil) < crops.light then
+		if not crops.can_grow(pos) then
 			return
 		end
 		for face = 1, 4 do
@@ -185,7 +187,7 @@ minetest.register_abm({
 		   minetest.registered_nodes[n.name].groups.flora == 1 or
 		   n.name == "air" then
 			minetest.set_node(t, {name = "crops:melon", param2 = faces[r].m})
-			minetest.set_node(pos, {name = "crops:melon_plant_5_attached", param2 = faces[r].r})
+			minetest.swap_node(pos, {name = "crops:melon_plant_5_attached", param2 = faces[r].r})
 		end
 	end
 })
@@ -205,6 +207,27 @@ minetest.register_abm({
 				return
 			end
 		end
-		minetest.set_node(pos, {name = "crops:melon_plant_4" })
+		minetest.swap_node(pos, {name = "crops:melon_plant_4" })
 	end
 })
+
+crops.melon_die = function(pos)
+	minetest.set_node(pos, { name = "crops:melon_plant_6" })
+end
+
+local properties = {
+	wither = crops.melon_die,
+	waterstart = 20,
+	wateruse = 1,
+	night = 5,
+	soak = 80,
+	soak_damage = 90,
+	wither = 20,
+	wither_damage = 10,
+}
+
+table.insert(crops.plants, { name = "crops:melon_plant_1", properties = properties })
+table.insert(crops.plants, { name = "crops:melon_plant_2", properties = properties })
+table.insert(crops.plants, { name = "crops:melon_plant_3", properties = properties })
+table.insert(crops.plants, { name = "crops:melon_plant_4", properties = properties })
+table.insert(crops.plants, { name = "crops:melon_plant_5", properties = properties })

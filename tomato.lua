@@ -81,17 +81,13 @@ minetest.register_node("crops:tomato_plant_5" , {
 
 		local meta = minetest.get_meta(pos)
 		local ttl = meta:get_int("crops_tomato_ttl")
-		local water = meta:get_int("crops_water")
-		local damage = meta:get_int("crops_damage")
 		if ttl > 1 then
-			minetest.set_node(pos, { name = "crops:tomato_plant_4"})
+			minetest.swap_node(pos, { name = "crops:tomato_plant_4"})
 			meta:set_int("crops_tomato_ttl", ttl - 1)
 		else
-			minetest.set_node(pos, { name = "crops:tomato_plant_6"})
+			minetest.swap_node(pos, { name = "crops:tomato_plant_6"})
 			meta:set_int("crops_tomato_ttl", 0)
 		end
-		meta:set_int("crops_water", water)
-		meta:set_int("crops_damage", damage)
 	end
 })
 
@@ -133,16 +129,11 @@ minetest.register_abm({
 		if not crops.can_grow(pos) then
 			return
 		end
-		local meta = minetest.get_meta(pos)
-		local water = meta:get_int("crops_water")
-		local damage = meta:get_int("crops_damage")
 		local n = string.gsub(node.name, "4", "5")
 		n = string.gsub(n, "3", "4")
 		n = string.gsub(n, "2", "3")
 		n = string.gsub(n, "1", "2")
-		minetest.set_node(pos, { name = n })
-		meta:set_int("crops_water", water)
-		meta:set_int("crops_damage", damage)
+		minetest.swap_node(pos, { name = n })
 	end
 })
 
@@ -160,7 +151,6 @@ minetest.register_abm({
 		end
 		local meta = minetest.get_meta(pos)
 		local ttl = meta:get_int("crops_tomato_ttl")
-		local water = meta:get_int("crops_water")
 		local damage = meta:get_int("crops_damage")
 		if ttl == 0 then
 			-- damage 0   - drops 4-6
@@ -169,10 +159,8 @@ minetest.register_abm({
 			ttl = math.random(4 - (4 * (damage / 100)), 6 - (5 * (damage / 100)))
 		end
 		if ttl > 1 then
-			minetest.set_node(pos, { name = "crops:tomato_plant_5" })
+			minetest.swap_node(pos, { name = "crops:tomato_plant_5" })
 			meta:set_int("crops_tomato_ttl", ttl)
-			meta:set_int("crops_water", water)
-			meta:set_int("crops_damage", damage)
 		else
 			-- no luck, plant dead!
 			minetest.set_node(pos, { name = "crops:tomato_plant_6" })
@@ -184,9 +172,19 @@ crops.tomato_die = function(pos)
 	minetest.set_node(pos, { name = "crops:tomato_plant_6" })
 end
 
-table.insert(crops.plants, { name = "crops:tomato_plant_1", wateruse = 1.0, wither = crops.tomato_die })
-table.insert(crops.plants, { name = "crops:tomato_plant_2", wateruse = 1.0, wither = crops.tomato_die })
-table.insert(crops.plants, { name = "crops:tomato_plant_3", wateruse = 1.0, wither = crops.tomato_die })
-table.insert(crops.plants, { name = "crops:tomato_plant_4", wateruse = 1.0, wither = crops.tomato_die })
-table.insert(crops.plants, { name = "crops:tomato_plant_5", wateruse = 1.0, wither = crops.tomato_die })
+local properties = {
+	wither = crops.tomato_die,
+	waterstart = 19,
+	wateruse = 1,
+	night = 5,
+	soak = 80,
+	soak_damage = 90,
+	wither = 20,
+	wither_damage = 10,
+}
+table.insert(crops.plants, { name = "crops:tomato_plant_1", properties = properties })
+table.insert(crops.plants, { name = "crops:tomato_plant_2", properties = properties })
+table.insert(crops.plants, { name = "crops:tomato_plant_3", properties = properties })
+table.insert(crops.plants, { name = "crops:tomato_plant_4", properties = properties })
+table.insert(crops.plants, { name = "crops:tomato_plant_5", properties = properties })
 

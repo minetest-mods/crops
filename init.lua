@@ -48,7 +48,8 @@ end
 crops.plant = function(pos, node)
 	minetest.set_node(pos, node)
 	local meta = minetest.get_meta(pos)
-	meta:set_int("crops_water", crops.waterstart)
+	local plant = find_plant(node)
+	meta:set_int("crops_water", plant.properties.waterstart)
 	meta:set_int("crops_damage", 0)
 end
 
@@ -56,9 +57,14 @@ crops.can_grow = function(pos)
 	if minetest.get_node_light(pos, nil) < crops.light then
 		return false
 	end
+	local node = minetest.get_node(pos)
+	local plant = find_plant(node)
+	if not plant then
+		return false
+	end
 	local meta = minetest.get_meta(pos)
 	local water = meta:get_int("crops_water")
-	if water < crops.wither or water > crops.soak then
+	if water < plant.properties.wither or water > plant.properties.soak then
 		if math.random(0,1) == 0 then
 			return false
 		end
@@ -68,11 +74,6 @@ crops.can_grow = function(pos)
 		if math.random(math.min(50, damage), 100) > 75 then
 			return false
 		end
-	end
-	local node = minetest.get_node(pos)
-	local plant = find_plant(node)
-	if not plant then
-		return false
 	end
 
 	-- allow the plant to grow
@@ -130,8 +131,7 @@ minetest.register_tool("crops:watering_can", {
 	range = 2.5,
 	stack_max = 1,
 	wear = 65535,
-	tool_capabilities = {
-	},
+	tool_capabilities = {},
 	on_use = function(itemstack, user, pointed_thing)
 		local pos = pointed_thing.under
 		if pos == nil then
@@ -216,7 +216,8 @@ dofile(modpath .. "/polebean.lua")
 minetest.register_abm({
 	nodenames = {
 		"crops:tomato_plant_1", "crops:tomato_plant_2", "crops:tomato_plant_3", "crops:tomato_plant_4", "crops:tomato_plant_5",
-		"crops:potato_plant_1", "crops:potato_plant_2", "crops:potato_plant_3", "crops:potato_plant_4"
+		"crops:potato_plant_1", "crops:potato_plant_2", "crops:potato_plant_3", "crops:potato_plant_4",
+		"crops:melon_plant_1", "crops:melon_plant_2", "crops:melon_plant_3", "crops:melon_plant_4", "crops:melon_plant_5"
 	},
 	interval = crops.interval,
 	chance = crops.chance,
@@ -243,23 +244,23 @@ minetest.register_abm({
 		end
 
 		-- compensate for light: at night give some water back to the plant
-		if minetest.get_node_light(pos, nil) < crops.night then
+		if minetest.get_node_light(pos, nil) < plant.properties.night then
 			water = math.min(100, water + 1)
 		end
 
 		-- dry out the plant
-		water = math.max(0, water - ( crops.wateruse * plant.wateruse ))
+		water = math.max(0, water - plant.properties.wateruse )
 		meta:set_int("crops_water", water)
-		if water < crops.wither_damage then
+		if water < plant.properties.wither_damage then
 			crops.particles(pos, 0)
 			damage = damage + math.random(0,5)
-		elseif water < crops.wither then
+		elseif water < plant.properties.wither then
 			crops.particles(pos, 0)
 			return
-		elseif water > crops.soak_damage then
+		elseif water > plant.properties.soak_damage then
 			crops.particles(pos, 1)
 			damage = damage + math.random(0,5)
-		elseif water > crops.soak then
+		elseif water > plant.properties.soak then
 			crops.particles(pos, 1)
 			return
 		end
@@ -267,7 +268,7 @@ minetest.register_abm({
 
 		-- is it dead?
 		if damage >= 100 then
-			plant.wither(pos)
+			plant.properties.wither(pos)
 		end
 	end
 })

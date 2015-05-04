@@ -123,7 +123,6 @@ minetest.register_abm({
 			return
 		end
 		local meta = minetest.get_meta(pos)
-		local water = meta:get_int("crops_water")
 		local damage = meta:get_int("crops_damage")
 		if damage == 100 then
 			minetest.set_node(pos, { name = "crops:potato_plant_5" })
@@ -132,9 +131,7 @@ minetest.register_abm({
 		local n = string.gsub(node.name, "3", "4")
 		n = string.gsub(n, "2", "3")
 		n = string.gsub(n, "1", "2")
-		minetest.set_node(pos, { name = n })
-		meta:set_int("crops_water", water)
-		meta:set_int("crops_damage", damage)
+		minetest.swap_node(pos, { name = n })
 	end
 })
 
@@ -174,7 +171,18 @@ crops.potato_die = function(pos)
 	end
 end
 
-table.insert(crops.plants, { name = "crops:potato_plant_1", wateruse = 1.0, wither = crops.potato_die })
-table.insert(crops.plants, { name = "crops:potato_plant_2", wateruse = 1.0, wither = crops.potato_die })
-table.insert(crops.plants, { name = "crops:potato_plant_3", wateruse = 1.0, wither = crops.potato_die })
-table.insert(crops.plants, { name = "crops:potato_plant_4", wateruse = 1.0, wither = crops.potato_die })
+local properties = {
+	wither = crops.potato_die,
+	waterstart = 30,
+	wateruse = 1,
+	night = 5,
+	soak = 80,
+	soak_damage = 90,
+	wither = 20,
+	wither_damage = 10,
+}
+
+table.insert(crops.plants, { name = "crops:potato_plant_1", properties = properties })
+table.insert(crops.plants, { name = "crops:potato_plant_2", properties = properties })
+table.insert(crops.plants, { name = "crops:potato_plant_3", properties = properties })
+table.insert(crops.plants, { name = "crops:potato_plant_4", properties = properties })
