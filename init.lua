@@ -75,6 +75,8 @@ crops.can_grow = function(pos)
 			return false
 		end
 	end
+	-- growing costs water!
+	meta:set_int("crops_water", math.max(0, water - 10))
 
 	-- allow the plant to grow
 	return true
