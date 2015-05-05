@@ -104,20 +104,12 @@ minetest.register_node("crops:melon", {
 	walkable = true,
 	groups = { snappy=3, flammable=3, oddly_breakable_by_hand=2 },
 	paramtype2 = "facedir",
-	drop = {max_items = 5, items = {
-		{ items = {'crops:melon_slice'}, rarity = 1 },
-		{ items = {'crops:melon_slice'}, rarity = 1 },
-		{ items = {'crops:melon_slice'}, rarity = 1 },
-		{ items = {'crops:melon_slice'}, rarity = 2 },
-		{ items = {'crops:melon_slice'}, rarity = 5 },
-	}},
+	drop = {},
 	sounds = default.node_sound_wood_defaults({
 		dig = { name = "default_dig_oddly_breakable_by_hand" },
 		dug = { name = "default_dig_choppy" }
 	}),
 	on_dig = function(pos, node, digger)
-		-- FIXME correct for damage
-		local code = minetest.node_dig(pos, node, digger)
 		for face = 1, 4 do
 			local s = { x = pos.x + faces[face].x, y = pos.y, z = pos.z + faces[face].z }
 			local n = minetest.get_node(s)
@@ -125,11 +117,20 @@ minetest.register_node("crops:melon", {
 				-- make sure it was actually attached to this stem
 				if n.param2 == faces[face].o then
 					minetest.swap_node(s, { name = "crops:melon_plant_4" })
-					return code
 				end
 			end
 		end
-		return code
+		local meta = minetest.get_meta(pos)
+		local damage = meta:get_int("crops_damage")
+		local drops = {}
+		--   0 dmg - 3-5
+		--  50 dmg - 2-3
+		-- 100 dmg - 1-1
+		for i = 1,math.random(3 - (2 * (damage / 100)), 5 - (4 * (damage / 100))) do
+			table.insert(drops, ('crops:melon_slice'))
+		end
+		core.handle_node_drops(pos, drops, digger)
+		minetest.remove_node(pos)
 	end
 })
 
@@ -186,8 +187,16 @@ minetest.register_abm({
 		if minetest.registered_nodes[n.name].drawtype == "plantlike" or
 		   minetest.registered_nodes[n.name].groups.flora == 1 or
 		   n.name == "air" then
-			minetest.set_node(t, {name = "crops:melon", param2 = faces[r].m})
 			minetest.swap_node(pos, {name = "crops:melon_plant_5_attached", param2 = faces[r].r})
+			minetest.set_node(t, {name = "crops:melon", param2 = faces[r].m})
+			local meta = minetest.get_meta(pos)
+			local damage = meta:get_int("crops_damage")
+			local water = meta:get_int("crops_water")
+			-- growing a melon costs 25 water!
+			meta:set_int("crops_water", math.max(0, water - 25))
+			meta = minetest.get_meta(t)
+			-- reflect plants' damage in the melon yield
+			meta:set_int("crops_damage", damage)
 		end
 	end
 })
