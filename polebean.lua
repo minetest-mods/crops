@@ -297,4 +297,5 @@ table.insert(crops.plants, { name = "crops:beanpole_plant_base_1", properties = 
 table.insert(crops.plants, { name = "crops:beanpole_plant_base_2", properties = properties })
 table.insert(crops.plants, { name = "crops:beanpole_plant_base_3", properties = properties })
 table.insert(crops.plants, { name = "crops:beanpole_plant_base_4", properties = properties })
+table.insert(crops.plants, { name = "crops:beanpole_plant_base_5", properties = properties })
 
