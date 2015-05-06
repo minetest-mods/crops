@@ -214,13 +214,14 @@ dofile(modpath .. "/tomato.lua")
 dofile(modpath .. "/potato.lua")
 dofile(modpath .. "/polebean.lua")
 
+local nodenames = {}
+for i = 1,table.getn(crops.plants) do
+	table.insert(nodenames, crops.plants[i].name)
+end
+
 -- water handling code
 minetest.register_abm({
-	nodenames = {
-		"crops:tomato_plant_1", "crops:tomato_plant_2", "crops:tomato_plant_3", "crops:tomato_plant_4", "crops:tomato_plant_5",
-		"crops:potato_plant_1", "crops:potato_plant_2", "crops:potato_plant_3", "crops:potato_plant_4",
-		"crops:melon_plant_1", "crops:melon_plant_2", "crops:melon_plant_3", "crops:melon_plant_4", "crops:melon_plant_5"
-	},
+	nodenames = nodenames,
 	interval = crops.interval,
 	chance = crops.chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
