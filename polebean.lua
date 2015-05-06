@@ -89,6 +89,7 @@ local function crops_beanpole_on_dig(pos, node, digger)
 		minetest.set_node(top, { name = "crops:beanpole_top"})
 	elseif bottom_n.name == "crops:beanpole_plant_base_5" and top_n.name == "crops:beanpole_plant_top_3" then
 		-- ripe beanpole
+		-- FIXME dmg
 		for i = 1,math.random(3,7) do
 			table.insert(drops, "crops:green_bean")
 		end
@@ -181,11 +182,11 @@ minetest.register_craftitem("crops:green_bean_seed", {
 	on_place = function(itemstack, placer, pointed_thing)
 		local under = minetest.get_node(pointed_thing.under)
 		if under.name == "crops:beanpole_base" then
-			minetest.set_node(pointed_thing.under, {name="crops:beanpole_plant_base_1"})
+			crops.plant(pointed_thing.under, {name="crops:beanpole_plant_base_1"})
 		elseif under.name == "crops:beanpole_top" then
 			local below = { x = pointed_thing.under.x, y = pointed_thing.under.y - 1, z = pointed_thing.under.z }
 			if minetest.get_node(below).name == "crops:beanpole_base" then
-				minetest.set_node(below, {name="crops:beanpole_plant_base_1"})
+				crops.plant(below, {name="crops:beanpole_plant_base_1"})
 			else
 				return
 			end
@@ -239,26 +240,52 @@ minetest.register_abm({
 	chance = crops.chance,
 	neighbors = { "group:soil" },
 	action = function(pos, node, active_object_count, active_object_count_wider)
-		if minetest.get_node_light(pos, nil) < crops.light then
+		if not crops.can_grow(pos) then
 			return
 		end
 		if node.name == "crops:beanpole_plant_base_1" then
-			minetest.set_node(pos, { name = "crops:beanpole_plant_base_2"})
+			minetest.swap_node(pos, { name = "crops:beanpole_plant_base_2"})
 		elseif node.name == "crops:beanpole_plant_base_2" then
-			minetest.set_node(pos, { name = "crops:beanpole_plant_base_3"})
+			minetest.swap_node(pos, { name = "crops:beanpole_plant_base_3"})
 		elseif node.name == "crops:beanpole_plant_base_3" then
 			local apos = {x = pos.x, y = pos.y + 1, z = pos.z}
 			local above = minetest.get_node(apos)
 			if above.name == "crops:beanpole_top" then
 				minetest.set_node(apos, { name = "crops:beanpole_plant_top_1" })
+				local meta = minetest.get_meta(apos)
+				meta:set_int("crops_top_half", 1)
 			elseif above.name == "crops:beanpole_plant_top_1" then
-				minetest.set_node(pos, { name = "crops:beanpole_plant_base_4" })
-				minetest.set_node(apos, { name = "crops:beanpole_plant_top_2" })
+				minetest.swap_node(pos, { name = "crops:beanpole_plant_base_4" })
+				minetest.swap_node(apos, { name = "crops:beanpole_plant_top_2" })
 			end
 		elseif node.name == "crops:beanpole_plant_base_4" then
 			local apos = {x = pos.x, y = pos.y + 1, z = pos.z}
-			minetest.set_node(pos, { name = "crops:beanpole_plant_base_5" })
-			minetest.set_node(apos, { name = "crops:beanpole_plant_top_3" })
+			minetest.swap_node(pos, { name = "crops:beanpole_plant_base_5" })
+			minetest.swap_node(apos, { name = "crops:beanpole_plant_top_3" })
 		end
 	end
 })
+
+crops.beanpole_die = function(pos)
+	minetest.set_node(pos, { name = "crops:beanpole_base_6" })
+	local above = {x = pos.x, y = pos.y + 1, z = pos.z}
+	minetest.set_node(above, { name = "crops:beanpole_plant_top_4" })
+end
+
+local properties = {
+	wither = crops.beanpole_die,
+	waterstart = 30,
+	wateruse = 1,
+	night = 5,
+	soak = 60,
+	soak_damage = 75,
+	wither = 25,
+	wither_damage = 15,
+	doublesize = true,
+}
+
+table.insert(crops.plants, { name = "crops:beanpole_plant_base_1", properties = properties })
+table.insert(crops.plants, { name = "crops:beanpole_plant_base_2", properties = properties })
+table.insert(crops.plants, { name = "crops:beanpole_plant_base_3", properties = properties })
+table.insert(crops.plants, { name = "crops:beanpole_plant_base_4", properties = properties })
+
