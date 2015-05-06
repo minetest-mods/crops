@@ -128,7 +128,6 @@ minetest.register_abm({
 		minetest.set_node(above , { name = "crops:corn_top_1" })
 		local meta = minetest.get_meta(above)
 		meta:set_int("crops_top_half", 1)
-		meta:set_int("crops_water", water)
 	end
 })
 
