@@ -183,10 +183,15 @@ minetest.register_craftitem("crops:green_bean_seed", {
 		local under = minetest.get_node(pointed_thing.under)
 		if under.name == "crops:beanpole_base" then
 			crops.plant(pointed_thing.under, {name="crops:beanpole_plant_base_1"})
+			local above = { x = pointed_thing.under.x, y = pointed_thing.under.y + 1, z = pointed_thing.under.z}
+			local meta = minetest.get_meta(above)
+			meta:set_int("crops_top_half", 1)
 		elseif under.name == "crops:beanpole_top" then
 			local below = { x = pointed_thing.under.x, y = pointed_thing.under.y - 1, z = pointed_thing.under.z }
 			if minetest.get_node(below).name == "crops:beanpole_base" then
 				crops.plant(below, {name="crops:beanpole_plant_base_1"})
+				local meta = minetest.get_meta(pointed_thing.under)
+				meta:set_int("crops_top_half", 1)
 			else
 				return
 			end
