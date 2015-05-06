@@ -146,6 +146,11 @@ minetest.register_tool("crops:watering_can", {
 			itemstack:set_wear(1)
 			return itemstack
 		end
+		-- using it on a top-half part of a plant?
+		local meta = minetest.get_meta(pos)
+		if meta:get_int("crops_top_half") == 1 then
+			pos = {x = pos.x, y = pos.y - 1, z = pos.z}
+		end
 		-- using it on a plant?
 		local meta = minetest.get_meta(pos)
 		local water = meta:get_int("crops_water")
@@ -159,6 +164,7 @@ minetest.register_tool("crops:watering_can", {
 		end
 		water = math.min(water + crops.watercan, crops.watercan_max)
 		meta:set_int("crops_water", water)
+
 		itemstack:set_wear(math.min(65534, wear + (65535 / crops.watercanuses)))
 		return itemstack
 	end,
@@ -177,6 +183,12 @@ minetest.register_tool("crops:hydrometer", {
 		if pos == nil then
 			return itemstack
 		end
+		-- doublesize plant?
+		local meta = minetest.get_meta(pos)
+		if meta:get_int("crops_top_half") == 1 then
+			pos = {x = pos.x, y = pos.y - 1, z = pos.z}
+		end
+
 		local meta = minetest.get_meta(pos)
 		-- using it on a plant?
 		local water = meta:get_int("crops_water")
@@ -254,6 +266,14 @@ minetest.register_abm({
 		-- dry out the plant
 		water = math.max(0, water - plant.properties.wateruse )
 		meta:set_int("crops_water", water)
+
+		-- for convenience, copy water attribute to top half
+		if not plant.properties.doublesize == nil and plant.properties.doublesize then
+			local above = { x = pos.x, y = pos.y + 1, z = pos.z}
+			local meta = minetest.get_meta(above)
+			meta:set_int("crops_water", water)
+		end
+
 		if water < plant.properties.wither_damage then
 			crops.particles(pos, 0)
 			damage = damage + math.random(0,5)

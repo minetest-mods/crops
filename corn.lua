@@ -31,7 +31,7 @@ minetest.register_node("crops:corn", {
 		if minetest.get_item_group(under.name, "soil") <= 1 then
 			return
 		end
-		minetest.set_node(pointed_thing.above, {name="crops:corn_base_seed"})
+		crops.plant(pointed_thing.above, {name="crops:corn_base_seed"})
 		if not minetest.setting_getbool("creative_mode") then
 			itemstack:take_item()
 		end
@@ -87,10 +87,10 @@ minetest.register_abm({
 	interval = crops.interval,
 	chance = crops.chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
-		if minetest.get_node_light(pos, nil) < crops.light then
+		if not crops.can_grow(pos) then
 			return
 		end
-		minetest.set_node(pos, { name = "crops:corn_base_1" })
+		minetest.swap_node(pos, { name = "crops:corn_base_1" })
 	end
 })
 
@@ -115,14 +115,20 @@ minetest.register_abm({
 	interval = crops.interval,
 	chance = crops.chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
-		if minetest.get_node_light(pos, nil) < crops.light then
+		if not crops.can_grow(pos) then
 			return
 		end
 		if not minetest.get_node({x = pos.x, y = pos.y + 1, z = pos.z}).name == "air" then
 			return
 		end
-		minetest.set_node(pos, { name = "crops:corn_base_2" })
-		minetest.set_node({x = pos.x, y = pos.y + 1, z = pos.z} , { name = "crops:corn_top_1" })
+		local meta = minetest.get_meta(pos)
+		local water = meta:get_int("crops_water")
+		minetest.swap_node(pos, { name = "crops:corn_base_2" })
+		local above = {x = pos.x, y = pos.y + 1, z = pos.z}
+		minetest.set_node(above , { name = "crops:corn_top_1" })
+		local meta = minetest.get_meta(above)
+		meta:set_int("crops_top_half", 1)
+		meta:set_int("crops_water", water)
 	end
 })
 
@@ -150,8 +156,13 @@ minetest.register_node("crops:corn_base_2", {
 			minetest.remove_node(pos)
 		end
 
+		local meta = minetest.get_meta(pos)
+		local damage = meta:get_int("crops_damage")
 		local drops = {}
-		for i = 1,math.random(2,4) do
+		--   0 - 2-4
+		--  50 - 2-3
+		-- 100 - 1-1
+		for i = 1,math.random(2 - (damage / 100), 4 - (3 * (damage / 100))) do
 			table.insert(drops, ('crops:corn_cob'))
 		end
 		minetest.set_node(pos, { name = "crops:corn_base_3" })
@@ -214,7 +225,7 @@ minetest.register_abm({
 		if minetest.get_node_light(pos, nil) < crops.light then
 			return
 		end
-		minetest.set_node(pos, { name = "crops:corn_top_2" })
+		minetest.swap_node(pos, { name = "crops:corn_top_2" })
 	end
 })
 
@@ -247,10 +258,12 @@ minetest.register_abm({
 	interval = crops.interval,
 	chance = crops.chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
+		-- we don't call crops.grow here otherwise there would be 2 abm's hitting
+		-- this stack, and dmg needs to be applied to the bottom part
 		if minetest.get_node_light(pos, nil) < crops.light then
 			return
 		end
-		minetest.set_node(pos, { name = "crops:corn_top_3" })
+		minetest.swap_node(pos, { name = "crops:corn_top_3" })
 	end
 })
 
@@ -268,12 +281,18 @@ minetest.register_node("crops:corn_top_3", {
 	drop = {},
 	sounds = default.node_sound_leaves_defaults(),
 	on_dig = function(pos, node, digger)
+		local below = { x = pos.x, y = pos.y - 1, z = pos.z }
+		local meta = minetest.get_meta(below)
+		local damage = meta:get_int("crops_damage")
 		local drops = {}
-		for i = 1,math.random(2,4) do
+		--   0 - 2-4
+		--  50 - 2-3
+		-- 100 - 1-1
+		for i = 1,math.random(2 - (damage / 100), 4 - (3 * (damage / 100))) do
 			table.insert(drops, ('crops:corn_cob'))
 		end
 		minetest.set_node(pos, { name = "crops:corn_top_4" })
-		minetest.set_node({x = pos.x, y = pos.y - 1, z = pos.z}, { name = "crops:corn_base_3" })
+		minetest.set_node(below, { name = "crops:corn_base_3" })
 		core.handle_node_drops(pos, drops, digger)
 	end
 })
@@ -299,4 +318,27 @@ minetest.register_node("crops:corn_top_4", {
 		minetest.remove_node(pos)
 	end
 })
+
+crops.corn_die = function(pos)
+	minetest.set_node(pos, { name = "crops:corn_base_4" })
+	local above = {x = pos.x, y = pos.y + 1, z = pos.z}
+	minetest.set_node(above, { name = "crops:corn_top_4" })
+end
+
+local properties = {
+	wither = crops.corn_die,
+	waterstart = 40,
+	wateruse = 1,
+	night = 5,
+	soak = 60,
+	soak_damage = 75,
+	wither = 10,
+	wither_damage = 0,
+	doublesize = true,
+}
+
+table.insert(crops.plants, { name = "crops:corn_base_seed", properties = properties })
+table.insert(crops.plants, { name = "crops:corn_base_1", properties = properties })
+table.insert(crops.plants, { name = "crops:corn_base_2", properties = properties })
+table.insert(crops.plants, { name = "crops:corn_base_3", properties = properties })
 
