@@ -89,8 +89,12 @@ local function crops_beanpole_on_dig(pos, node, digger)
 		minetest.set_node(top, { name = "crops:beanpole_top"})
 	elseif bottom_n.name == "crops:beanpole_plant_base_5" and top_n.name == "crops:beanpole_plant_top_3" then
 		-- ripe beanpole
-		-- FIXME dmg
-		for i = 1,math.random(3,7) do
+		local meta = minetest.get_meta(bottom)
+		local damage = meta:get_int("crops_damage")
+		--   0 - 3-7
+		--  50 - 2-4
+		-- 100 - 1-1
+		for i = 1,math.random(3 - (2 * (damage / 100)),7 - (6 * (damage / 100))) do
 			table.insert(drops, "crops:green_bean")
 		end
 		minetest.set_node(bottom, { name = "crops:beanpole_plant_base_6"})
