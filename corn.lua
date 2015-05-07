@@ -84,8 +84,8 @@ minetest.register_node("crops:corn_base_seed", {
 minetest.register_abm({
 	nodenames = { "crops:corn_base_seed" },
 	neighbors = { "group:soil" },
-	interval = crops.interval,
-	chance = crops.chance,
+	interval = crops.settings.interval,
+	chance = crops.settings.chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
 		if not crops.can_grow(pos) then
 			return
@@ -112,8 +112,8 @@ minetest.register_node("crops:corn_base_1", {
 minetest.register_abm({
 	nodenames = { "crops:corn_base_1" },
 	neighbors = { "group:soil" },
-	interval = crops.interval,
-	chance = crops.chance,
+	interval = crops.settings.interval,
+	chance = crops.settings.chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
 		if not crops.can_grow(pos) then
 			return
@@ -218,10 +218,10 @@ minetest.register_node("crops:corn_top_1", {
 minetest.register_abm({
 	nodenames = { "crops:corn_top_1" },
 	neighbors = { "crops:corn_base_2" },
-	interval = crops.interval,
-	chance = crops.chance,
+	interval = crops.settings.interval,
+	chance = crops.settings.chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
-		if minetest.get_node_light(pos, nil) < crops.light then
+		if minetest.get_node_light(pos, nil) < crops.settings.light then
 			return
 		end
 		minetest.swap_node(pos, { name = "crops:corn_top_2" })
@@ -254,12 +254,12 @@ minetest.register_node("crops:corn_top_2", {
 minetest.register_abm({
 	nodenames = { "crops:corn_top_2" },
 	neighbors = { "crops:corn_base_2" },
-	interval = crops.interval,
-	chance = crops.chance,
+	interval = crops.settings.interval,
+	chance = crops.settings.chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
 		-- we don't call crops.grow here otherwise there would be 2 abm's hitting
 		-- this stack, and dmg needs to be applied to the bottom part
-		if minetest.get_node_light(pos, nil) < crops.light then
+		if minetest.get_node_light(pos, nil) < crops.settings.light then
 			return
 		end
 		minetest.swap_node(pos, { name = "crops:corn_top_3" })

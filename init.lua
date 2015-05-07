@@ -13,6 +13,27 @@ of the license, or (at your option) any later version.
 crops = {}
 crops.plants = {}
 
+local settings_easy = {
+	chance = 4,
+	interval = 30,
+	light = 8,
+}
+local settings_normal = {
+	chance = 8,
+	interval = 30,
+	light = 10,
+	watercan = 25,
+	watercan_max = 90,
+	watercan_uses = 20,
+	max_damage = 50
+}
+local settings_hard = {
+	chance = 16,
+	interval = 30,
+	light = 13,
+}
+
+
 local worldpath = minetest.get_worldpath()
 local modpath = minetest.get_modpath(minetest.get_current_modname())
 
@@ -35,6 +56,21 @@ else
 	dofile(worldpath .. "/crops_settings.txt")
 end
 
+if not crops.difficulty then
+	crops.difficulty = "normal"
+	minetest.log("error", "Defaulting to \"normal\" difficulty settings")
+end
+if crops.difficulty == "easy" then
+	crops.settings = settings_easy
+elseif crops.difficulty == "normal" then
+	crops.settings = settings_normal
+elseif crops.difficulty == "difficult" then
+	crops.settings = settings_difficult
+else
+	minetest.log("error", "Defaulting to \"normal\" difficulty settings")
+	crops.settings = settings_normal
+end
+
 local find_plant = function(node)
 	for i = 1,table.getn(crops.plants) do
 		if crops.plants[i].name == node.name then
@@ -54,7 +90,7 @@ crops.plant = function(pos, node)
 end
 
 crops.can_grow = function(pos)
-	if minetest.get_node_light(pos, nil) < crops.light then
+	if minetest.get_node_light(pos, nil) < crops.settings.light then
 		return false
 	end
 	local node = minetest.get_node(pos)
@@ -87,8 +123,8 @@ crops.particles = function(pos, flag)
 	if flag == 0 then
 		-- wither (0)
 		p = {
-			amount = 1 * crops.interval,
-			time = crops.interval,
+			amount = 1 * crops.settings.interval,
+			time = crops.settings.interval,
 			minpos = { x = pos.x - 0.4, y = pos.y - 0.4, z = pos.z - 0.4 },
 			maxpos = { x = pos.x + 0.4, y = pos.y + 0.4, z = pos.z + 0.4 },
 			minvel = { x = 0, y = 0.2, z = 0 },
@@ -106,8 +142,8 @@ crops.particles = function(pos, flag)
 	else
 		-- soak (1)
 		p = {
-			amount = 8 * crops.interval,
-			time = crops.interval,
+			amount = 8 * crops.settings.interval,
+			time = crops.settings.interval,
 			minpos = { x = pos.x - 0.4, y = pos.y - 0.4, z = pos.z - 0.4 },
 			maxpos = { x = pos.x + 0.4, y = pos.y - 0.4, z = pos.z + 0.4 },
 			minvel = { x = -0.04, y = 0, z = -0.04 },
@@ -162,10 +198,10 @@ minetest.register_tool("crops:watering_can", {
 		if wear == 65534 then
 			return itemstack
 		end
-		water = math.min(water + crops.watercan, crops.watercan_max)
+		water = math.min(water + crops.settings.watercan, crops.settings.watercan_max)
 		meta:set_int("crops_water", water)
 
-		itemstack:set_wear(math.min(65534, wear + (65535 / crops.watercanuses)))
+		itemstack:set_wear(math.min(65534, wear + (65535 / crops.settings.watercan_uses)))
 		return itemstack
 	end,
 })
@@ -234,8 +270,8 @@ end
 -- water handling code
 minetest.register_abm({
 	nodenames = nodenames,
-	interval = crops.interval,
-	chance = crops.chance,
+	interval = crops.settings.interval,
+	chance = crops.settings.chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
 		local meta = minetest.get_meta(pos)
 		local water = meta:get_int("crops_water")
@@ -287,7 +323,7 @@ minetest.register_abm({
 			crops.particles(pos, 1)
 			return
 		end
-		meta:set_int("crops_damage", math.min(crops.max_damage, damage))
+		meta:set_int("crops_damage", math.min(crops.settings.max_damage, damage))
 
 		-- is it dead?
 		if damage >= 100 then

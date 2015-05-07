@@ -112,8 +112,8 @@ minetest.register_node("crops:soil_with_potatoes", {
 minetest.register_abm({
 	nodenames = { "crops:potato_plant_1", "crops:potato_plant_2", "crops:potato_plant_3" },
 	neighbors = { "group:soil" },
-	interval = crops.interval,
-	chance = crops.chance,
+	interval = crops.settings.interval,
+	chance = crops.settings.chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
 		if not crops.can_grow(pos) then
 			return
@@ -141,8 +141,8 @@ minetest.register_abm({
 minetest.register_abm({
 	nodenames = { "crops:potato_plant_4" },
 	neighbors = { "group:soil" },
-	interval = crops.interval,
-	chance = crops.chance,
+	interval = crops.settings.interval,
+	chance = crops.settings.chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
 		if not crops.can_grow(pos) then
 			return
