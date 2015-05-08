@@ -21,7 +21,11 @@ local settings_easy = {
 	watercan = 25,
 	watercan_max = 90,
 	watercan_uses = 20,
-	max_damage = 25
+	damage_chance = 8,
+	damage_interval = 30,
+	damage_tick_min = 0,
+	damage_tick_max = 1,
+	damage_max = 25,
 }
 local settings_normal = {
 	chance = 8,
@@ -30,7 +34,11 @@ local settings_normal = {
 	watercan = 25,
 	watercan_max = 90,
 	watercan_uses = 20,
-	max_damage = 50
+	damage_chance = 8,
+	damage_interval = 30,
+	damage_tick_min = 0,
+	damage_tick_max = 5,
+	damage_max = 50,
 }
 local settings_difficult = {
 	chance = 16,
@@ -39,7 +47,11 @@ local settings_difficult = {
 	watercan = 25,
 	watercan_max = 100,
 	watercan_uses = 20,
-	max_damage = 100
+	damage_chance = 4,
+	damage_interval = 30,
+	damage_tick_min = 3,
+	damage_tick_max = 7,
+	damage_max = 100,
 }
 
 local worldpath = minetest.get_worldpath()
@@ -278,8 +290,8 @@ end
 -- water handling code
 minetest.register_abm({
 	nodenames = nodenames,
-	interval = crops.settings.interval,
-	chance = crops.settings.chance,
+	interval = crops.settings.damage_interval,
+	chance = crops.settings.damage_chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
 		local meta = minetest.get_meta(pos)
 		local water = meta:get_int("crops_water")
@@ -302,13 +314,14 @@ minetest.register_abm({
 			end
 		end
 
-		-- compensate for light: at night give some water back to the plant
 		if minetest.get_node_light(pos, nil) < plant.properties.night then
+			-- compensate for light: at night give some water back to the plant
 			water = math.min(100, water + 1)
+		else
+			-- dry out the plant
+			water = math.max(0, water - plant.properties.wateruse )
 		end
 
-		-- dry out the plant
-		water = math.max(0, water - plant.properties.wateruse )
 		meta:set_int("crops_water", water)
 
 		-- for convenience, copy water attribute to top half
@@ -320,18 +333,18 @@ minetest.register_abm({
 
 		if water < plant.properties.wither_damage then
 			crops.particles(pos, 0)
-			damage = damage + math.random(0,5)
+			damage = damage + math.random(crops.settings.damage_tick_min, crops.settings.damage_tick_max)
 		elseif water < plant.properties.wither then
 			crops.particles(pos, 0)
 			return
 		elseif water > plant.properties.soak_damage then
 			crops.particles(pos, 1)
-			damage = damage + math.random(0,5)
+			damage = damage + math.random(crops.settings.damage_tick_min, crops.settings.damage_tick_max)
 		elseif water > plant.properties.soak then
 			crops.particles(pos, 1)
 			return
 		end
-		meta:set_int("crops_damage", math.min(crops.settings.max_damage, damage))
+		meta:set_int("crops_damage", math.min(crops.settings.damage_max, damage))
 
 		-- is it dead?
 		if damage >= 100 then
