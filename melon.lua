@@ -225,7 +225,7 @@ crops.melon_die = function(pos)
 end
 
 local properties = {
-	wither = crops.melon_die,
+	die = crops.melon_die,
 	waterstart = 20,
 	wateruse = 1,
 	night = 5,

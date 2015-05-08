@@ -348,7 +348,7 @@ minetest.register_abm({
 
 		-- is it dead?
 		if damage >= 100 then
-			plant.properties.wither(pos)
+			plant.properties.die(pos)
 		end
 	end
 })

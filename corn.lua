@@ -325,7 +325,7 @@ crops.corn_die = function(pos)
 end
 
 local properties = {
-	wither = crops.corn_die,
+	die = crops.corn_die,
 	waterstart = 40,
 	wateruse = 1,
 	night = 5,

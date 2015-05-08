@@ -276,13 +276,13 @@ minetest.register_abm({
 })
 
 crops.beanpole_die = function(pos)
-	minetest.set_node(pos, { name = "crops:beanpole_base_6" })
+	minetest.set_node(pos, { name = "crops:beanpole_plant_base_6" })
 	local above = {x = pos.x, y = pos.y + 1, z = pos.z}
 	minetest.set_node(above, { name = "crops:beanpole_plant_top_4" })
 end
 
 local properties = {
-	wither = crops.beanpole_die,
+	die = crops.beanpole_die,
 	waterstart = 30,
 	wateruse = 1,
 	night = 5,

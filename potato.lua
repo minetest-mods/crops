@@ -172,7 +172,7 @@ crops.potato_die = function(pos)
 end
 
 local properties = {
-	wither = crops.potato_die,
+	die = crops.potato_die,
 	waterstart = 30,
 	wateruse = 1,
 	night = 5,

@@ -173,7 +173,7 @@ crops.tomato_die = function(pos)
 end
 
 local properties = {
-	wither = crops.tomato_die,
+	die = crops.tomato_die,
 	waterstart = 19,
 	wateruse = 1,
 	night = 5,
