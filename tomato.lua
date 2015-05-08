@@ -182,9 +182,9 @@ local properties = {
 	wither = 20,
 	wither_damage = 10,
 }
-table.insert(crops.plants, { name = "crops:tomato_plant_1", properties = properties })
-table.insert(crops.plants, { name = "crops:tomato_plant_2", properties = properties })
-table.insert(crops.plants, { name = "crops:tomato_plant_3", properties = properties })
-table.insert(crops.plants, { name = "crops:tomato_plant_4", properties = properties })
-table.insert(crops.plants, { name = "crops:tomato_plant_5", properties = properties })
+crops.register({ name = "crops:tomato_plant_1", properties = properties })
+crops.register({ name = "crops:tomato_plant_2", properties = properties })
+crops.register({ name = "crops:tomato_plant_3", properties = properties })
+crops.register({ name = "crops:tomato_plant_4", properties = properties })
+crops.register({ name = "crops:tomato_plant_5", properties = properties })
 

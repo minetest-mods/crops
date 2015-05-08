@@ -101,6 +101,10 @@ local find_plant = function(node)
 	return nil
 end
 
+crops.register = function(plantdef)
+	table.insert(crops.plants, plantdef)
+end
+
 crops.plant = function(pos, node)
 	minetest.set_node(pos, node)
 	local meta = minetest.get_meta(pos)

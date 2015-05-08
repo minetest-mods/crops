@@ -293,9 +293,9 @@ local properties = {
 	doublesize = true,
 }
 
-table.insert(crops.plants, { name = "crops:beanpole_plant_base_1", properties = properties })
-table.insert(crops.plants, { name = "crops:beanpole_plant_base_2", properties = properties })
-table.insert(crops.plants, { name = "crops:beanpole_plant_base_3", properties = properties })
-table.insert(crops.plants, { name = "crops:beanpole_plant_base_4", properties = properties })
-table.insert(crops.plants, { name = "crops:beanpole_plant_base_5", properties = properties })
+crops.register({ name = "crops:beanpole_plant_base_1", properties = properties })
+crops.register({ name = "crops:beanpole_plant_base_2", properties = properties })
+crops.register({ name = "crops:beanpole_plant_base_3", properties = properties })
+crops.register({ name = "crops:beanpole_plant_base_4", properties = properties })
+crops.register({ name = "crops:beanpole_plant_base_5", properties = properties })
 
