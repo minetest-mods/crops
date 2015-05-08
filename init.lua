@@ -335,16 +335,16 @@ minetest.register_abm({
 			meta:set_int("crops_water", water)
 		end
 
-		if water < plant.properties.wither_damage then
+		if water <= plant.properties.wither_damage then
 			crops.particles(pos, 0)
 			damage = damage + math.random(crops.settings.damage_tick_min, crops.settings.damage_tick_max)
-		elseif water < plant.properties.wither then
+		elseif water <= plant.properties.wither then
 			crops.particles(pos, 0)
 			return
-		elseif water > plant.properties.soak_damage then
+		elseif water >= plant.properties.soak_damage then
 			crops.particles(pos, 1)
 			damage = damage + math.random(crops.settings.damage_tick_min, crops.settings.damage_tick_max)
-		elseif water > plant.properties.soak then
+		elseif water >= plant.properties.soak then
 			crops.particles(pos, 1)
 			return
 		end

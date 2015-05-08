@@ -332,7 +332,7 @@ local properties = {
 	soak = 60,
 	soak_damage = 75,
 	wither = 10,
-	wither_damage = 1,
+	wither_damage = 5,
 	doublesize = true,
 }
 
