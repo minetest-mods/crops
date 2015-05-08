@@ -12,11 +12,16 @@ of the license, or (at your option) any later version.
 
 crops = {}
 crops.plants = {}
+crops.settings = {}
 
 local settings_easy = {
 	chance = 4,
 	interval = 30,
 	light = 8,
+	watercan = 25,
+	watercan_max = 90,
+	watercan_uses = 20,
+	max_damage = 25
 }
 local settings_normal = {
 	chance = 8,
@@ -27,12 +32,15 @@ local settings_normal = {
 	watercan_uses = 20,
 	max_damage = 50
 }
-local settings_hard = {
+local settings_difficult = {
 	chance = 16,
 	interval = 30,
 	light = 13,
+	watercan = 25,
+	watercan_max = 100,
+	watercan_uses = 20,
+	max_damage = 100
 }
-
 
 local worldpath = minetest.get_worldpath()
 local modpath = minetest.get_modpath(minetest.get_current_modname())

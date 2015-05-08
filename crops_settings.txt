@@ -6,28 +6,5 @@
 -- the "easy" or "difficult" settings if you wish, or come up with your own values.
 --
 
--- more settings *MAY* be added to this file at a later stage, so make sure to get
--- a fresh copy from the mod folder if you decide to use non-default settings here.
-
---[[
--- easy --
-crops.chance = 4
-crops.interval = 30
-crops.light = 8
---]]
-
--- normal --
-crops.chance = 8
-crops.interval = 30
-crops.light = 10
-crops.watercan = 25
-crops.watercan_max = 89
-crops.watercanuses = 20
-crops.max_damage = 50
-
---[[
--- difficult --
-crops.chance = 16
-crops.interval = 30
-crops.light = 13
---]]
+-- Valid values are "easy", "normal", and "difficult"
+crops.difficulty = "normal"
