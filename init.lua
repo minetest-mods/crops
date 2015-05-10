@@ -163,7 +163,7 @@ crops.particles = function(pos, flag)
 			texture = "crops_wither.png",
 			vertical = true,
 		}
-	else
+	elseif flag == 1 then
 		-- soak (1)
 		p = {
 			amount = 8 * crops.settings.interval,
@@ -182,6 +182,24 @@ crops.particles = function(pos, flag)
 			texture = "crops_soak.png",
 			vertical = false,
 		}
+	else -- watering (2)
+		p = {
+			amount = 30,
+			time = 3,
+			minpos = { x = pos.x - 0.4, y = pos.y - 0.4, z = pos.z - 0.4 },
+			maxpos = { x = pos.x + 0.4, y = pos.y + 0.4, z = pos.z + 0.4 },
+			minvel = { x = 0, y = 0.0, z = 0 },
+			maxvel = { x = 0, y = 0.0, z = 0 },
+			minacc = { x = 0, y = -9.81, z = 0 },
+			maxacc = { x = 0, y = -9.81, z = 0 },
+			minexptime = 2,
+			maxexptime = 2,
+			minsize = 1,
+			maxsize = 3,
+			collisiondetection = false,
+			texture = "crops_watering.png",
+			vertical = true,
+		}
 	end
 	minetest.add_particlespawner(p)
 end
@@ -196,6 +214,7 @@ minetest.register_tool("crops:watering_can", {
 	tool_capabilities = {},
 	on_use = function(itemstack, user, pointed_thing)
 		local pos = pointed_thing.under
+		local ppos = pos
 		if pos == nil then
 			return itemstack
 		end
@@ -222,6 +241,7 @@ minetest.register_tool("crops:watering_can", {
 		if wear == 65534 then
 			return itemstack
 		end
+		crops.particles(ppos, 2)
 		water = math.min(water + crops.settings.watercan, crops.settings.watercan_max)
 		meta:set_int("crops_water", water)
 
