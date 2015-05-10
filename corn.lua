@@ -319,7 +319,7 @@ minetest.register_node("crops:corn_top_4", {
 })
 
 crops.corn_die = function(pos)
-	minetest.set_node(pos, { name = "crops:corn_base_4" })
+	minetest.set_node(pos, { name = "crops:corn_base_3" })
 	local above = {x = pos.x, y = pos.y + 1, z = pos.z}
 	minetest.set_node(above, { name = "crops:corn_top_4" })
 end
