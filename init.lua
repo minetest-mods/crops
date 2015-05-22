@@ -14,7 +14,8 @@ crops = {}
 crops.plants = {}
 crops.settings = {}
 
-local settings_easy = {
+local settings = {}
+settings.easy = {
 	chance = 4,
 	interval = 30,
 	light = 8,
@@ -27,7 +28,7 @@ local settings_easy = {
 	damage_tick_max = 1,
 	damage_max = 25,
 }
-local settings_normal = {
+settings.normal = {
 	chance = 8,
 	interval = 30,
 	light = 10,
@@ -40,7 +41,7 @@ local settings_normal = {
 	damage_tick_max = 5,
 	damage_max = 50,
 }
-local settings_difficult = {
+settings.difficult = {
 	chance = 16,
 	interval = 30,
 	light = 13,
@@ -80,15 +81,10 @@ if not crops.difficulty then
 	crops.difficulty = "normal"
 	minetest.log("error", "Defaulting to \"normal\" difficulty settings")
 end
-if crops.difficulty == "easy" then
-	crops.settings = settings_easy
-elseif crops.difficulty == "normal" then
-	crops.settings = settings_normal
-elseif crops.difficulty == "difficult" then
-	crops.settings = settings_difficult
-else
+crops.settings = settings[crops.difficulty]
+if not crops.settings then
 	minetest.log("error", "Defaulting to \"normal\" difficulty settings")
-	crops.settings = settings_normal
+	crops.settings = settings.normal
 end
 
 local find_plant = function(node)
