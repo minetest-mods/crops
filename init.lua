@@ -110,7 +110,7 @@ crops.plant = function(pos, node)
 end
 
 crops.can_grow = function(pos)
-	if minetest.get_node_light(pos, nil) < crops.settings.light then
+	if minetest.get_node_light(pos) < crops.settings.light then
 		return false
 	end
 	local node = minetest.get_node(pos)
@@ -214,9 +214,27 @@ minetest.register_tool("crops:watering_can", {
 			return itemstack
 		end
 		-- filling it up?
-		local node = minetest.get_node(pos)
-		if minetest.get_item_group(node.name, "water") >= 3 then
-			itemstack:set_wear(1)
+		local wear = itemstack:get_wear()
+		if minetest.get_item_group(minetest.get_node(pos).name, "water") >= 3 then
+			if wear ~= 1 then
+				minetest.sound_play("crops_watercan_entering", {pos=pos, gain=0.8})
+				minetest.after(math.random()/2, function(pos)
+					if math.random(2) == 1 then
+						minetest.sound_play("crops_watercan_splash_quiet", {pos=pos, gain=0.1})
+					end
+					if math.random(3) == 1 then
+						minetest.after(math.random()/2, function(pos)
+							minetest.sound_play("crops_watercan_splash_small", {pos=pos, gain=0.7})
+						end, pos)
+					end
+					if math.random(3) == 1 then
+						minetest.after(math.random()/2, function(pos)
+							minetest.sound_play("crops_watercan_splash_big", {pos=pos, gain=0.7})
+						end, pos)
+					end
+				end, pos)
+				itemstack:set_wear(1)
+			end
 			return itemstack
 		end
 		-- using it on a top-half part of a plant?
@@ -229,7 +247,6 @@ minetest.register_tool("crops:watering_can", {
 		if water == nil then
 			return itemstack
 		end
-		local wear = itemstack:get_wear()
 		-- empty?
 		if wear == 65534 then
 			return itemstack

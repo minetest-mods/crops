@@ -9,9 +9,19 @@ All source code (lua):
 	(C) Auke Kok <sofar@foo-projects.org>
 	LGPL-2.0+
 
-All textures, models, sounds:
+All textures, models:
 	(C) Auke Kok <sofar@foo-projects.org>
 	CC-BY-SA-3.0
 
-=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
+Sounds:
+ - crops_watercan_splash*
+	http://freesound.org/people/junggle/sounds/27361/
+	http://profiles.google.com/jun66le
+	CC-BY-3.0
+ - crops_watercan_entering.ogg
+	http://freesound.org/people/Quistard/sounds/166824/
+	CC-BY-3.0
 
+* Sounds edited with audacity
+
+=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
