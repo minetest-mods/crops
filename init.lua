@@ -214,24 +214,21 @@ minetest.register_tool("crops:watering_can", {
 	tool_capabilities = {},
 	on_use = function(itemstack, user, pointed_thing)
 		local pos = pointed_thing.under
-		local ppos = pos
-		if pos == nil then
+		if not pos then
 			return itemstack
 		end
 		-- filling it up?
 		local node = minetest.get_node(pos)
-		if node.name == "default:water_source" or
-		   node.name == "default:water_flowing" then
+		if minetest.get_item_group(node.name, "water") >= 3 then
 			itemstack:set_wear(1)
 			return itemstack
 		end
 		-- using it on a top-half part of a plant?
 		local meta = minetest.get_meta(pos)
 		if meta:get_int("crops_top_half") == 1 then
-			pos = {x = pos.x, y = pos.y - 1, z = pos.z}
+			meta = minetest.get_meta({x=pos.x, y=pos.y-1, z=pos.z})
 		end
 		-- using it on a plant?
-		local meta = minetest.get_meta(pos)
 		local water = meta:get_int("crops_water")
 		if water == nil then
 			return itemstack
@@ -260,16 +257,15 @@ minetest.register_tool("crops:hydrometer", {
 	},
 	on_use = function(itemstack, user, pointed_thing)
 		local pos = pointed_thing.under
-		if pos == nil then
+		if not pos then
 			return itemstack
 		end
 		-- doublesize plant?
 		local meta = minetest.get_meta(pos)
 		if meta:get_int("crops_top_half") == 1 then
-			pos = {x = pos.x, y = pos.y - 1, z = pos.z}
+			meta = minetest.get_meta({x=pos.x, y=pos.y-1, z=pos.z})
 		end
 
-		local meta = minetest.get_meta(pos)
 		-- using it on a plant?
 		local water = meta:get_int("crops_water")
 		if water == nil then
