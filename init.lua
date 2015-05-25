@@ -210,6 +210,7 @@ minetest.register_tool("crops:watering_can", {
 	tool_capabilities = {},
 	on_use = function(itemstack, user, pointed_thing)
 		local pos = pointed_thing.under
+		local ppos = pos
 		if not pos then
 			return itemstack
 		end
