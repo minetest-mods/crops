@@ -311,6 +311,7 @@ minetest.register_craft({
 
 -- crop nodes, crafts, craftitems
 dofile(modpath .. "/melon.lua")
+dofile(modpath .. "/pumpkin.lua")
 dofile(modpath .. "/corn.lua")
 dofile(modpath .. "/tomato.lua")
 dofile(modpath .. "/potato.lua")

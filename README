@@ -46,12 +46,18 @@ some will do better with less, so make sure you use a hydrometer to
 measure plant humidity. Recipes for the watering can and hydrometer
 are listed below.
 
-1. Melons
+1. Melons and pumpkins
 
 Melon plants grow from melon seeds. Once a plant is mature (there
 are 5 stages) it will spawn a melon block adjacent to the plant.
 The melon block can be harvested by punching, and yields 3-5
 melon slices. The melon slice can be crafted to a melon seed.
+
+Pumpkins grow from pumpkin seeds, and are harvested to yield a
+pumpkin block. Each block can be cooked to yield one or more
+roast pumpkin chunks, which can be eaten. You can also craft
+the blocks to seeds. A pumpkin plant will only yield limited amounts
+of pumpkins. After a while they automatically wither.
 
 2. Corn.
 
@@ -119,6 +125,9 @@ oven to be usable:
 empty     empty     empty
 clay_lump empty     clay_lump
 empty     clay_lump empty
+
+Pumpkin blocks can be cooked whole, and yield roasted pumpkin. It's
+okay as food, but it takes a lot of work.
 
 You can fill these bowls (or any group:food_bowl) with vegetables to
 craft an uncooked vegetable stew:
