@@ -103,7 +103,6 @@ minetest.register_craft({
 --
 minetest.register_node("crops:pumpkin", {
 	description = "Pumpkin",
-	inventory_image = "crops_pumpkin_inv.png",
 	tiles = { "crops_pumpkin_top.png", "crops_pumpkin_bottom.png", "crops_pumpkin.png", "crops_pumpkin.png", "crops_pumpkin.png", "crops_pumpkin.png" },
 	sunlight_propagates = false,
 	use_texture_alpha = false,
