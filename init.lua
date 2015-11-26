@@ -105,7 +105,7 @@ crops.plant = function(pos, node)
 	minetest.set_node(pos, node)
 	local meta = minetest.get_meta(pos)
 	local plant = find_plant(node)
-	meta:set_int("crops_water", plant.properties.waterstart)
+	meta:set_int("crops_water", max(plant.properties.waterstart, 1))
 	meta:set_int("crops_damage", 0)
 end
 
@@ -132,7 +132,7 @@ crops.can_grow = function(pos)
 		end
 	end
 	-- growing costs water!
-	meta:set_int("crops_water", math.max(0, water - 10))
+	meta:set_int("crops_water", math.max(1, water - 10))
 
 	-- allow the plant to grow
 	return true
@@ -323,7 +323,7 @@ minetest.register_tool("crops:watering_can", {
 		end
 		-- using it on a plant?
 		local water = meta:get_int("crops_water")
-		if water == nil then
+		if water < 1 then
 			return itemstack
 		end
 		-- empty?
@@ -331,6 +331,7 @@ minetest.register_tool("crops:watering_can", {
 			return itemstack
 		end
 		crops.particles(ppos, 2)
+		minetest.sound_play("crops_watercan_watering", {pos=pos, gain=0.8})
 		water = math.min(water + crops.settings.watercan, crops.settings.watercan_max)
 		meta:set_int("crops_water", water)
 
@@ -432,7 +433,7 @@ minetest.register_abm({
 			water = math.min(100, water + 1)
 		else
 			-- dry out the plant
-			water = math.max(0, water - plant.properties.wateruse )
+			water = math.max(1, water - plant.properties.wateruse)
 		end
 
 		meta:set_int("crops_water", water)
