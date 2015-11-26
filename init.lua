@@ -275,6 +275,7 @@ crops.die = function(pos)
 	local node = minetest.get_node(pos)
 	local plant = find_plant(node)
 	plant.properties.die(pos)
+	minetest.sound_play("crops_flies", {pos=pos, gain=0.8})
 end
 
 minetest.register_tool("crops:watering_can", {
