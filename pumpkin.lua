@@ -197,8 +197,7 @@ minetest.register_abm({
 				minetest.swap_node(pos, {name = "crops:pumpkin_plant_5_attached", param2 = faces[r].r})
 				meta:set_int("crops_pumpkin_ttl", ttl - 1)
 			else
-				-- no luck, plant dead!
-				minetest.set_node(pos, { name = "crops:pumpkin_plant_6" })
+				crops.die(pos)
 			end
 			local water = meta:get_int("crops_water")
 			-- growing a pumpkin costs 25 water!
@@ -228,8 +227,7 @@ minetest.register_abm({
 			minetest.swap_node(pos, { name = "crops:pumpkin_plant_4" })
 			meta:set_int("crops_pumpkin_ttl", ttl)
 		else
-			minetest.swap_node(pos, { name = "crops:pumpkin_plant_6"})
-			meta:set_int("crops_pumpkin_ttl", 0)
+			crops.die(pos)
 		end
 	end
 })

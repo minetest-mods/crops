@@ -97,8 +97,7 @@ local function crops_beanpole_on_dig(pos, node, digger)
 		for i = 1,math.random(3 - (2 * (damage / 100)),7 - (6 * (damage / 100))) do
 			table.insert(drops, "crops:green_bean")
 		end
-		minetest.set_node(bottom, { name = "crops:beanpole_plant_base_6"})
-		minetest.set_node(top, { name = "crops:beanpole_plant_top_4"})
+		crops.die(bottom)
 	elseif bottom_n.name == "crops:beanpole_plant_base_6" and top_n.name == "crops:beanpole_plant_top_4" then
 		-- harvested beans
 		for i = 1,math.random(3,4) do

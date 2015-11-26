@@ -125,7 +125,7 @@ minetest.register_abm({
 		local meta = minetest.get_meta(pos)
 		local damage = meta:get_int("crops_damage")
 		if damage == 100 then
-			minetest.set_node(pos, { name = "crops:potato_plant_5" })
+			crops.die(pos)
 			return
 		end
 		local n = string.gsub(node.name, "3", "4")

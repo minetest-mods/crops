@@ -85,8 +85,7 @@ minetest.register_node("crops:tomato_plant_5" , {
 			minetest.swap_node(pos, { name = "crops:tomato_plant_4"})
 			meta:set_int("crops_tomato_ttl", ttl - 1)
 		else
-			minetest.swap_node(pos, { name = "crops:tomato_plant_6"})
-			meta:set_int("crops_tomato_ttl", 0)
+			crops.die(pos)
 		end
 	end
 })
@@ -162,8 +161,7 @@ minetest.register_abm({
 			minetest.swap_node(pos, { name = "crops:tomato_plant_5" })
 			meta:set_int("crops_tomato_ttl", ttl)
 		else
-			-- no luck, plant dead!
-			minetest.set_node(pos, { name = "crops:tomato_plant_6" })
+			crops.die(pos)
 		end
 	end
 })

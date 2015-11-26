@@ -142,7 +142,7 @@ crops.particles = function(pos, flag)
 	local p = {}
 	if flag == 0 then
 		-- wither (0)
-		p = {
+		minetest.add_particlespawner({
 			amount = 1 * crops.settings.interval,
 			time = crops.settings.interval,
 			minpos = { x = pos.x - 0.4, y = pos.y - 0.4, z = pos.z - 0.4 },
@@ -158,10 +158,10 @@ crops.particles = function(pos, flag)
 			collisiondetection = false,
 			texture = "crops_wither.png",
 			vertical = true,
-		}
+		})
 	elseif flag == 1 then
 		-- soak (1)
-		p = {
+		minetest.add_particlespawner({
 			amount = 8 * crops.settings.interval,
 			time = crops.settings.interval,
 			minpos = { x = pos.x - 0.4, y = pos.y - 0.4, z = pos.z - 0.4 },
@@ -177,9 +177,10 @@ crops.particles = function(pos, flag)
 			collisiondetection = false,
 			texture = "crops_soak.png",
 			vertical = false,
-		}
-	else -- watering (2)
-		p = {
+		})
+	elseif flag == 2 then
+		-- watering (2)
+		minetest.add_particlespawner({
 			amount = 30,
 			time = 3,
 			minpos = { x = pos.x - 0.4, y = pos.y - 0.4, z = pos.z - 0.4 },
@@ -195,9 +196,85 @@ crops.particles = function(pos, flag)
 			collisiondetection = false,
 			texture = "crops_watering.png",
 			vertical = true,
-		}
+		})
+	else
+		-- withered/rotting (3)
+		minetest.add_particlespawner({
+			amount = 20,
+			time = 30,
+			minpos = { x = pos.x + 0.3, y = pos.y - 0.5, z = pos.z - 0.5 },
+			maxpos = { x = pos.x + 0.5, y = pos.y + 0.5, z = pos.z + 0.5 },
+			minvel = { x = -0.6, y = -0.1, z = -0.2 },
+			maxvel = { x = -0.4, y = 0.1, z = 0.2 },
+			minacc = { x = 0.4, y = 0, z = -0.1 },
+			maxacc = { x = 0.5, y = 0, z = 0.1 },
+			minexptime = 2,
+			maxexptime = 4,
+			minsize = 1,
+			maxsize = 1,
+			collisiondetection = false,
+			texture = "crops_flies.png",
+			vertical = true,
+		})
+		minetest.add_particlespawner({
+			amount = 20,
+			time = 30,
+			minpos = { x = pos.x - 0.3, y = pos.y - 0.5, z = pos.z - 0.5 },
+			maxpos = { x = pos.x - 0.5, y = pos.y + 0.5, z = pos.z + 0.5 },
+			minvel = { x = 0.6, y = -0.1, z = -0.2 },
+			maxvel = { x = 0.4, y = 0.1, z = 0.2 },
+			minacc = { x = -0.4, y = 0, z = -0.1 },
+			maxacc = { x = -0.5, y = 0, z = 0.1 },
+			minexptime = 2,
+			maxexptime = 4,
+			minsize = 1,
+			maxsize = 1,
+			collisiondetection = false,
+			texture = "crops_flies.png",
+			vertical = true,
+		})
+		minetest.add_particlespawner({
+			amount = 20,
+			time = 30,
+			minpos = { x = pos.x - 0.5, y = pos.y - 0.5, z = pos.z + 0.3 },
+			maxpos = { x = pos.x + 0.5, y = pos.y + 0.5, z = pos.z + 0.5 },
+			minvel = { z = -0.6, y = -0.1, x = -0.2 },
+			maxvel = { z = -0.4, y = 0.1, x = 0.2 },
+			minacc = { z = 0.4, y = 0, x = -0.1 },
+			maxacc = { z = 0.5, y = 0, x = 0.1 },
+			minexptime = 2,
+			maxexptime = 4,
+			minsize = 1,
+			maxsize = 1,
+			collisiondetection = false,
+			texture = "crops_flies.png",
+			vertical = true,
+		})
+		minetest.add_particlespawner({
+			amount = 20,
+			time = 30,
+			minpos = { x = pos.x - 0.5, y = pos.y - 0.5, z = pos.z - 0.3 },
+			maxpos = { x = pos.x + 0.5, y = pos.y + 0.5, z = pos.z - 0.5 },
+			minvel = { z = 0.6, y = -0.1, x = -0.2 },
+			maxvel = { z = 0.4, y = 0.1, x = 0.2 },
+			minacc = { z = -0.4, y = 0, x = -0.1 },
+			maxacc = { z = -0.5, y = 0, x = 0.1 },
+			minexptime = 2,
+			maxexptime = 4,
+			minsize = 1,
+			maxsize = 1,
+			collisiondetection = false,
+			texture = "crops_flies.png",
+			vertical = true,
+		})
 	end
-	minetest.add_particlespawner(p)
+end
+
+crops.die = function(pos)
+	crops.particles(pos, 3)
+	local node = minetest.get_node(pos)
+	local plant = find_plant(node)
+	plant.properties.die(pos)
 end
 
 minetest.register_tool("crops:watering_can", {
@@ -383,7 +460,7 @@ minetest.register_abm({
 
 		-- is it dead?
 		if damage >= 100 then
-			plant.properties.die(pos)
+			crops.die(pos)
 		end
 	end
 })

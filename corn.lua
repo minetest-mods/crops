@@ -290,8 +290,7 @@ minetest.register_node("crops:corn_top_3", {
 		for i = 1,math.random(2 - (damage / 100), 4 - (3 * (damage / 100))) do
 			table.insert(drops, ('crops:corn_cob'))
 		end
-		minetest.set_node(pos, { name = "crops:corn_top_4" })
-		minetest.set_node(below, { name = "crops:corn_base_3" })
+		crops.die(below)
 		core.handle_node_drops(pos, drops, digger)
 	end
 })
