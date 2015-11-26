@@ -105,7 +105,7 @@ crops.plant = function(pos, node)
 	minetest.set_node(pos, node)
 	local meta = minetest.get_meta(pos)
 	local plant = find_plant(node)
-	meta:set_int("crops_water", max(plant.properties.waterstart, 1))
+	meta:set_int("crops_water", math.max(plant.properties.waterstart, 1))
 	meta:set_int("crops_damage", 0)
 end
 
