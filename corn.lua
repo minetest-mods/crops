@@ -22,6 +22,7 @@ minetest.register_node("crops:corn", {
 	use_texture_alpha = true,
 	walkable = true,
 	paramtype = "light",
+	node_placement_prediction = "crops:corn_base_seed",
 	groups = { snappy=3,flammable=3,flora=1,attached_node=1 },
 	drop = {},
 	sounds = default.node_sound_leaves_defaults(),

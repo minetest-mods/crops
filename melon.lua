@@ -28,6 +28,7 @@ minetest.register_node("crops:melon_seed", {
 	use_texture_alpha = true,
 	walkable = false,
 	paramtype = "light",
+	node_placement_prediction = "crops:melon_plant_1",
 	groups = { snappy=3,flammable=3,flora=1,attached_node=1 },
 
 	on_place = function(itemstack, placer, pointed_thing)

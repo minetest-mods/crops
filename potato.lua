@@ -21,6 +21,7 @@ minetest.register_node("crops:potato_eyes", {
 	use_texture_alpha = true,
 	walkable = false,
 	paramtype = "light",
+	node_placement_prediction = "crops:potato_plant_1",
 	groups = { snappy=3,flammable=3,flora=1,attached_node=1 },
 	selection_box = {
 		type = "fixed",
