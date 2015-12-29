@@ -469,5 +469,6 @@ minetest.register_abm({
 
 -- cooking recipes that mix craftitems
 dofile(modpath .. "/cooking.lua")
+dofile(modpath .. "/mapgen.lua")
 
 minetest.log("action", "[crops] loaded.")
