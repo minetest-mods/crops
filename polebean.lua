@@ -158,6 +158,7 @@ minetest.register_node("crops:beanpoles", {
 	groups = { snappy=3,flammable=3,flora=1,attached_node=1 },
 	drop = {},
 	sounds = default.node_sound_leaves_defaults(),
+	node_placement_prediction = "crops:beanpole_base",
 
 	on_place = function(itemstack, placer, pointed_thing)
                 local under = minetest.get_node(pointed_thing.under)
@@ -181,7 +182,7 @@ minetest.register_craftitem("crops:green_bean_seed", {
 	description = "green bean seed",
 	inventory_image = "crops_green_bean_seed.png",
 	wield_image = "crops_green_bean_seed.png",
-	node_placement_prediction = "crops:beanpole_plant_base_1",
+	node_placement_prediction = "", -- disabled, prediction assumes pointed_think.above!
 
 	on_place = function(itemstack, placer, pointed_thing)
 		local under = minetest.get_node(pointed_thing.under)
