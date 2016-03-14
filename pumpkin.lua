@@ -110,12 +110,11 @@ minetest.register_node("crops:pumpkin", {
 	walkable = true,
 	groups = { snappy=3, flammable=3, oddly_breakable_by_hand=2 },
 	paramtype2 = "facedir",
-	drop = {'crops:pumpkin'},
 	sounds = default.node_sound_wood_defaults({
 		dig = { name = "default_dig_oddly_breakable_by_hand" },
 		dug = { name = "default_dig_choppy" }
 	}),
-	on_dig = function(pos, node, digger)
+	after_dig_node = function(pos, node)
 		for face = 1, 4 do
 			local s = { x = pos.x + faces[face].x, y = pos.y, z = pos.z + faces[face].z }
 			local n = minetest.get_node(s)
@@ -126,7 +125,6 @@ minetest.register_node("crops:pumpkin", {
 				end
 			end
 		end
-		minetest.remove_node(pos)
 	end
 })
 
