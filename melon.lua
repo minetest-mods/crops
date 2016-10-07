@@ -10,6 +10,15 @@ of the license, or (at your option) any later version.
 
 --]]
 
+-- Intllib
+local S = crops.intllib
+
+-- Grows only on wet soil if farming mod exist
+local soil_type = "group:soil"
+if minetest.get_modpath("farming") then
+	soil_type = "farming:soil_wet" 
+end
+
 local faces = {
 	[1] = { x = -1, z = 0, r = 3, o = 1, m = 14 },
 	[2] = { x = 1, z = 0, r = 1, o = 3,  m = 16 },
@@ -18,7 +27,7 @@ local faces = {
 }
 
 minetest.register_node("crops:melon_seed", {
-	description = "melon seed",
+	description = S("Melon seed"),
 	inventory_image = "crops_melon_seed.png",
 	wield_image = "crops_melon_seed.png",
 	tiles = { "crops_melon_plant_1.png" },
@@ -30,7 +39,7 @@ minetest.register_node("crops:melon_seed", {
 	paramtype = "light",
 	node_placement_prediction = "crops:melon_plant_1",
 	groups = { snappy=3,flammable=3,flora=1,attached_node=1 },
-
+	
 	on_place = function(itemstack, placer, pointed_thing)
 		local under = minetest.get_node(pointed_thing.under)
 		if minetest.get_item_group(under.name, "soil") <= 1 then
@@ -46,7 +55,7 @@ minetest.register_node("crops:melon_seed", {
 
 for stage = 1, 6 do
 minetest.register_node("crops:melon_plant_" .. stage , {
-	description = "melon plant",
+	description = S("Melon plant"),
 	tiles = { "crops_melon_plant_" .. stage .. ".png" },
 	drawtype = "plantlike",
 	waving = 1,
@@ -60,14 +69,18 @@ minetest.register_node("crops:melon_plant_" .. stage , {
 	selection_box = {
 		type = "fixed",
 		fixed = {-0.5, -0.5, -0.5,  0.5, -0.5 + (((math.min(stage, 4)) + 1) / 5), 0.5}
-	}
+	},
+	on_construct = function(pos)
+		local meta = minetest.get_meta(pos)
+		meta:set_string("infotext", S("Melon plant").." ("..stage * 17 ..minetest.formspec_escape("%)"))
+	end,
 })
 end
 
 minetest.register_node("crops:melon_plant_5_attached", {
 	visual = "mesh",
 	mesh = "crops_plant_extra_face.obj",
-	description = "melon plant",
+	description = S("Melon plant"),
 	tiles = { "crops_melon_stem.png", "crops_melon_plant_4.png" },
 	drawtype = "mesh",
 	paramtype2 = "facedir",
@@ -77,12 +90,12 @@ minetest.register_node("crops:melon_plant_5_attached", {
 	paramtype = "light",
 	groups = { snappy=3, flammable=3, flora=1, attached_node=1, not_in_creative_inventory=1 },
 	drop = "crops:melon_seed",
-	sounds = default.node_sound_leaves_defaults(),
+	sounds = default.node_sound_leaves_defaults()
 })
 
 
 minetest.register_craftitem("crops:melon_slice", {
-	description = "Melon slice",
+	description = S("Melon slice"),
 	inventory_image = "crops_melon_slice.png",
 	on_use = minetest.item_eat(1)
 })
@@ -97,7 +110,7 @@ minetest.register_craft({
 -- the melon "block"
 --
 minetest.register_node("crops:melon", {
-	description = "Melon",
+	description = S("Melon"),
 	tiles = { "crops_melon_top.png", "crops_melon_bottom.png", "crops_melon.png", "crops_melon.png", "crops_melon.png", "crops_melon.png" },
 	sunlight_propagates = false,
 	use_texture_alpha = false,
@@ -139,7 +152,7 @@ minetest.register_node("crops:melon", {
 --
 minetest.register_abm({
 	nodenames = { "crops:melon_plant_1", "crops:melon_plant_2", "crops:melon_plant_3","crops:melon_plant_4" },
-	neighbors = { "group:soil" },
+	neighbors = { soil_type },
 	interval = crops.settings.interval,
 	chance = crops.settings.chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
@@ -152,6 +165,8 @@ minetest.register_abm({
 		n = string.gsub(n, "2", "3")
 		n = string.gsub(n, "1", "2")
 		minetest.swap_node(pos, { name = n })
+		local j = string.gsub(n, "crops:melon_plant_", "")
+		meta:set_string("infotext", S("Melon plant").." ("..j * 17 ..minetest.formspec_escape("%)"))
 	end
 })
 
@@ -160,7 +175,7 @@ minetest.register_abm({
 --
 minetest.register_abm({
 	nodenames = { "crops:melon_plant_5" },
-	neighbors = { "group:soil" },
+	neighbors = { soil_type },
 	interval = crops.settings.interval,
 	chance = crops.settings.chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
@@ -179,10 +194,13 @@ minetest.register_abm({
 		if n.name == "ignore" then
 			return
 		end
-
+		
 		if minetest.registered_nodes[minetest.get_node({ x = t.x, y = t.y - 1, z = t.z }).name].walkable == false then
 			return
 		end
+
+		local meta = minetest.get_meta(pos)
+		meta:set_string("infotext", S("Melon plant")..minetest.formspec_escape(" (100%)"))
 
 		if minetest.registered_nodes[n.name].drawtype == "plantlike" or
 		   minetest.registered_nodes[n.name].groups.flora == 1 or
@@ -197,7 +215,7 @@ minetest.register_abm({
 			meta = minetest.get_meta(t)
 			-- reflect plants' damage in the melon yield
 			meta:set_int("crops_damage", damage)
-		end
+			end
 	end
 })
 
