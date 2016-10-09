@@ -10,8 +10,17 @@ of the license, or (at your option) any later version.
 
 --]]
 
+-- Intllib
+local S = crops.intllib
+
+-- Grows only on wet soil if farming mod exist
+local soil_type = "group:soil"
+if minetest.get_modpath("farming") then
+	soil_type = "farming:soil_wet" 
+end
+
 minetest.register_node("crops:potato_eyes", {
-	description = "potato eyes",
+	description = S("Potato eyes"),
 	inventory_image = "crops_potato_eyes.png",
 	wield_image = "crops_potato_eyes.png",
 	tiles = { "crops_potato_plant_1.png" },
@@ -27,7 +36,7 @@ minetest.register_node("crops:potato_eyes", {
 		type = "fixed",
 		fixed = {-0.45, -0.5, -0.45,  0.45, -0.4, 0.45}
 	},
-
+	
 	on_place = function(itemstack, placer, pointed_thing)
 		local under = minetest.get_node(pointed_thing.under)
 		if minetest.get_item_group(under.name, "soil") <= 1 then
@@ -43,7 +52,7 @@ minetest.register_node("crops:potato_eyes", {
 
 for stage = 1, 5 do
 minetest.register_node("crops:potato_plant_" .. stage , {
-	description = "potato plant",
+	description = S("Potato plant"),
 	tiles = { "crops_potato_plant_" .. stage .. ".png" },
 	drawtype = "plantlike",
 	waving = 1,
@@ -57,12 +66,16 @@ minetest.register_node("crops:potato_plant_" .. stage , {
 	selection_box = {
 		type = "fixed",
 		fixed = {-0.45, -0.5, -0.45,  0.45, -0.6 + (((math.min(stage, 4)) + 1) / 5), 0.45}
-	}
-})
+		},
+	on_construct = function(pos)
+		local meta = minetest.get_meta(pos)
+		meta:set_string("infotext", S("Potato plant").." ("..stage * 20 ..minetest.formspec_escape("%)"))
+	end,	
+	})
 end
 
 minetest.register_craftitem("crops:potato", {
-	description = "potato",
+	description = S("Potato"),
 	inventory_image = "crops_potato.png",
 	on_use = minetest.item_eat(1)
 })
@@ -77,7 +90,7 @@ minetest.register_craft({
 -- the potatoes "block"
 --
 minetest.register_node("crops:soil_with_potatoes", {
-	description = "Soil with potatoes",
+	description = S("Soil with potatoes"),
 	tiles = { "default_dirt.png^crops_potato_soil.png", "default_dirt.png" },
 	sunlight_propagates = false,
 	use_texture_alpha = false,
@@ -92,6 +105,10 @@ minetest.register_node("crops:soil_with_potatoes", {
 		{ items = {'crops:potato'}, rarity = 5 },
 	}},
 	sounds = default.node_sound_dirt_defaults(),
+	on_construct = function(pos)
+		local meta = minetest.get_meta(pos)
+		meta:set_string("infotext", S("Soil with potatoes"))
+	end,
 	on_dig = function(pos, node, digger)
 		local drops = {}
 		-- damage 0   = drops 3-5
@@ -116,7 +133,7 @@ minetest.register_node("crops:soil_with_potatoes", {
 --
 minetest.register_abm({
 	nodenames = { "crops:potato_plant_1", "crops:potato_plant_2", "crops:potato_plant_3" },
-	neighbors = { "group:soil" },
+	neighbors = { soil_type },
 	interval = crops.settings.interval,
 	chance = crops.settings.chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
@@ -137,6 +154,8 @@ minetest.register_abm({
 		n = string.gsub(n, "2", "3")
 		n = string.gsub(n, "1", "2")
 		minetest.swap_node(pos, { name = n })
+		local j = string.gsub(n, "crops:potato_plant_", "")
+		meta:set_string("infotext", S("Potato plant").." ("..j * 20 ..minetest.formspec_escape("%)"))
 	end
 })
 
@@ -145,7 +164,7 @@ minetest.register_abm({
 --
 minetest.register_abm({
 	nodenames = { "crops:potato_plant_4" },
-	neighbors = { "group:soil" },
+	neighbors = { soil_type },
 	interval = crops.settings.interval,
 	chance = crops.settings.chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
@@ -157,6 +176,7 @@ minetest.register_abm({
 			return
 		end
 		local meta = minetest.get_meta(pos)
+		meta:set_string("infotext", S("Potato plant")..minetest.formspec_escape("(100%)"))
 		local water = meta:get_int("crops_water")
 		local damage = meta:get_int("crops_damage")
 		local below = { x = pos.x, y = pos.y - 1, z = pos.z}
