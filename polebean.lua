@@ -184,7 +184,7 @@ minetest.register_craftitem("crops:green_bean_seed", {
 	inventory_image = "crops_green_bean_seed.png",
 	wield_image = "crops_green_bean_seed.png",
 	node_placement_prediction = "", -- disabled, prediction assumes pointed_think.above!
-	
+
 	on_place = function(itemstack, placer, pointed_thing)
 		local under = minetest.get_node(pointed_thing.under)
 		if under.name == "crops:beanpole_base" then
