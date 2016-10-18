@@ -10,10 +10,13 @@ of the license, or (at your option) any later version.
 
 --]]
 
+-- Intllib
+local S = crops.intllib
+
 local wateruse = 1
 
 minetest.register_node("crops:tomato_seed", {
-	description = "tomato seed",
+	description = S("Tomato seed"),
 	inventory_image = "crops_tomato_seed.png",
 	wield_image = "crops_tomato_seed.png",
 	tiles = { "crops_tomato_plant_1.png" },
@@ -43,7 +46,7 @@ minetest.register_node("crops:tomato_seed", {
 
 for stage = 1, 4 do
 minetest.register_node("crops:tomato_plant_" .. stage , {
-	description = "tomato plant",
+	description = S("Tomato plant"),
 	tiles = { "crops_tomato_plant_" .. stage .. ".png" },
 	drawtype = "plantlike",
 	waving = 1,
@@ -62,7 +65,7 @@ minetest.register_node("crops:tomato_plant_" .. stage , {
 end
 
 minetest.register_node("crops:tomato_plant_5" , {
-	description = "tomato plant",
+	description = S("Tomato plant"),
 	tiles = { "crops_tomato_plant_5.png" },
 	drawtype = "plantlike",
 	waving = 1,
@@ -96,7 +99,7 @@ minetest.register_node("crops:tomato_plant_5" , {
 })
 
 minetest.register_node("crops:tomato_plant_6", {
-	description = "tomato plant",
+	description = S("Tomato plant"),
 	tiles = { "crops_tomato_plant_6.png" },
 	drawtype = "plantlike",
 	waving = 1,
@@ -114,7 +117,7 @@ minetest.register_node("crops:tomato_plant_6", {
 })
 
 minetest.register_craftitem("crops:tomato", {
-	description = "Tomato",
+	description = S("Tomato"),
 	inventory_image = "crops_tomato.png",
 	on_use = minetest.item_eat(1)
 })
@@ -194,4 +197,3 @@ crops.register({ name = "crops:tomato_plant_2", properties = properties })
 crops.register({ name = "crops:tomato_plant_3", properties = properties })
 crops.register({ name = "crops:tomato_plant_4", properties = properties })
 crops.register({ name = "crops:tomato_plant_5", properties = properties })
-

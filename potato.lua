@@ -10,8 +10,11 @@ of the license, or (at your option) any later version.
 
 --]]
 
+-- Intllib
+local S = crops.intllib
+
 minetest.register_node("crops:potato_eyes", {
-	description = "potato eyes",
+	description = S("Potato eyes"),
 	inventory_image = "crops_potato_eyes.png",
 	wield_image = "crops_potato_eyes.png",
 	tiles = { "crops_potato_plant_1.png" },
@@ -43,7 +46,7 @@ minetest.register_node("crops:potato_eyes", {
 
 for stage = 1, 5 do
 minetest.register_node("crops:potato_plant_" .. stage , {
-	description = "potato plant",
+	description = S("Potato plant"),
 	tiles = { "crops_potato_plant_" .. stage .. ".png" },
 	drawtype = "plantlike",
 	waving = 1,
@@ -62,7 +65,7 @@ minetest.register_node("crops:potato_plant_" .. stage , {
 end
 
 minetest.register_craftitem("crops:potato", {
-	description = "potato",
+	description = S("Potato"),
 	inventory_image = "crops_potato.png",
 	on_use = minetest.item_eat(1)
 })
@@ -77,7 +80,7 @@ minetest.register_craft({
 -- the potatoes "block"
 --
 minetest.register_node("crops:soil_with_potatoes", {
-	description = "Soil with potatoes",
+	description = S("Soil with potatoes"),
 	tiles = { "default_dirt.png^crops_potato_soil.png", "default_dirt.png" },
 	sunlight_propagates = false,
 	use_texture_alpha = false,

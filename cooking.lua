@@ -16,8 +16,11 @@ of the license, or (at your option) any later version.
 -- ways or use other items
 --
 
+-- Intllib
+local S = crops.intllib
+
 minetest.register_craftitem("crops:unbaked_clay_bowl", {
-	description = "Unbaked clay bowl",
+	description = S("Unbaked clay bowl"),
 	inventory_image = "crops_unbaked_clay_bowl.png",
 })
 
@@ -31,7 +34,7 @@ minetest.register_craft({
 })
 
 minetest.register_craftitem("crops:clay_bowl", {
-	description = "Clay bowl",
+	description = S("Clay bowl"),
 	inventory_image = "crops_clay_bowl.png",
 	groups = { food_bowl=1 }
 })
@@ -43,7 +46,7 @@ minetest.register_craft({
 })
 
 minetest.register_craftitem("crops:vegetable_stew", {
-	description = "Bowl of vegetable stew",
+	description = S("Bowl of vegetable stew"),
 	inventory_image = "crops_bowl_vegetable_stew.png",
 	groups = { eatable=1 },
 	on_use = minetest.item_eat(8, "crops:clay_bowl"),
@@ -56,7 +59,7 @@ minetest.register_craft({
 })
 
 minetest.register_craftitem("crops:uncooked_vegetable_stew", {
-	description = "Bowl of uncooked vegetable stew",
+	description = S("Bowl of uncooked vegetable stew"),
 	inventory_image = "crops_bowl_uncooked_vegetable_stew.png",
 	groups = { eatable=1 },
 	on_use = minetest.item_eat(2, "crops:clay_bowl")

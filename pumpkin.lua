@@ -10,6 +10,9 @@ of the license, or (at your option) any later version.
 
 --]]
 
+-- Intllib
+local S = crops.intllib
+
 local faces = {
 	[1] = { x = -1, z = 0, r = 3, o = 1, m = 14 },
 	[2] = { x = 1, z = 0, r = 1, o = 3,  m = 16 },
@@ -18,7 +21,7 @@ local faces = {
 }
 
 minetest.register_node("crops:pumpkin_seed", {
-	description = "pumpkin seed",
+	description = S("Pumpkin seed"),
 	inventory_image = "crops_pumpkin_seed.png",
 	wield_image = "crops_pumpkin_seed.png",
 	tiles = { "crops_pumpkin_plant_1.png" },
@@ -46,7 +49,7 @@ minetest.register_node("crops:pumpkin_seed", {
 
 for stage = 1, 6 do
 minetest.register_node("crops:pumpkin_plant_" .. stage , {
-	description = "pumpkin plant",
+	description = S("Pumpkin plant"),
 	tiles = { "crops_pumpkin_plant_" .. stage .. ".png" },
 	drawtype = "plantlike",
 	waving = 1,
@@ -67,7 +70,7 @@ end
 minetest.register_node("crops:pumpkin_plant_5_attached", {
 	visual = "mesh",
 	mesh = "crops_plant_extra_face.obj",
-	description = "pumpkin plant",
+	description = S("Pumpkin plant"),
 	tiles = { "crops_pumpkin_stem.png", "crops_pumpkin_plant_4.png" },
 	drawtype = "mesh",
 	paramtype2 = "facedir",
@@ -82,7 +85,7 @@ minetest.register_node("crops:pumpkin_plant_5_attached", {
 
 
 minetest.register_craftitem("crops:roasted_pumpkin", {
-	description = "Roasted pumpkin",
+	description = S("Roasted pumpkin"),
 	inventory_image = "crops_roasted_pumpkin.png",
 	on_use = minetest.item_eat(2)
 })
@@ -103,7 +106,7 @@ minetest.register_craft({
 -- the pumpkin "block"
 --
 minetest.register_node("crops:pumpkin", {
-	description = "Pumpkin",
+	description = S("Pumpkin"),
 	tiles = { "crops_pumpkin_top.png", "crops_pumpkin_bottom.png", "crops_pumpkin.png", "crops_pumpkin.png", "crops_pumpkin.png", "crops_pumpkin.png" },
 	sunlight_propagates = false,
 	use_texture_alpha = false,

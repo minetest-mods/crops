@@ -10,8 +10,11 @@ of the license, or (at your option) any later version.
 
 --]]
 
+-- Intllib
+local S = crops.intllib
+
 minetest.register_node("crops:corn", {
-	description = "corn",
+	description = S("Corn"),
 	inventory_image = "crops_corn.png",
 	wield_image = "crops_corn.png",
 	tiles = { "crops_corn_base_seed.png" },
@@ -42,7 +45,7 @@ minetest.register_node("crops:corn", {
 })
 
 minetest.register_craftitem("crops:corn_cob", {
-	description = "Corn Cob",
+	description = S("Corn Cob"),
 	inventory_image = "crops_corn_cob.png",
 })
 
@@ -53,7 +56,7 @@ minetest.register_craft({
 })
 
 minetest.register_craftitem("crops:corn_on_the_cob", {
-	description = "Corn on the Cob",
+	description = S("Corn on the Cob"),
 	inventory_image = "crops_corn_on_the_cob.png",
 	on_use = minetest.item_eat(1)
 })
@@ -66,7 +69,7 @@ minetest.register_craft({
 
 minetest.register_node("crops:corn_base_seed", {
 	visual = "mesh",
-	description = "corn plant",
+	description = S("Corn plant"),
 	drawtype = "mesh",
 	waving = 1,
 	mesh = "crops_orthogonal_plant.obj",
@@ -81,7 +84,7 @@ minetest.register_node("crops:corn_base_seed", {
 	selection_box = {
 		type = "fixed",
 		fixed = {-0.5, -0.5, -0.5,  0.5, -0.3, 0.5}
-	},
+	}
 })
 
 minetest.register_abm({
@@ -99,7 +102,7 @@ minetest.register_abm({
 
 minetest.register_node("crops:corn_base_1", {
 	visual = "mesh",
-	description = "corn plant",
+	description = S("Corn plant"),
 	drawtype = "mesh",
 	mesh = "crops_orthogonal_plant.obj",
 	tiles = { "crops_corn_base_1.png" },
@@ -137,7 +140,7 @@ minetest.register_abm({
 
 minetest.register_node("crops:corn_base_2", {
 	visual = "mesh",
-	description = "corn plant",
+	description = S("Corn plant"),
 	drawtype = "mesh",
 	mesh = "crops_orthogonal_plant.obj",
 	tiles = { "crops_corn_base_2.png" },
@@ -176,7 +179,7 @@ minetest.register_node("crops:corn_base_2", {
 
 minetest.register_node("crops:corn_base_3", {
 	visual = "mesh",
-	description = "corn plant",
+	description = S("Corn plant"),
 	drawtype = "mesh",
 	mesh = "crops_orthogonal_plant.obj",
 	tiles = { "crops_corn_base_3.png" },
@@ -198,7 +201,7 @@ minetest.register_node("crops:corn_base_3", {
 
 minetest.register_node("crops:corn_top_1", {
 	visual = "mesh",
-	description = "corn plant",
+	description = S("Corn plant"),
 	drawtype = "mesh",
 	mesh = "crops_orthogonal_plant.obj",
 	tiles = { "crops_corn_base_1.png" },
@@ -235,7 +238,7 @@ minetest.register_abm({
 
 minetest.register_node("crops:corn_top_2", {
 	visual = "mesh",
-	description = "corn plant",
+	description = S("Corn plant"),
 	drawtype = "mesh",
 	mesh = "crops_orthogonal_plant.obj",
 	tiles = { "crops_corn_top_1.png" },
@@ -247,6 +250,7 @@ minetest.register_node("crops:corn_top_2", {
 	groups = { snappy=3,flammable=3,flora=1,not_in_creative_inventory=1 },
 	drop = {},
 	sounds = default.node_sound_leaves_defaults(),
+	
 	on_dig = function(pos, node, digger)
 		local below = {x = pos.x, y = pos.y - 1, z = pos.z}
 		if not minetest.get_node(below).name == "crops:base_2" then
@@ -274,7 +278,7 @@ minetest.register_abm({
 
 minetest.register_node("crops:corn_top_3", {
 	visual = "mesh",
-	description = "corn plant",
+	description = S("Corn plant"),
 	drawtype = "mesh",
 	mesh = "crops_orthogonal_plant.obj",
 	tiles = { "crops_corn_top_2.png" },
@@ -286,6 +290,7 @@ minetest.register_node("crops:corn_top_3", {
 	groups = { snappy=3,flammable=3,flora=1,not_in_creative_inventory=1 },
 	drop = {},
 	sounds = default.node_sound_leaves_defaults(),
+	
 	on_dig = function(pos, node, digger)
 		local below = { x = pos.x, y = pos.y - 1, z = pos.z }
 		local meta = minetest.get_meta(below)
@@ -304,7 +309,7 @@ minetest.register_node("crops:corn_top_3", {
 
 minetest.register_node("crops:corn_top_4", {
 	visual = "mesh",
-	description = "corn plant",
+	description = S("Corn plant"),
 	drawtype = "mesh",
 	mesh = "crops_orthogonal_plant.obj",
 	tiles = { "crops_corn_top_3.png" },
@@ -316,6 +321,7 @@ minetest.register_node("crops:corn_top_4", {
 	groups = { snappy=3,flammable=3,flora=1,not_in_creative_inventory=1 },
 	drop = {},
 	sounds = default.node_sound_leaves_defaults(),
+	
 	on_dig = function(pos, node, digger)
 		local below = {x = pos.x, y = pos.y - 1, z = pos.z}
 		if minetest.get_node(below).name == "crops:corn_base_3" then
