@@ -13,12 +13,6 @@ of the license, or (at your option) any later version.
 -- Intllib
 local S = crops.intllib
 
--- Grows only on wet soil if farming mod exist
-local soil_type = "group:soil"
-if minetest.get_modpath("farming") then
-	soil_type = "farming:soil_wet" 
-end
-
 minetest.register_node("crops:potato_eyes", {
 	description = S("Potato eyes"),
 	inventory_image = "crops_potato_eyes.png",
@@ -66,11 +60,7 @@ minetest.register_node("crops:potato_plant_" .. stage , {
 	selection_box = {
 		type = "fixed",
 		fixed = {-0.45, -0.5, -0.45,  0.45, -0.6 + (((math.min(stage, 4)) + 1) / 5), 0.45}
-		},
-	on_construct = function(pos)
-		local meta = minetest.get_meta(pos)
-		meta:set_string("infotext", S("Potato plant").." ("..stage * 20 ..minetest.formspec_escape("%)"))
-	end,	
+		}	
 	})
 end
 
@@ -105,10 +95,6 @@ minetest.register_node("crops:soil_with_potatoes", {
 		{ items = {'crops:potato'}, rarity = 5 },
 	}},
 	sounds = default.node_sound_dirt_defaults(),
-	on_construct = function(pos)
-		local meta = minetest.get_meta(pos)
-		meta:set_string("infotext", S("Soil with potatoes"))
-	end,
 	on_dig = function(pos, node, digger)
 		local drops = {}
 		-- damage 0   = drops 3-5
@@ -133,7 +119,7 @@ minetest.register_node("crops:soil_with_potatoes", {
 --
 minetest.register_abm({
 	nodenames = { "crops:potato_plant_1", "crops:potato_plant_2", "crops:potato_plant_3" },
-	neighbors = { soil_type },
+	neighbors = { "group:soil" },
 	interval = crops.settings.interval,
 	chance = crops.settings.chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
@@ -154,8 +140,6 @@ minetest.register_abm({
 		n = string.gsub(n, "2", "3")
 		n = string.gsub(n, "1", "2")
 		minetest.swap_node(pos, { name = n })
-		local j = string.gsub(n, "crops:potato_plant_", "")
-		meta:set_string("infotext", S("Potato plant").." ("..j * 20 ..minetest.formspec_escape("%)"))
 	end
 })
 
@@ -164,7 +148,7 @@ minetest.register_abm({
 --
 minetest.register_abm({
 	nodenames = { "crops:potato_plant_4" },
-	neighbors = { soil_type },
+	neighbors = { "group:soil" },
 	interval = crops.settings.interval,
 	chance = crops.settings.chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
@@ -176,7 +160,6 @@ minetest.register_abm({
 			return
 		end
 		local meta = minetest.get_meta(pos)
-		meta:set_string("infotext", S("Potato plant")..minetest.formspec_escape("(100%)"))
 		local water = meta:get_int("crops_water")
 		local damage = meta:get_int("crops_damage")
 		local below = { x = pos.x, y = pos.y - 1, z = pos.z}
