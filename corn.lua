@@ -13,12 +13,6 @@ of the license, or (at your option) any later version.
 -- Intllib
 local S = crops.intllib
 
--- Grows only on wet soil if farming mod exist
-local soil_type = "group:soil"
-if minetest.get_modpath("farming") then
-	soil_type = "farming:soil_wet" 
-end
-
 minetest.register_node("crops:corn", {
 	description = S("Corn"),
 	inventory_image = "crops_corn.png",
@@ -90,26 +84,19 @@ minetest.register_node("crops:corn_base_seed", {
 	selection_box = {
 		type = "fixed",
 		fixed = {-0.5, -0.5, -0.5,  0.5, -0.3, 0.5}
-	},
-	on_construct = function(pos)
-		local meta = minetest.get_meta(pos)
-		meta:set_string("infotext", S("Corn plant"))		
-	end,
+	}
 })
 
 minetest.register_abm({
 	nodenames = { "crops:corn_base_seed" },
-	neighbors = { soil_type },
+	neighbors = { "group:soil" },
 	interval = crops.settings.interval,
 	chance = crops.settings.chance,
-	
 	action = function(pos, node, active_object_count, active_object_count_wider)
 		if not crops.can_grow(pos) then
 			return
 		end
 		minetest.swap_node(pos, { name = "crops:corn_base_1" })
-		local meta = minetest.get_meta(pos)
-		meta:set_string("infotext", S("Corn plant")..minetest.formspec_escape(" (25%)"))
 	end
 })
 
@@ -131,7 +118,7 @@ minetest.register_node("crops:corn_base_1", {
 
 minetest.register_abm({
 	nodenames = { "crops:corn_base_1" },
-	neighbors = { soil_type },
+	neighbors = { "group:soil" },
 	interval = crops.settings.interval,
 	chance = crops.settings.chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
@@ -142,14 +129,12 @@ minetest.register_abm({
 			return
 		end
 		local meta = minetest.get_meta(pos)
-		meta:set_string("infotext", S("Corn plant")..minetest.formspec_escape(" (50%)"))		
 		local water = meta:get_int("crops_water")
 		minetest.swap_node(pos, { name = "crops:corn_base_2" })
 		local above = {x = pos.x, y = pos.y + 1, z = pos.z}
 		minetest.set_node(above , { name = "crops:corn_top_1" })
 		local meta = minetest.get_meta(above)
 		meta:set_int("crops_top_half", 1)
-		meta:set_string("infotext", S("Corn plant")..minetest.formspec_escape(" (50%)"))		
 	end
 })
 
@@ -166,10 +151,6 @@ minetest.register_node("crops:corn_base_2", {
 	groups = { snappy=3,flammable=3,flora=1,attached_node=1,not_in_creative_inventory=1 },
 	drop = {},
 	sounds = default.node_sound_leaves_defaults(),
-	on_construct = function(pos)
-		local meta = minetest.get_meta(pos)
-		meta:set_string("infotext", S("Corn plant"))
-	end,
 	on_dig = function(pos, node, digger)
 		local above = {x = pos.x, y = pos.y + 1, z = pos.z}
 		if minetest.get_node(above).name == "crops:corn_top_1" or minetest.get_node(above).name == "crops:corn_top_2" then
@@ -209,10 +190,6 @@ minetest.register_node("crops:corn_base_3", {
 	groups = { snappy=3,flammable=3,flora=1,attached_node=1,not_in_creative_inventory=1 },
 	drop = {},
 	sounds = default.node_sound_leaves_defaults(),
-	on_construct = function(pos)
-		local meta = minetest.get_meta(pos)
-		meta:set_string("infotext", S("Corn plant"))
-	end,
 	on_dig = function(pos, node, digger)
 		local above = {x = pos.x, y = pos.y + 1, z = pos.z}
 		if minetest.get_node(above).name == "crops:corn_top_4" then
@@ -236,10 +213,6 @@ minetest.register_node("crops:corn_top_1", {
 	groups = { snappy=3,flammable=3,flora=1,not_in_creative_inventory=1 },
 	drop = {},
 	sounds = default.node_sound_leaves_defaults(),
-	on_construct = function(pos)
-		local meta = minetest.get_meta(pos)
-		meta:set_string("infotext", S("Corn plant"))
-	end,
 	on_dig = function(pos, node, digger)
 		local below = {x = pos.x, y = pos.y - 1, z = pos.z}
 		if not minetest.get_node(below).name == "crops:base_2" then
@@ -260,11 +233,6 @@ minetest.register_abm({
 			return
 		end
 		minetest.swap_node(pos, { name = "crops:corn_top_2" })
-		local meta = minetest.get_meta(pos)
-		meta:set_string("infotext", S("Corn plant")..minetest.formspec_escape(" (75%)"))
-		local below = {x = pos.x, y = pos.y - 1, z = pos.z}
-		local meta = minetest.get_meta(below)
-		meta:set_string("infotext", S("Corn plant")..minetest.formspec_escape(" (75%)"))		
 	end
 })
 
@@ -305,11 +273,6 @@ minetest.register_abm({
 			return
 		end
 		minetest.swap_node(pos, { name = "crops:corn_top_3" })
-		local meta = minetest.get_meta(pos)
-		meta:set_string("infotext", S("Corn plant")..minetest.formspec_escape(" (100%)"))
-		local below = {x = pos.x, y = pos.y - 1, z = pos.z}
-		local meta = minetest.get_meta(below)
-		meta:set_string("infotext", S("Corn plant")..minetest.formspec_escape(" (100%)"))
 	end
 })
 
