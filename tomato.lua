@@ -113,7 +113,7 @@ minetest.register_node("crops:tomato_plant_6", {
 	selection_box = {
 		type = "fixed",
 		fixed = {-0.45, -0.5, -0.45,  0.45, 0.45, 0.45}
-	}
+	},
 })
 
 minetest.register_craftitem("crops:tomato", {
@@ -178,6 +178,10 @@ minetest.register_abm({
 	end
 })
 
+crops.tomato_die = function(pos)
+	minetest.set_node(pos, { name = "crops:tomato_plant_6" })
+end
+
 local properties = {
 	die = crops.tomato_die,
 	waterstart = 19,
@@ -193,4 +197,3 @@ crops.register({ name = "crops:tomato_plant_2", properties = properties })
 crops.register({ name = "crops:tomato_plant_3", properties = properties })
 crops.register({ name = "crops:tomato_plant_4", properties = properties })
 crops.register({ name = "crops:tomato_plant_5", properties = properties })
-
