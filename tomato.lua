@@ -13,12 +13,6 @@ of the license, or (at your option) any later version.
 -- Intllib
 local S = crops.intllib
 
--- Grows only on wet soil if farming mod exist
-local soil_type = "group:soil"
-if minetest.get_modpath("farming") then
-	soil_type = "farming:soil_wet" 
-end
-
 local wateruse = 1
 
 minetest.register_node("crops:tomato_seed", {
@@ -66,11 +60,7 @@ minetest.register_node("crops:tomato_plant_" .. stage , {
 	selection_box = {
 		type = "fixed",
 		fixed = {-0.45, -0.5, -0.45,  0.45, -0.6 + (((math.min(stage, 4)) + 1) / 5), 0.45}
-	},
-	on_construct = function(pos)
-		local meta = minetest.get_meta(pos)
-		meta:set_string("infotext", S("Tomato plant").." ("..stage * 20 ..minetest.formspec_escape("%)"))
-	end,
+	}
 })
 end
 
@@ -143,7 +133,7 @@ minetest.register_craft({
 --
 minetest.register_abm({
 	nodenames = { "crops:tomato_plant_1", "crops:tomato_plant_2", "crops:tomato_plant_3" },
-	neighbors = { soil_type },
+	neighbors = { "group:soil" },
 	interval = crops.settings.interval,
 	chance = crops.settings.chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
@@ -155,9 +145,6 @@ minetest.register_abm({
 		n = string.gsub(n, "2", "3")
 		n = string.gsub(n, "1", "2")
 		minetest.swap_node(pos, { name = n })
-		local meta = minetest.get_meta(pos)
-		local j = string.gsub(n, "crops:tomato_plant_", "")
-		meta:set_string("infotext", S("Tomato plant").." ("..j * 20 ..minetest.formspec_escape("%)"))
 	end
 })
 
@@ -166,7 +153,7 @@ minetest.register_abm({
 --
 minetest.register_abm({
 	nodenames = { "crops:tomato_plant_4" },
-	neighbors = { soil_type },
+	neighbors = { "group:soil" },
 	interval = crops.settings.interval,
 	chance = crops.settings.chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
@@ -174,7 +161,6 @@ minetest.register_abm({
 			return
 		end
 		local meta = minetest.get_meta(pos)
-		meta:set_string("infotext", S("Tomato plant")..minetest.formspec_escape("(100%)"))
 		local ttl = meta:get_int("crops_tomato_ttl")
 		local damage = meta:get_int("crops_damage")
 		if ttl == 0 then
@@ -191,10 +177,6 @@ minetest.register_abm({
 		end
 	end
 })
-
-crops.tomato_die = function(pos)
-	minetest.set_node(pos, { name = "crops:tomato_plant_6" })
-end
 
 local properties = {
 	die = crops.tomato_die,
