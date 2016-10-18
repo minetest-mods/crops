@@ -18,10 +18,9 @@ minetest.register_node("crops:corn", {
 	inventory_image = "crops_corn.png",
 	wield_image = "crops_corn.png",
 	tiles = { "crops_corn_base_seed.png" },
-	drawtype = "mesh",
-	visual = "mesh",
+	drawtype = "plantlike",
+	paramtype2 = "meshoptions",
 	waving = 1,
-	mesh = "crops_orthogonal_plant.obj",
 	sunlight_propagates = true,
 	use_texture_alpha = true,
 	walkable = true,
@@ -36,7 +35,7 @@ minetest.register_node("crops:corn", {
 		if minetest.get_item_group(under.name, "soil") <= 1 then
 			return
 		end
-		crops.plant(pointed_thing.above, {name="crops:corn_base_seed"})
+		crops.plant(pointed_thing.above, {name="crops:corn_base_seed", param2 = 3})
 		if not minetest.setting_getbool("creative_mode") then
 			itemstack:take_item()
 		end
@@ -70,9 +69,9 @@ minetest.register_craft({
 minetest.register_node("crops:corn_base_seed", {
 	visual = "mesh",
 	description = S("Corn plant"),
-	drawtype = "mesh",
+	drawtype = "plantlike",
+	paramtype2 = "meshoptions",
 	waving = 1,
-	mesh = "crops_orthogonal_plant.obj",
 	tiles = { "crops_corn_base_seed.png" },
 	use_texture_alpha = true,
 	walkable = false,
@@ -96,15 +95,15 @@ minetest.register_abm({
 		if not crops.can_grow(pos) then
 			return
 		end
-		minetest.swap_node(pos, { name = "crops:corn_base_1" })
+		minetest.swap_node(pos, { name = "crops:corn_base_1", param2 = 3 })
 	end
 })
 
 minetest.register_node("crops:corn_base_1", {
 	visual = "mesh",
 	description = S("Corn plant"),
-	drawtype = "mesh",
-	mesh = "crops_orthogonal_plant.obj",
+	drawtype = "plantlike",
+	paramtype2 = "meshoptions",
 	tiles = { "crops_corn_base_1.png" },
 	waving = 1,
 	use_texture_alpha = true,
@@ -128,19 +127,18 @@ minetest.register_abm({
 		if not minetest.get_node({x = pos.x, y = pos.y + 1, z = pos.z}).name == "air" then
 			return
 		end
-		minetest.swap_node(pos, { name = "crops:corn_base_2" })
+		minetest.swap_node(pos, { name = "crops:corn_base_2", param2 = 3 })
 		local above = {x = pos.x, y = pos.y + 1, z = pos.z}
-		minetest.set_node(above , { name = "crops:corn_top_1" })
+		minetest.set_node(above , { name = "crops:corn_top_1", param2 = 3 })
 		local meta = minetest.get_meta(above)
 		meta:set_int("crops_top_half", 1)
 	end
 })
 
 minetest.register_node("crops:corn_base_2", {
-	visual = "mesh",
 	description = S("Corn plant"),
-	drawtype = "mesh",
-	mesh = "crops_orthogonal_plant.obj",
+	drawtype = "plantlike",
+	paramtype2 = "meshoptions",
 	tiles = { "crops_corn_base_2.png" },
 	use_texture_alpha = true,
 	walkable = false,
@@ -169,17 +167,16 @@ minetest.register_node("crops:corn_base_2", {
 		for i = 1,math.random(2 - (damage / 100), 4 - (3 * (damage / 100))) do
 			table.insert(drops, ('crops:corn_cob'))
 		end
-		minetest.set_node(pos, { name = "crops:corn_base_3" })
-		minetest.set_node(above, { name = "crops:corn_top_4" })
+		minetest.set_node(pos, { name = "crops:corn_base_3", param2 = 3 })
+		minetest.set_node(above, { name = "crops:corn_top_4", param2 = 3 })
 		core.handle_node_drops(above, drops, digger)
 	end
 })
 
 minetest.register_node("crops:corn_base_3", {
-	visual = "mesh",
 	description = S("Corn plant"),
-	drawtype = "mesh",
-	mesh = "crops_orthogonal_plant.obj",
+	drawtype = "plantlike",
+	paramtype2 = "meshoptions",
 	tiles = { "crops_corn_base_3.png" },
 	use_texture_alpha = true,
 	walkable = false,
@@ -198,10 +195,9 @@ minetest.register_node("crops:corn_base_3", {
 })
 
 minetest.register_node("crops:corn_top_1", {
-	visual = "mesh",
 	description = S("Corn plant"),
-	drawtype = "mesh",
-	mesh = "crops_orthogonal_plant.obj",
+	drawtype = "plantlike",
+	paramtype2 = "meshoptions",
 	tiles = { "crops_corn_base_1.png" },
 	waving = 1,
 	use_texture_alpha = true,
@@ -230,15 +226,14 @@ minetest.register_abm({
 		if minetest.get_node_light(pos, nil) < crops.settings.light then
 			return
 		end
-		minetest.swap_node(pos, { name = "crops:corn_top_2" })
+		minetest.swap_node(pos, { name = "crops:corn_top_2", param2 = 3 })
 	end
 })
 
 minetest.register_node("crops:corn_top_2", {
-	visual = "mesh",
 	description = S("Corn plant"),
-	drawtype = "mesh",
-	mesh = "crops_orthogonal_plant.obj",
+	drawtype = "plantlike",
+	paramtype2 = "meshoptions",
 	tiles = { "crops_corn_top_1.png" },
 	waving = 1,
 	use_texture_alpha = true,
@@ -270,15 +265,14 @@ minetest.register_abm({
 		if minetest.get_node_light(pos, nil) < crops.settings.light then
 			return
 		end
-		minetest.swap_node(pos, { name = "crops:corn_top_3" })
+		minetest.swap_node(pos, { name = "crops:corn_top_3", param2 = 3 })
 	end
 })
 
 minetest.register_node("crops:corn_top_3", {
-	visual = "mesh",
 	description = S("Corn plant"),
-	drawtype = "mesh",
-	mesh = "crops_orthogonal_plant.obj",
+	drawtype = "plantlike",
+	paramtype2 = "meshoptions",
 	tiles = { "crops_corn_top_2.png" },
 	waving = 1,
 	use_texture_alpha = true,
@@ -306,10 +300,9 @@ minetest.register_node("crops:corn_top_3", {
 })
 
 minetest.register_node("crops:corn_top_4", {
-	visual = "mesh",
 	description = S("Corn plant"),
-	drawtype = "mesh",
-	mesh = "crops_orthogonal_plant.obj",
+	drawtype = "plantlike",
+	paramtype2 = "meshoptions",
 	tiles = { "crops_corn_top_3.png" },
 	waving = 1,
 	use_texture_alpha = true,
@@ -330,9 +323,9 @@ minetest.register_node("crops:corn_top_4", {
 })
 
 crops.corn_die = function(pos)
-	minetest.set_node(pos, { name = "crops:corn_base_3" })
+	minetest.set_node(pos, { name = "crops:corn_base_3", param2 = 3 })
 	local above = {x = pos.x, y = pos.y + 1, z = pos.z}
-	minetest.set_node(above, { name = "crops:corn_top_4" })
+	minetest.set_node(above, { name = "crops:corn_top_4", param2 = 3 })
 end
 
 local properties = {

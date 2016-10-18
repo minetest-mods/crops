@@ -19,6 +19,7 @@ minetest.register_node("crops:potato_eyes", {
 	wield_image = "crops_potato_eyes.png",
 	tiles = { "crops_potato_plant_1.png" },
 	drawtype = "plantlike",
+	paramtype2 = "meshoptions",
 	waving = 1,
 	sunlight_propagates = false,
 	use_texture_alpha = true,
@@ -36,7 +37,7 @@ minetest.register_node("crops:potato_eyes", {
 		if minetest.get_item_group(under.name, "soil") <= 1 then
 			return
 		end
-		crops.plant(pointed_thing.above, {name="crops:potato_plant_1"})
+		crops.plant(pointed_thing.above, {name="crops:potato_plant_1", param2 = 3})
 		if not minetest.setting_getbool("creative_mode") then
 			itemstack:take_item()
 		end
@@ -49,6 +50,7 @@ minetest.register_node("crops:potato_plant_" .. stage , {
 	description = S("Potato plant"),
 	tiles = { "crops_potato_plant_" .. stage .. ".png" },
 	drawtype = "plantlike",
+	paramtype2 = "meshoptions",
 	waving = 1,
 	sunlight_propagates = true,
 	use_texture_alpha = true,
@@ -139,7 +141,7 @@ minetest.register_abm({
 		local n = string.gsub(node.name, "3", "4")
 		n = string.gsub(n, "2", "3")
 		n = string.gsub(n, "1", "2")
-		minetest.swap_node(pos, { name = n })
+		minetest.swap_node(pos, { name = n, param2 = 3 })
 	end
 })
 
@@ -168,7 +170,7 @@ minetest.register_abm({
 })
 
 crops.potato_die = function(pos)
-	minetest.set_node(pos, { name = "crops:potato_plant_5" })
+	minetest.set_node(pos, { name = "crops:potato_plant_5", param2 = 3 })
 	local below = { x = pos.x, y = pos.y - 1, z = pos.z }
 	local node = minetest.get_node(below)
 	if node.name == "crops:soil_with_potatoes" then
