@@ -30,7 +30,7 @@ minetest.register_node("crops:potato_eyes", {
 		type = "fixed",
 		fixed = {-0.45, -0.5, -0.45,  0.45, -0.4, 0.45}
 	},
-	
+
 	on_place = function(itemstack, placer, pointed_thing)
 		local under = minetest.get_node(pointed_thing.under)
 		if minetest.get_item_group(under.name, "soil") <= 1 then
@@ -60,8 +60,8 @@ minetest.register_node("crops:potato_plant_" .. stage , {
 	selection_box = {
 		type = "fixed",
 		fixed = {-0.45, -0.5, -0.45,  0.45, -0.6 + (((math.min(stage, 4)) + 1) / 5), 0.45}
-		}	
-	})
+	}
+})
 end
 
 minetest.register_craftitem("crops:potato", {
