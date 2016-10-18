@@ -143,7 +143,6 @@ minetest.register_abm({
 		if not crops.can_grow(pos) then
 			return
 		end
-		local meta = minetest.get_meta(pos)
 		local n = string.gsub(node.name, "4", "5")
 		n = string.gsub(n, "3", "4")
 		n = string.gsub(n, "2", "3")

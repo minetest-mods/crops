@@ -159,7 +159,6 @@ crops.can_grow = function(pos)
 end
 
 crops.particles = function(pos, flag)
-	local p = {}
 	if flag == 0 then
 		-- wither (0)
 		minetest.add_particlespawner({
@@ -337,7 +336,7 @@ if crops.settings.hydration then
 			if not f == nil then
 				water = math.min(100, water + 2)
 			else
-				local f = minetest.find_node_near(pos, 2, {"default:water_source", "default:water_flowing"})
+				f = minetest.find_node_near(pos, 2, {"default:water_source", "default:water_flowing"})
 				if not f == nil then
 					water = math.min(100, water + 1)
 				end
@@ -356,8 +355,8 @@ if crops.settings.hydration then
 			-- for convenience, copy water attribute to top half
 			if not plant.properties.doublesize == nil and plant.properties.doublesize then
 				local above = { x = pos.x, y = pos.y + 1, z = pos.z}
-				local meta = minetest.get_meta(above)
-				meta:set_int("crops_water", water)
+				local abovemeta = minetest.get_meta(above)
+				abovemeta:set_int("crops_water", water)
 			end
 
 			if water <= plant.properties.wither_damage then

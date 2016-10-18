@@ -31,19 +31,19 @@ minetest.register_tool("crops:watering_can", {
 		if minetest.get_item_group(minetest.get_node(pos).name, "water") >= 3 then
 			if wear ~= 1 then
 				minetest.sound_play("crops_watercan_entering", {pos=pos, gain=0.8})
-				minetest.after(math.random()/2, function(pos)
+				minetest.after(math.random()/2, function(p)
 					if math.random(2) == 1 then
-						minetest.sound_play("crops_watercan_splash_quiet", {pos=pos, gain=0.1})
+						minetest.sound_play("crops_watercan_splash_quiet", {pos=p, gain=0.1})
 					end
 					if math.random(3) == 1 then
-						minetest.after(math.random()/2, function(pos)
-							minetest.sound_play("crops_watercan_splash_small", {pos=pos, gain=0.7})
-						end, pos)
+						minetest.after(math.random()/2, function(pp)
+							minetest.sound_play("crops_watercan_splash_small", {pos=pp, gain=0.7})
+						end, p)
 					end
 					if math.random(3) == 1 then
-						minetest.after(math.random()/2, function(pos)
-							minetest.sound_play("crops_watercan_splash_big", {pos=pos, gain=0.7})
-						end, pos)
+						minetest.after(math.random()/2, function(pp)
+							minetest.sound_play("crops_watercan_splash_big", {pos=pp, gain=0.7})
+						end, p)
 					end
 				end, pos)
 				itemstack:set_wear(1)

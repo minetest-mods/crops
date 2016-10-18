@@ -160,11 +160,9 @@ minetest.register_abm({
 			return
 		end
 		local meta = minetest.get_meta(pos)
-		local water = meta:get_int("crops_water")
 		local damage = meta:get_int("crops_damage")
-		local below = { x = pos.x, y = pos.y - 1, z = pos.z}
 		minetest.set_node(below, { name = "crops:soil_with_potatoes" })
-		local meta = minetest.get_meta(below)
+		meta = minetest.get_meta(below)
 		meta:set_int("crops_damage", damage)
 	end
 })

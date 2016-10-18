@@ -128,8 +128,6 @@ minetest.register_abm({
 		if not minetest.get_node({x = pos.x, y = pos.y + 1, z = pos.z}).name == "air" then
 			return
 		end
-		local meta = minetest.get_meta(pos)
-		local water = meta:get_int("crops_water")
 		minetest.swap_node(pos, { name = "crops:corn_base_2" })
 		local above = {x = pos.x, y = pos.y + 1, z = pos.z}
 		minetest.set_node(above , { name = "crops:corn_top_1" })

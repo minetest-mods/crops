@@ -13,8 +13,6 @@ of the license, or (at your option) any later version.
 -- Intllib
 local S = crops.intllib
 
-local wateruse = 1
-
 minetest.register_node("crops:tomato_seed", {
 	description = S("Tomato seed"),
 	inventory_image = "crops_tomato_seed.png",
