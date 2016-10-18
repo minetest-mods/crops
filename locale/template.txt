@@ -1,0 +1,40 @@
+Defaulting to \"normal\" difficulty settings = 
+[crops] Hydration and dehydration mechanics are enabled. = 
+Unable to find plant = 
+in crops table = 
+Unbaked clay bowl = 
+Clay bowl = 
+Bowl of vegetable stew = 
+Bowl of uncooked vegetable stew = 
+
+Corn = 
+Corn Cob = 
+Corn on the Cob = 
+Corn plant = 
+
+Melon seed = 
+Melon plant = 
+Melon slice = 
+Melon = 
+
+Beanpole = 
+Green Bean = 
+Green bean seed = 
+Green Bean plant = 
+
+Potato eyes = 
+Potato plant = 
+Potato = 
+Soil with potatoes = 
+ 
+Pumpkin seed = 
+Pumpkin plant = 
+Roasted pumpkin = 
+Pumpkin = 
+ 
+Tomato seed = 
+Tomato plant = 
+Tomato = 
+
+Watering Can = 
+Hydrometer = 

@@ -8,8 +8,12 @@ published by the Free Software Foundation; either version 2.1
 of the license, or (at your option) any later version.
 
 --]]
+
+-- Intllib
+local S = crops.intllib
+
 minetest.register_tool("crops:watering_can", {
-	description = "Watering Can",
+	description = S("Watering Can"),
 	inventory_image = "crops_watering_can.png",
 	liquids_pointable = true,
 	range = 2.5,
@@ -73,7 +77,7 @@ minetest.register_tool("crops:watering_can", {
 })
 
 minetest.register_tool("crops:hydrometer", {
-	description = "Hydrometer",
+	description = S("Hydrometer"),
 	inventory_image = "crops_hydrometer.png",
 	liquids_pointable = false,
 	range = 2.5,
