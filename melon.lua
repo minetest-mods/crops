@@ -69,11 +69,7 @@ minetest.register_node("crops:melon_plant_" .. stage , {
 	selection_box = {
 		type = "fixed",
 		fixed = {-0.5, -0.5, -0.5,  0.5, -0.5 + (((math.min(stage, 4)) + 1) / 5), 0.5}
-	},
-	on_construct = function(pos)
-		local meta = minetest.get_meta(pos)
-		meta:set_string("infotext", S("Melon plant").." ("..stage * 17 ..minetest.formspec_escape("%)"))
-	end,
+	}
 })
 end
 
@@ -152,7 +148,7 @@ minetest.register_node("crops:melon", {
 --
 minetest.register_abm({
 	nodenames = { "crops:melon_plant_1", "crops:melon_plant_2", "crops:melon_plant_3","crops:melon_plant_4" },
-	neighbors = { soil_type },
+	neighbors = { "group:soil" },
 	interval = crops.settings.interval,
 	chance = crops.settings.chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
@@ -165,8 +161,6 @@ minetest.register_abm({
 		n = string.gsub(n, "2", "3")
 		n = string.gsub(n, "1", "2")
 		minetest.swap_node(pos, { name = n })
-		local j = string.gsub(n, "crops:melon_plant_", "")
-		meta:set_string("infotext", S("Melon plant").." ("..j * 17 ..minetest.formspec_escape("%)"))
 	end
 })
 
@@ -175,7 +169,7 @@ minetest.register_abm({
 --
 minetest.register_abm({
 	nodenames = { "crops:melon_plant_5" },
-	neighbors = { soil_type },
+	neighbors = { "group:soil" },
 	interval = crops.settings.interval,
 	chance = crops.settings.chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
@@ -194,13 +188,10 @@ minetest.register_abm({
 		if n.name == "ignore" then
 			return
 		end
-		
+
 		if minetest.registered_nodes[minetest.get_node({ x = t.x, y = t.y - 1, z = t.z }).name].walkable == false then
 			return
 		end
-
-		local meta = minetest.get_meta(pos)
-		meta:set_string("infotext", S("Melon plant")..minetest.formspec_escape(" (100%)"))
 
 		if minetest.registered_nodes[n.name].drawtype == "plantlike" or
 		   minetest.registered_nodes[n.name].groups.flora == 1 or
@@ -215,7 +206,7 @@ minetest.register_abm({
 			meta = minetest.get_meta(t)
 			-- reflect plants' damage in the melon yield
 			meta:set_int("crops_damage", damage)
-			end
+		end
 	end
 })
 
