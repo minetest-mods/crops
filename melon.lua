@@ -13,12 +13,6 @@ of the license, or (at your option) any later version.
 -- Intllib
 local S = crops.intllib
 
--- Grows only on wet soil if farming mod exist
-local soil_type = "group:soil"
-if minetest.get_modpath("farming") then
-	soil_type = "farming:soil_wet" 
-end
-
 local faces = {
 	[1] = { x = -1, z = 0, r = 3, o = 1, m = 14 },
 	[2] = { x = 1, z = 0, r = 1, o = 3,  m = 16 },
@@ -39,7 +33,7 @@ minetest.register_node("crops:melon_seed", {
 	paramtype = "light",
 	node_placement_prediction = "crops:melon_plant_1",
 	groups = { snappy=3,flammable=3,flora=1,attached_node=1 },
-	
+
 	on_place = function(itemstack, placer, pointed_thing)
 		local under = minetest.get_node(pointed_thing.under)
 		if minetest.get_item_group(under.name, "soil") <= 1 then
@@ -86,7 +80,7 @@ minetest.register_node("crops:melon_plant_5_attached", {
 	paramtype = "light",
 	groups = { snappy=3, flammable=3, flora=1, attached_node=1, not_in_creative_inventory=1 },
 	drop = "crops:melon_seed",
-	sounds = default.node_sound_leaves_defaults()
+	sounds = default.node_sound_leaves_defaults(),
 })
 
 
