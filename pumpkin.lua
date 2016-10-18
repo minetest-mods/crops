@@ -13,12 +13,6 @@ of the license, or (at your option) any later version.
 -- Intllib
 local S = crops.intllib
 
--- Grows only on wet soil if farming mod exist
-local soil_type = "group:soil"
-if minetest.get_modpath("farming") then
-	soil_type = "farming:soil_wet" 
-end
-
 local faces = {
 	[1] = { x = -1, z = 0, r = 3, o = 1, m = 14 },
 	[2] = { x = 1, z = 0, r = 1, o = 3,  m = 16 },
@@ -69,11 +63,7 @@ minetest.register_node("crops:pumpkin_plant_" .. stage , {
 	selection_box = {
 		type = "fixed",
 		fixed = {-0.5, -0.5, -0.5,  0.5, -0.5 + (((math.min(stage, 4)) + 1) / 5), 0.5}
-	},
-	on_construct = function(pos)
-		local meta = minetest.get_meta(pos)
-		meta:set_string("infotext", S("Pumpkin plant").." ("..stage * 17 ..minetest.formspec_escape("%)"))
-	end,
+	}
 })
 end
 
@@ -127,10 +117,6 @@ minetest.register_node("crops:pumpkin", {
 		dig = { name = "default_dig_oddly_breakable_by_hand" },
 		dug = { name = "default_dig_choppy" }
 	}),
-	on_construct = function(pos)
-		local meta = minetest.get_meta(pos)
-		meta:set_string("infotext", S("Pumpkin"))
-	end,
 	after_dig_node = function(pos, node)
 		for face = 1, 4 do
 			local s = { x = pos.x + faces[face].x, y = pos.y, z = pos.z + faces[face].z }
@@ -150,7 +136,7 @@ minetest.register_node("crops:pumpkin", {
 --
 minetest.register_abm({
 	nodenames = { "crops:pumpkin_plant_1", "crops:pumpkin_plant_2", "crops:pumpkin_plant_3","crops:pumpkin_plant_4" },
-	neighbors = { soil_type },
+	neighbors = { "group:soil" },
 	interval = crops.settings.interval,
 	chance = crops.settings.chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
@@ -163,8 +149,6 @@ minetest.register_abm({
 		n = string.gsub(n, "2", "3")
 		n = string.gsub(n, "1", "2")
 		minetest.swap_node(pos, { name = n })
-		local j = string.gsub(n, "crops:pumpkin_plant_", "")
-		meta:set_string("infotext", S("Pumpkin plant").." ("..j * 17 ..minetest.formspec_escape("%)"))
 	end
 })
 
@@ -173,7 +157,7 @@ minetest.register_abm({
 --
 minetest.register_abm({
 	nodenames = { "crops:pumpkin_plant_5" },
-	neighbors = { soil_type },
+	neighbors = { "group:soil" },
 	interval = crops.settings.interval,
 	chance = crops.settings.chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
@@ -196,10 +180,6 @@ minetest.register_abm({
 		if minetest.registered_nodes[minetest.get_node({ x = t.x, y = t.y - 1, z = t.z }).name].walkable == false then
 			return
 		end
-		
-		local meta = minetest.get_meta(pos)
-		meta:set_string("infotext", S("Pumpkin plant")..minetest.formspec_escape(" (100%)"))
-
 
 		if minetest.registered_nodes[n.name].drawtype == "plantlike" or
 		   minetest.registered_nodes[n.name].groups.flora == 1 or
