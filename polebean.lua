@@ -148,7 +148,7 @@ minetest.register_node("crops:beanpole_top", {
 })
 
 minetest.register_node("crops:beanpoles", {
-	description = "S(Beanpoles)",
+	description = S("Beanpoles"),
 	inventory_image = "crops_beanpole_top.png",
 	wield_image = "crops_beanpole_top.png",
 	tiles = { "crops_beanpole_base.png" },
