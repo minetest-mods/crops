@@ -159,9 +159,10 @@ crops.can_grow = function(pos)
 end
 
 crops.particles = function(pos, flag)
-	if flag == 0 then
-		-- wither (0)
-		minetest.add_particlespawner({
+	if crops.effects == "yes" then
+		if flag == 0 then
+			-- wither (0)
+		    minetest.add_particlespawner({
 			amount = 1 * crops.settings.interval,
 			time = crops.settings.interval,
 			minpos = { x = pos.x - 0.4, y = pos.y - 0.4, z = pos.z - 0.4 },
@@ -178,9 +179,9 @@ crops.particles = function(pos, flag)
 			texture = "crops_wither.png",
 			vertical = true,
 		})
-	elseif flag == 1 then
-		-- soak (1)
-		minetest.add_particlespawner({
+		elseif flag == 1 then
+			-- soak (1)
+		    minetest.add_particlespawner({
 			amount = 8 * crops.settings.interval,
 			time = crops.settings.interval,
 			minpos = { x = pos.x - 0.4, y = pos.y - 0.4, z = pos.z - 0.4 },
@@ -197,9 +198,9 @@ crops.particles = function(pos, flag)
 			texture = "crops_soak.png",
 			vertical = false,
 		})
-	elseif flag == 2 then
-		-- watering (2)
-		minetest.add_particlespawner({
+		elseif flag == 2 then
+			-- watering (2)
+		   minetest.add_particlespawner({
 			amount = 30,
 			time = 3,
 			minpos = { x = pos.x - 0.4, y = pos.y - 0.4, z = pos.z - 0.4 },
@@ -216,9 +217,9 @@ crops.particles = function(pos, flag)
 			texture = "crops_watering.png",
 			vertical = true,
 		})
-	else
-		-- withered/rotting (3)
-		minetest.add_particlespawner({
+		else
+			-- withered/rotting (3)
+		    minetest.add_particlespawner({
 			amount = 20,
 			time = 30,
 			minpos = { x = pos.x + 0.3, y = pos.y - 0.5, z = pos.z - 0.5 },
@@ -235,7 +236,7 @@ crops.particles = function(pos, flag)
 			texture = "crops_flies.png",
 			vertical = true,
 		})
-		minetest.add_particlespawner({
+		    minetest.add_particlespawner({
 			amount = 20,
 			time = 30,
 			minpos = { x = pos.x - 0.3, y = pos.y - 0.5, z = pos.z - 0.5 },
@@ -252,7 +253,7 @@ crops.particles = function(pos, flag)
 			texture = "crops_flies.png",
 			vertical = true,
 		})
-		minetest.add_particlespawner({
+		    minetest.add_particlespawner({
 			amount = 20,
 			time = 30,
 			minpos = { x = pos.x - 0.5, y = pos.y - 0.5, z = pos.z + 0.3 },
@@ -269,7 +270,7 @@ crops.particles = function(pos, flag)
 			texture = "crops_flies.png",
 			vertical = true,
 		})
-		minetest.add_particlespawner({
+		    minetest.add_particlespawner({
 			amount = 20,
 			time = 30,
 			minpos = { x = pos.x - 0.5, y = pos.y - 0.5, z = pos.z - 0.3 },
@@ -286,6 +287,7 @@ crops.particles = function(pos, flag)
 			texture = "crops_flies.png",
 			vertical = true,
 		})
+		end
 	end
 end
 
@@ -294,7 +296,9 @@ crops.die = function(pos)
 	local node = minetest.get_node(pos)
 	local plant = find_plant(node)
 	plant.properties.die(pos)
-	minetest.sound_play("crops_flies", {pos=pos, gain=0.8})
+	if crops.effects == "yes" then
+		minetest.sound_play("crops_flies", {pos=pos, gain=0.8})
+	end
 end
 
 if crops.settings.hydration then
