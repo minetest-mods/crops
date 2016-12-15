@@ -341,7 +341,7 @@ if crops.settings.hydration then
 					water = math.min(100, water + 1)
 				end
 			end
-	
+
 			if minetest.get_node_light(pos, nil) < plant.properties.night then
 				-- compensate for light: at night give some water back to the plant
 				water = math.min(100, water + 1)
