@@ -28,6 +28,7 @@ settings.easy = {
 	damage_tick_max = 1,
 	damage_max = 25,
 	hydration = false,
+	neighbors = { "farming:wet_soil" },
 }
 settings.normal = {
 	chance = 8,
@@ -42,6 +43,7 @@ settings.normal = {
 	damage_tick_max = 5,
 	damage_max = 50,
 	hydration = true,
+	neighbors = { "farming:wet_soil" },
 }
 settings.difficult = {
 	chance = 16,
@@ -56,6 +58,7 @@ settings.difficult = {
 	damage_tick_max = 7,
 	damage_max = 100,
 	hydration = true,
+	neighbors = { "farming:wet_soil" },
 }
 
 
