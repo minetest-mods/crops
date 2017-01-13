@@ -28,7 +28,7 @@ settings.easy = {
 	damage_tick_max = 1,
 	damage_max = 25,
 	hydration = false,
-	neighbors = { "farming:wet_soil","farming:desert_sand_soil_wet" },
+	neighbors = {"farming:soil_wet", "farming:desert_sand_soil_wet"},
 }
 settings.normal = {
 	chance = 8,
