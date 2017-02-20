@@ -88,15 +88,15 @@ end
 
 if not crops.difficulty then
 	crops.difficulty = "normal"
-	minetest.log("error", S("Defaulting to \"normal\" difficulty settings"))
+	minetest.log("error", "[crops] "..S("Defaulting to \"normal\" difficulty settings"))
 end
 crops.settings = settings[crops.difficulty]
 if not crops.settings then
-	minetest.log("error", S("Defaulting to \"normal\" difficulty settings"))
+	minetest.log("error", "[crops] "..S("Defaulting to \"normal\" difficulty settings"))
 	crops.settings = settings.normal
 end
 if crops.settings.hydration then
-	minetest.log("action", S("[crops] Hydration and dehydration mechanics are enabled."))
+	minetest.log("action", "[crops] "..S("Hydration and dehydration mechanics are enabled."))
 end
 
 local find_plant = function(node)
@@ -105,7 +105,7 @@ local find_plant = function(node)
 			return crops.plants[i]
 		end
 	end
-	minetest.log("error", S("Unable to find plant").." \"".. node.name .. "\" "..S("in crops table"))
+	minetest.log("error", "[crops] "..S("Unable to find plant \"@1\" in crops table", node.name))
 	return nil
 end
 
@@ -382,4 +382,4 @@ end
 dofile(modpath .. "/cooking.lua")
 dofile(modpath .. "/mapgen.lua")
 
-minetest.log("action", "[crops] loaded.")
+minetest.log("action", "[crops] "..S("Loaded!"))
