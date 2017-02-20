@@ -59,17 +59,13 @@ settings.difficult = {
 }
 
 
--- Intllib
-local S
-if minetest.get_modpath("intllib") then
-	S = intllib.Getter()
-else
-	S = function(s) return s end
-end
-crops.intllib = S
-
 local worldpath = minetest.get_worldpath()
 local modpath = minetest.get_modpath(minetest.get_current_modname())
+
+-- Load support for intllib.
+local S, NS = dofile(modpath .. "/intllib.lua")
+crops.intllib = S
+
 
 dofile(modpath .. "/crops_settings.txt")
 
