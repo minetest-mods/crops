@@ -229,7 +229,7 @@ end
 
 for stage = 1,4 do
 minetest.register_node("crops:beanpole_plant_top_" .. stage, {
-	description = S("green bean plant"),
+	description = S("Green Bean plant"),
 	tiles = { "crops_beanpole_plant_top_" .. stage .. ".png" },
 	drawtype = "plantlike",
 	sunlight_propagates = true,
