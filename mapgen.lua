@@ -13,8 +13,7 @@ if mg_params.mgname ~= "v6" and mg_params.mgname ~= "singlenode" then
 			octaves = 3,
 			persist = 0.6
 		},
-		biomes = {"grassland", "grassland",
-			"deciduous_forest", "coniferous_forest"},
+		biomes = {"grassland", "deciduous_forest", "coniferous_forest"},
 		y_min = 1,
 		y_max = 31000,
 		decoration = "crops:melon_plant_4"
