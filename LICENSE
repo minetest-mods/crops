@@ -13,6 +13,11 @@ All textures, models:
 	(C) Auke Kok <sofar@foo-projects.org>
 	CC-BY-SA-3.0
 
+Translations:
+ - de.po
+	(C) 2017 LNJ <git@lnj.li>
+	LGPL-2.0+
+
 Sounds:
  - crops_watercan_splash*
 	http://freesound.org/people/junggle/sounds/27361/
