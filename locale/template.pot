@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-20 19:26+0100\n"
+"POT-Creation-Date: 2017-02-20 17:17-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,139 +17,134 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: cooking.lua:23
-msgid "Unbaked clay bowl"
-msgstr ""
-
-#: cooking.lua:37
-msgid "Clay bowl"
-msgstr ""
-
-#: cooking.lua:49
-msgid "Bowl of vegetable stew"
-msgstr ""
-
-#: cooking.lua:62
-msgid "Bowl of uncooked vegetable stew"
-msgstr ""
-
-#: corn.lua:17
-msgid "Corn"
-msgstr ""
-
-#: corn.lua:47
-msgid "Corn Cob"
-msgstr ""
-
-#: corn.lua:58
-msgid "Corn on the Cob"
-msgstr ""
-
-#: corn.lua:71 corn.lua:104 corn.lua:139 corn.lua:177 corn.lua:198 corn.lua:234
-#: corn.lua:273 corn.lua:303
-msgid "Corn plant"
-msgstr ""
-
-#: init.lua:91 init.lua:95
-msgid "Defaulting to \"normal\" difficulty settings"
-msgstr ""
-
-#: init.lua:99
-msgid "[crops] Hydration and dehydration mechanics are enabled."
-msgstr ""
-
-#: init.lua:108
-msgid "Unable to find plant"
-msgstr ""
-
-#: init.lua:108
-msgid "in crops table"
-msgstr ""
-
-#: melon.lua:24
+#: melon.lua
 msgid "Melon seed"
 msgstr ""
 
-#: melon.lua:52 melon.lua:73
+#: melon.lua
 msgid "Melon plant"
 msgstr ""
 
-#: melon.lua:88
+#: melon.lua
 msgid "Melon slice"
 msgstr ""
 
-#: melon.lua:103
+#: melon.lua
 msgid "Melon"
 msgstr ""
 
-#: polebean.lua:26
-msgid "Green Bean"
-msgstr ""
-
-#: polebean.lua:151
-msgid "Beanpoles"
-msgstr ""
-
-#: polebean.lua:183
-msgid "Green bean seed"
-msgstr ""
-
-#: polebean.lua:216
-msgid "Green Bean plant"
-msgstr ""
-
-#: polebean.lua:232
-msgid "green bean plant"
-msgstr ""
-
-#: potato.lua:17
-msgid "Potato eyes"
-msgstr ""
-
-#: potato.lua:50
-msgid "Potato plant"
-msgstr ""
-
-#: potato.lua:70
-msgid "Potato"
-msgstr ""
-
-#: potato.lua:85
-msgid "Soil with potatoes"
-msgstr ""
-
-#: pumpkin.lua:24
-msgid "Pumpkin seed"
-msgstr ""
-
-#: pumpkin.lua:52 pumpkin.lua:73
-msgid "Pumpkin plant"
-msgstr ""
-
-#: pumpkin.lua:88
-msgid "Roasted pumpkin"
-msgstr ""
-
-#: pumpkin.lua:109
-msgid "Pumpkin"
-msgstr ""
-
-#: tomato.lua:17
+#: tomato.lua
 msgid "Tomato seed"
 msgstr ""
 
-#: tomato.lua:48 tomato.lua:68 tomato.lua:103
+#: tomato.lua
 msgid "Tomato plant"
 msgstr ""
 
-#: tomato.lua:122
+#: tomato.lua
 msgid "Tomato"
 msgstr ""
 
-#: tools.lua:16
+#: polebean.lua
+msgid "Green Bean"
+msgstr ""
+
+#: polebean.lua
+msgid "Beanpoles"
+msgstr ""
+
+#: polebean.lua
+msgid "Green bean seed"
+msgstr ""
+
+#: polebean.lua
+msgid "Green Bean plant"
+msgstr ""
+
+#: tools.lua
 msgid "Watering Can"
 msgstr ""
 
-#: tools.lua:80
+#: tools.lua
 msgid "Hydrometer"
+msgstr ""
+
+#: pumpkin.lua
+msgid "Pumpkin seed"
+msgstr ""
+
+#: pumpkin.lua
+msgid "Pumpkin plant"
+msgstr ""
+
+#: pumpkin.lua
+msgid "Roasted pumpkin"
+msgstr ""
+
+#: pumpkin.lua
+msgid "Pumpkin"
+msgstr ""
+
+#: init.lua
+msgid "Defaulting to \"normal\" difficulty settings"
+msgstr ""
+
+#: init.lua
+msgid "Hydration and dehydration mechanics are enabled."
+msgstr ""
+
+#: init.lua
+msgid "Unable to find plant \"@1\" in crops table"
+msgstr ""
+
+#: init.lua
+msgid "Loaded!"
+msgstr ""
+
+#: potato.lua
+msgid "Potato eyes"
+msgstr ""
+
+#: potato.lua
+msgid "Potato plant"
+msgstr ""
+
+#: potato.lua
+msgid "Potato"
+msgstr ""
+
+#: potato.lua
+msgid "Soil with potatoes"
+msgstr ""
+
+#: cooking.lua
+msgid "Unbaked clay bowl"
+msgstr ""
+
+#: cooking.lua
+msgid "Clay bowl"
+msgstr ""
+
+#: cooking.lua
+msgid "Bowl of vegetable stew"
+msgstr ""
+
+#: cooking.lua
+msgid "Bowl of uncooked vegetable stew"
+msgstr ""
+
+#: corn.lua
+msgid "Corn"
+msgstr ""
+
+#: corn.lua
+msgid "Corn Cob"
+msgstr ""
+
+#: corn.lua
+msgid "Corn on the Cob"
+msgstr ""
+
+#: corn.lua
+msgid "Corn plant"
 msgstr ""
