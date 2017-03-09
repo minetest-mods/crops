@@ -63,7 +63,7 @@ local worldpath = minetest.get_worldpath()
 local modpath = minetest.get_modpath(minetest.get_current_modname())
 
 -- Load support for intllib.
-local S, NS = dofile(modpath .. "/intllib.lua")
+local S, _ = dofile(modpath .. "/intllib.lua")
 crops.intllib = S
 
 
