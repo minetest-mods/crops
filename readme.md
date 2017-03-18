@@ -1,24 +1,20 @@
-
-Crops - more farming crops mod for minetest
+## Crops - more farming crops mod for minetest
 
 Copyright (C) 2015 - Auke Kok <sofar@foo-projects.org>
 
-=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
+This minetest mod expands the basic set of farming-related crops that
+`minetest_game` offers. A list of crops/crafts is below.
 
-This minetest mod expands the basic set of farming-related
+## Configuration
 
-- Configuration
-
-A default configuration file, "crops_settings.txt" will be added
-to your world folder that contains suggested "easy", "normal" (the
-default) and "difficult" settings for this mod. You can currently tune
+A default configuration file, `crops_settings.txt` will be added
+to your world folder that contains suggested `easy`, `normal` (the
+default) and `difficult` settings for this mod. You can currently tune
 the ABM interval/chance, and required light level for plant growth.
-crops that minetest_game offers. A list of crops/crafts is below.
 
-- Hydration mechanic
+## Hydration mechanic
 
-Note: This feature is in progress, not all the plants implement
-this yet.
+This feature is disabled in the `easy` setting.
 
 Plants need water. Plants need more water when they grow. This mod
 implements mechanics of plant hydration and what happens when you
@@ -45,6 +41,8 @@ completely dry to maximum wetness. Some plants will want more water,
 some will do better with less, so make sure you use a hydrometer to
 measure plant humidity. Recipes for the watering can and hydrometer
 are listed below.
+
+## Plants
 
 1. Melons and pumpkins
 
@@ -114,7 +112,7 @@ make more beanpoles again. It's a bit of work, but worth it, these
 beans are delicious!
 
 
-- Cooking / Crafting
+## Cooking / Crafting
 
 The corn cobs can be cooked directly to make Corn-on-the-Cob.
 
