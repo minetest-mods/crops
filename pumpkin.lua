@@ -107,7 +107,11 @@ minetest.register_craft({
 --
 minetest.register_node("crops:pumpkin", {
 	description = S("Pumpkin"),
-	tiles = { "crops_pumpkin_top.png", "crops_pumpkin_bottom.png", "crops_pumpkin.png", "crops_pumpkin.png", "crops_pumpkin.png", "crops_pumpkin.png" },
+	tiles = {
+		"crops_pumpkin_top.png",
+		"crops_pumpkin_bottom.png",
+		"crops_pumpkin.png"
+	},
 	sunlight_propagates = false,
 	use_texture_alpha = false,
 	walkable = true,

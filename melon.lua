@@ -101,7 +101,11 @@ minetest.register_craft({
 --
 minetest.register_node("crops:melon", {
 	description = S("Melon"),
-	tiles = { "crops_melon_top.png", "crops_melon_bottom.png", "crops_melon.png", "crops_melon.png", "crops_melon.png", "crops_melon.png" },
+	tiles = {
+		"crops_melon_top.png",
+		"crops_melon_bottom.png",
+		"crops_melon.png",
+	},
 	sunlight_propagates = false,
 	use_texture_alpha = false,
 	walkable = true,

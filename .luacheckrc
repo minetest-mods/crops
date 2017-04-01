@@ -10,5 +10,6 @@ read_globals = {
 	"PseudoRandom", "ItemStack",
 	"intllib",
 	"default",
+	table = { fields = { "copy", "getn" } }
 }
 

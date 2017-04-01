@@ -110,8 +110,11 @@ local function crops_beanpole_on_dig(pos, node, digger)
 		minetest.remove_node(top)
 	else
 		-- ouch, this shouldn't happen
-		print("beanpole on_dig can't handle blocks at to: " .. bottom.x .. "," .. bottom.y .. "," .. bottom.z .. " and " .. top.x .. "," .. top.y .. "," .. top.z)
-		print("removing a " .. node.name .. " at " .. pos.x .. "," .. pos.y .. "," .. pos.z)
+		print("beanpole on_dig can't handle blocks at to: " ..
+				bottom.x .. "," .. bottom.y .. "," .. bottom.z ..
+				" and " .. top.x .. "," .. top.y .. "," .. top.z)
+		print("removing a " .. node.name .. " at " ..
+				pos.x .. "," .. pos.y .. "," .. pos.z)
 		minetest.remove_node(pos)
 		return
 	end
@@ -244,7 +247,12 @@ minetest.register_node("crops:beanpole_plant_top_" .. stage, {
 end
 
 minetest.register_abm({
-	nodenames = { "crops:beanpole_plant_base_1", "crops:beanpole_plant_base_2", "crops:beanpole_plant_base_3", "crops:beanpole_plant_base_4" },
+	nodenames = {
+		"crops:beanpole_plant_base_1",
+		"crops:beanpole_plant_base_2",
+		"crops:beanpole_plant_base_3",
+		"crops:beanpole_plant_base_4"
+	},
 	interval = crops.settings.interval,
 	chance = crops.settings.chance,
 	neighbors = { "group:soil" },
