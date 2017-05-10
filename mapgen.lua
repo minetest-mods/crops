@@ -1,6 +1,6 @@
 
-local mg_params = minetest.get_mapgen_params()
-if mg_params.mgname ~= "v6" and mg_params.mgname ~= "singlenode" then
+local mg_name = minetest.get_mapgen_setting("mg_name")
+if mg_name ~= "v6" and mg_name ~= "singlenode" then
 	minetest.register_decoration({
 		deco_type = "simple",
 		place_on = { "default:dirt_with_grass" },
