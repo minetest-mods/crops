@@ -175,7 +175,7 @@ minetest.register_node("crops:beanpoles", {
 		end
 		minetest.set_node(pointed_thing.above, {name="crops:beanpole_base"})
 		minetest.set_node(top, {name="crops:beanpole_top"})
-		if not minetest.setting_getbool("creative_mode") then
+		if not minetest.settings:get_bool("creative_mode") then
 			itemstack:take_item()
 		end
 		return itemstack
@@ -207,7 +207,7 @@ minetest.register_craftitem("crops:green_bean_seed", {
 		else
 			return
 		end
-		if not minetest.setting_getbool("creative_mode") then
+		if not minetest.settings:get_bool("creative_mode") then
 			itemstack:take_item()
 		end
 		return itemstack
