@@ -36,7 +36,7 @@ minetest.register_node("crops:corn", {
 			return
 		end
 		crops.plant(pointed_thing.above, {name="crops:corn_base_seed", param2 = 3})
-		if not minetest.setting_getbool("creative_mode") then
+		if not minetest.settings:get_bool("creative_mode") then
 			itemstack:take_item()
 		end
 		return itemstack
