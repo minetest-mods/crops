@@ -255,7 +255,7 @@ minetest.register_abm({
 	},
 	interval = crops.settings.interval,
 	chance = crops.settings.chance,
-	neighbors = { "group:soil" },
+	neighbors = crops.settings.neighbors,
 	action = function(pos, node, active_object_count, active_object_count_wider)
 		if not crops.can_grow(pos) then
 			return
