@@ -8,3 +8,4 @@
 
 -- Valid values are "easy", "normal", and "difficult"
 crops.difficulty = "normal"
+crops.effects = "yes"
