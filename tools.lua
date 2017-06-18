@@ -69,7 +69,7 @@ minetest.register_tool("crops:watering_can", {
 		water = math.min(water + crops.settings.watercan, crops.settings.watercan_max)
 		meta:set_int("crops_water", water)
 
-		if not minetest.setting_getbool("creative_mode") then
+		if not minetest.settings:get_bool("creative_mode") then
 			itemstack:set_wear(math.min(65534, wear + (65535 / crops.settings.watercan_uses)))
 		end
 		return itemstack
