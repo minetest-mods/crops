@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-20 17:17-0300\n"
+"POT-Creation-Date: 2017-04-30 08:37+0200\n"
 "PO-Revision-Date: 2017-02-20 16:54-0300\n"
 "Last-Translator: Diego Martínez <kaeza@users.noreply.github.com>\n"
 "Language-Team: Spanish\n"
@@ -17,106 +17,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: melon.lua
-msgid "Melon seed"
-msgstr "Semilla de sandía"
-
-#: melon.lua
-msgid "Melon plant"
-msgstr "Planta de sandía"
-
-#: melon.lua
-msgid "Melon slice"
-msgstr "Trozo de sandía"
-
-#: melon.lua
-msgid "Melon"
-msgstr "Sandía"
-
-#: tomato.lua
-msgid "Tomato seed"
-msgstr "Semilla de tomate"
-
-#: tomato.lua
-msgid "Tomato plant"
-msgstr "Planta de tomate"
-
-#: tomato.lua
-msgid "Tomato"
-msgstr "Tomate"
-
-#: polebean.lua
-msgid "Green Bean"
-msgstr "Frijol verde"
-
-#: polebean.lua
-msgid "Beanpoles"
-msgstr "Poste para frijoles"
-
-#: polebean.lua
-msgid "Green bean seed"
-msgstr "Semilla de frijoles verdes"
-
-#: polebean.lua
-msgid "Green Bean plant"
-msgstr "Planta de frijoles verdes"
-
-#: tools.lua
-msgid "Watering Can"
-msgstr "Regadera"
-
-#: tools.lua
-msgid "Hydrometer"
-msgstr "Hidrómetro"
-
-#: pumpkin.lua
-msgid "Pumpkin seed"
-msgstr "Semillas de calabaza"
-
-#: pumpkin.lua
-msgid "Pumpkin plant"
-msgstr "Planta de calabaza"
-
-#: pumpkin.lua
-msgid "Roasted pumpkin"
-msgstr "Calabaza asada"
-
-#: pumpkin.lua
-msgid "Pumpkin"
-msgstr "Calabaza"
-
-#: init.lua
-msgid "Defaulting to \"normal\" difficulty settings"
-msgstr "Se usará la dificultad \"normal\" por defecto"
-
-#: init.lua
-msgid "Hydration and dehydration mechanics are enabled."
-msgstr "Mecánica de hidratación y deshidratación activada."
-
-#: init.lua
-msgid "Unable to find plant \"@1\" in crops table"
-msgstr "No se pudo encontrar la planta \"@1\" en la tabla de cosechas"
-
-#: init.lua
-msgid "Loaded!"
-msgstr "¡Cargado!"
-
-#: potato.lua
-msgid "Potato eyes"
-msgstr "Ojos de patata"
-
-#: potato.lua
-msgid "Potato plant"
-msgstr "Planta de patata"
-
-#: potato.lua
-msgid "Potato"
-msgstr "Patata"
-
-#: potato.lua
-msgid "Soil with potatoes"
-msgstr "Suelo con patatas"
 
 #: cooking.lua
 msgid "Unbaked clay bowl"
@@ -149,3 +49,103 @@ msgstr "Maíz en mazorca"
 #: corn.lua
 msgid "Corn plant"
 msgstr "Planta de maíz"
+
+#: init.lua
+msgid "Defaulting to \"normal\" difficulty settings"
+msgstr "Se usará la dificultad \"normal\" por defecto"
+
+#: init.lua
+msgid "Hydration and dehydration mechanics are enabled."
+msgstr "Mecánica de hidratación y deshidratación activada."
+
+#: init.lua
+msgid "Unable to find plant \"@1\" in crops table"
+msgstr "No se pudo encontrar la planta \"@1\" en la tabla de cosechas"
+
+#: init.lua
+msgid "Loaded!"
+msgstr "¡Cargado!"
+
+#: melon.lua
+msgid "Melon seed"
+msgstr "Semilla de sandía"
+
+#: melon.lua
+msgid "Melon plant"
+msgstr "Planta de sandía"
+
+#: melon.lua
+msgid "Melon slice"
+msgstr "Trozo de sandía"
+
+#: melon.lua
+msgid "Melon"
+msgstr "Sandía"
+
+#: polebean.lua
+msgid "Green Bean"
+msgstr "Frijol verde"
+
+#: polebean.lua
+msgid "Beanpoles"
+msgstr "Poste para frijoles"
+
+#: polebean.lua
+msgid "Green bean seed"
+msgstr "Semilla de frijoles verdes"
+
+#: polebean.lua
+msgid "Green Bean plant"
+msgstr "Planta de frijoles verdes"
+
+#: potato.lua
+msgid "Potato eyes"
+msgstr "Ojos de patata"
+
+#: potato.lua
+msgid "Potato plant"
+msgstr "Planta de patata"
+
+#: potato.lua
+msgid "Potato"
+msgstr "Patata"
+
+#: potato.lua
+msgid "Soil with potatoes"
+msgstr "Suelo con patatas"
+
+#: pumpkin.lua
+msgid "Pumpkin seed"
+msgstr "Semillas de calabaza"
+
+#: pumpkin.lua
+msgid "Pumpkin plant"
+msgstr "Planta de calabaza"
+
+#: pumpkin.lua
+msgid "Roasted pumpkin"
+msgstr "Calabaza asada"
+
+#: pumpkin.lua
+msgid "Pumpkin"
+msgstr "Calabaza"
+
+#: tomato.lua
+msgid "Tomato seed"
+msgstr "Semilla de tomate"
+
+#: tomato.lua
+msgid "Tomato plant"
+msgstr "Planta de tomate"
+
+#: tomato.lua
+msgid "Tomato"
+msgstr "Tomate"
+
+#: tools.lua
+msgid "Watering Can"
+msgstr "Regadera"
+
+#: tools.lua
+msgid "Hydrometer"
+msgstr "Hidrómetro"
