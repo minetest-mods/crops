@@ -121,7 +121,7 @@ minetest.register_node("crops:soil_with_potatoes", {
 --
 minetest.register_abm({
 	nodenames = { "crops:potato_plant_1", "crops:potato_plant_2", "crops:potato_plant_3" },
-	neighbors = { "group:soil" },
+	neighbors = crops.settings.neighbors,
 	interval = crops.settings.interval,
 	chance = crops.settings.chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
@@ -150,7 +150,7 @@ minetest.register_abm({
 --
 minetest.register_abm({
 	nodenames = { "crops:potato_plant_4" },
-	neighbors = { "group:soil" },
+	neighbors = crops.settings.neighbors,
 	interval = crops.settings.interval,
 	chance = crops.settings.chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
