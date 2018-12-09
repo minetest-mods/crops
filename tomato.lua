@@ -2,6 +2,7 @@
 --[[
 
 Copyright (C) 2015 - Auke Kok <sofar@foo-projects.org>
+              2018 - Marius Spix <marius.spix@web.de>
 
 "crops" is free software; you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as
@@ -43,80 +44,48 @@ minetest.register_node("crops:tomato_seed", {
 	end
 })
 
-for stage = 1, 4 do
-minetest.register_node("crops:tomato_plant_" .. stage , {
-	description = S("Tomato plant"),
-	tiles = { "crops_tomato_plant_" .. stage .. ".png" },
-	drawtype = "plantlike",
-	paramtype2 = "meshoptions",
-	waving = 1,
-	sunlight_propagates = true,
-	use_texture_alpha = true,
-	walkable = false,
-	paramtype = "light",
-	groups = { snappy=3, flammable=3, flora=1, attached_node=1, not_in_creative_inventory=1 },
-	drop = {},
-	sounds = default.node_sound_leaves_defaults(),
-	selection_box = {
-		type = "fixed",
-		fixed = {-0.45, -0.5, -0.45,  0.45, -0.6 + (((math.min(stage, 4)) + 1) / 5), 0.45}
+for stage = 1, 6 do
+	local node_def =
+	{
+		description = S("Tomato plant"),
+		tiles = { "crops_tomato_plant_" .. stage .. ".png" },
+		drawtype = "plantlike",
+		paramtype2 = "meshoptions",
+		waving = 1,
+		sunlight_propagates = true,
+		use_texture_alpha = true,
+		walkable = false,
+		paramtype = "light",
+		groups = { snappy=3, flammable=3, flora=1, attached_node=1, not_in_creative_inventory=1 },
+		drop = {},
+		sounds = default.node_sound_leaves_defaults(),
+		selection_box = {
+			type = "fixed",
+			fixed = {-0.45, -0.5, -0.45,  0.45, -0.6 + (((math.min(stage, 4)) + 1) / 5), 0.45}
+		}
 	}
-})
-end
 
-minetest.register_node("crops:tomato_plant_5" , {
-	description = S("Tomato plant"),
-	tiles = { "crops_tomato_plant_5.png" },
-	drawtype = "plantlike",
-	paramtype2 = "meshoptions",
-	waving = 1,
-	sunlight_propagates = true,
-	use_texture_alpha = true,
-	walkable = false,
-	paramtype = "light",
-	groups = { snappy=3, flammable=3, flora=1, attached_node=1, not_in_creative_inventory=1 },
-	drop = {},
-	sounds = default.node_sound_leaves_defaults(),
-	selection_box = {
-		type = "fixed",
-		fixed = {-0.45, -0.5, -0.45,  0.45, 0.45, 0.45}
-	},
-	on_dig = function(pos, node, digger)
-		local drops = {}
-		for i = 1, math.random(1, 2) do
-			table.insert(drops, "crops:tomato")
-		end
-		core.handle_node_drops(pos, drops, digger)
+	if stage == 5 then
+		node_def.on_dig = function(pos, node, digger)
+			local drops = {}
+			for i = 1, math.random(1, 2) do
+				table.insert(drops, "crops:tomato")
+			end
+			core.handle_node_drops(pos, drops, digger)
 
-		local meta = minetest.get_meta(pos)
-		local ttl = meta:get_int("crops_tomato_ttl")
-		if ttl > 1 then
-			minetest.swap_node(pos, { name = "crops:tomato_plant_4", param2 = 1})
-			meta:set_int("crops_tomato_ttl", ttl - 1)
-		else
-			crops.die(pos)
+			local meta = minetest.get_meta(pos)
+			local ttl = meta:get_int("crops_tomato_ttl")
+			if ttl > 1 then
+				minetest.swap_node(pos, { name = "crops:tomato_plant_4", param2 = 1})
+				meta:set_int("crops_tomato_ttl", ttl - 1)
+			else
+				crops.die(pos)
+			end
 		end
 	end
-})
-
-minetest.register_node("crops:tomato_plant_6", {
-	description = S("Tomato plant"),
-	tiles = { "crops_tomato_plant_6.png" },
-	drawtype = "plantlike",
-	paramtype2 = "meshoptions",
-	waving = 1,
-	sunlight_propagates = true,
-	use_texture_alpha = true,
-	walkable = false,
-	paramtype = "light",
-	groups = { snappy=3, flammable=3, flora=1, attached_node=1, not_in_creative_inventory=1 },
-	drop = {},
-	sounds = default.node_sound_leaves_defaults(),
-	selection_box = {
-		type = "fixed",
-		fixed = {-0.45, -0.5, -0.45,  0.45, 0.45, 0.45}
-	},
-})
+	
+	minetest.register_node("crops:tomato_plant_" .. stage , node_def)
+end
 
 minetest.register_craftitem("crops:tomato", {
 	description = S("Tomato"),
@@ -181,7 +150,7 @@ minetest.register_abm({
 })
 
 crops.tomato_die = function(pos)
-	minetest.set_node(pos, { name = "crops:tomato_plant_6", param2 = 1 })
+	minetest.swap_node(pos, { name = "crops:tomato_plant_6", param2 = 1 })
 end
 
 local properties = {
@@ -194,8 +163,7 @@ local properties = {
 	wither = 20,
 	wither_damage = 10,
 }
-crops.register({ name = "crops:tomato_plant_1", properties = properties })
-crops.register({ name = "crops:tomato_plant_2", properties = properties })
-crops.register({ name = "crops:tomato_plant_3", properties = properties })
-crops.register({ name = "crops:tomato_plant_4", properties = properties })
-crops.register({ name = "crops:tomato_plant_5", properties = properties })
+
+for stage = 1, 5 do
+	crops.register({ name = "crops:tomato_plant_" .. stage, properties = properties })
+end

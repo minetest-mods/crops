@@ -2,6 +2,7 @@
 --[[
 
 Copyright (C) 2015 - Auke Kok <sofar@foo-projects.org>
+              2018 - Marius Spix <marius.spix@web.de>
 
 "crops" is free software; you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as
@@ -27,7 +28,6 @@ minetest.register_craftitem("crops:unbaked_clay_bowl", {
 minetest.register_craft({
 	output = "crops:unbaked_clay_bowl",
 	recipe = {
-		{ "", "", "" },
 		{ "default:clay_lump", "", "default:clay_lump" },
 		{ "", "default:clay_lump", "" }
 	}
@@ -68,8 +68,36 @@ minetest.register_craftitem("crops:uncooked_vegetable_stew", {
 minetest.register_craft({
 	output = "crops:uncooked_vegetable_stew",
 	recipe = {
-		{ "", "", "" },
 		{ "crops:green_bean", "crops:potato", "crops:tomato" },
+		{ "", "group:food_bowl", "" }
+	}
+})
+
+minetest.register_craftitem("crops:ratatouille", {
+	description = S("Bowl of ratatouille"),
+	inventory_image = "crops_bowl_ratatouille.png",
+	groups = { eatable=1 },
+	on_use = minetest.item_eat(10, "crops:clay_bowl"),
+})
+
+minetest.register_craft({
+	type = "cooking",
+	output = "crops:ratatouille",
+	recipe = "crops:uncooked_ratatouille",
+	cooktime = 15
+})
+
+minetest.register_craftitem("crops:uncooked_ratatouille", {
+	description = S("Bowl of uncooked ratatouille"),
+	inventory_image = "crops_bowl_uncooked_ratatouille.png",
+	groups = { eatable=1 },
+	on_use = minetest.item_eat(2, "crops:clay_bowl")
+})
+
+minetest.register_craft({
+	output = "crops:uncooked_ratatouille",
+	recipe = {
+		{ "crops:pumpkin", "crops:eggfruit", "crops:tomato" },
 		{ "", "group:food_bowl", "" }
 	}
 })

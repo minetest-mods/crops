@@ -90,7 +90,7 @@ which are the clones that can grow back to potatoes. Be careful not
 to dig the plant when there's flowers! You have to wait until the soil
 below shows potatoes. It's fairly easy to see the difference, though.
 
-5. Green Beans
+5. Green Beans.
 
 These green beans are unnaturally green, but there's so many
 of them that grow on a vine! Sadly, these beans don't grow beans
@@ -110,6 +110,12 @@ mess that makes it hard for the next plant to grow on the beanpole,
 so you salvage the beanpole's sticks after harvesting in order to
 make more beanpoles again. It's a bit of work, but worth it, these
 beans are delicious!
+
+6. Eggfruit.
+
+The eggfruit behave similar to the tomato, but has a longer lifespan, is
+less vulnerable to wither and soak, but yields less crop. Although they
+are not very nutrious alone, you can cook tasty ratatouille with them.
 
 
 ## Cooking / Crafting
@@ -131,12 +137,18 @@ You can fill these bowls (or any group:food_bowl) with vegetables to
 craft an uncooked vegetable stew:
 
 empty       empty     empty
-grean_beans potato    tomato
+green_beans potato    tomato
 empty       clay_bowl empty
 
-The uncooked vegetable stew obviously needs to be cooked as well in
-an oven. The resulting Vegetable Stew bowl gives a lot of hears back,
-which is worth the effort.
+or an uncooked ratatouille:
+
+empty       empty     empty
+pumpkin     eggfruit  tomato
+empty       clay_bowl empty
+
+The uncooked meals obviously needs to be cooked as well in an oven. The
+resulting vegetable dishes give a lot of hearts back, which is worth the
+effort.
 
 The watering can can be made as follows:
 

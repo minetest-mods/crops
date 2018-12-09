@@ -6,17 +6,18 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-04-30 08:37+0200\n"
-"PO-Revision-Date: 2017-02-20 16:54-0300\n"
-"Last-Translator: Diego Martínez <kaeza@users.noreply.github.com>\n"
+"PO-Revision-Date: 2018-12-09 20:22+0100\n"
+"Last-Translator: Marius Spix <marius.spix@web.de>\n"
 "Language-Team: Spanish\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 2.1.1\n"
 
 #: cooking.lua
 msgid "Unbaked clay bowl"
@@ -33,6 +34,14 @@ msgstr "Tazón de sopa de vegetales"
 #: cooking.lua
 msgid "Bowl of uncooked vegetable stew"
 msgstr "Tazón de sopa de vegetales sin cocer"
+
+#: cooking.lua
+msgid "Bowl of ratatouille"
+msgstr "Tazón de pisto"
+
+#: cooking.lua
+msgid "Bowl of uncooked ratatouille"
+msgstr "Tazón de pisto sin cocer"
 
 #: corn.lua
 msgid "Corn"
@@ -137,6 +146,18 @@ msgstr "Semilla de tomate"
 #: tomato.lua
 msgid "Tomato plant"
 msgstr "Planta de tomate"
+
+#: eggfruit.lua
+msgid "Eggfruit"
+msgstr "Berenjena"
+
+#: eggfruit.lua
+msgid "Eggfruit seed"
+msgstr "Semilla de berenjena"
+
+#: eggfruit.lua
+msgid "Eggfruit plant"
+msgstr "Planta de berenjena"
 
 #: tomato.lua
 msgid "Tomato"

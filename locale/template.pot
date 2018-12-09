@@ -33,6 +33,14 @@ msgstr ""
 msgid "Bowl of uncooked vegetable stew"
 msgstr ""
 
+#: cooking.lua
+msgid "Bowl of ratatouille"
+msgstr ""
+
+#: cooking.lua
+msgid "Bowl of uncooked ratatouille"
+msgstr ""
+
 #: corn.lua
 msgid "Corn"
 msgstr ""
@@ -135,6 +143,18 @@ msgstr ""
 
 #: tomato.lua
 msgid "Tomato plant"
+msgstr ""
+
+#: eggfruit.lua
+msgid "Eggfruit"
+msgstr ""
+
+#: eggfruit.lua
+msgid "Eggfruit seed"
+msgstr ""
+
+#: eggfruit.lua
+msgid "Eggfruit plant"
 msgstr ""
 
 #: tomato.lua

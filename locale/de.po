@@ -3,20 +3,20 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-04-30 08:37+0200\n"
-"PO-Revision-Date: 2017-02-20 16:54-0300\n"
-"Last-Translator: LNJ2\n"
+"PO-Revision-Date: 2018-12-0901 20:16+0100\n"
+"Last-Translator: Marius Spix <marius.spix@web.de>\n"
 "Language-Team: German\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 2.1.1\n"
 
 #: cooking.lua
 msgid "Unbaked clay bowl"
@@ -28,11 +28,19 @@ msgstr "Lehmschale"
 
 #: cooking.lua
 msgid "Bowl of vegetable stew"
-msgstr "Schale voll Gemseeintopf"
+msgstr "Schale voll Gemüseeintopf"
 
 #: cooking.lua
 msgid "Bowl of uncooked vegetable stew"
-msgstr "Schale voll mit roher Gemseeintopf"
+msgstr "Schale voll mit rohem Gemüseeintopf"
+
+#: cooking.lua
+msgid "Bowl of ratatouille"
+msgstr "Schale voll Ratatouille"
+
+#: cooking.lua
+msgid "Bowl of uncooked ratatouille"
+msgstr "Schale voll mit roher Ratatouille"
 
 #: corn.lua
 msgid "Corn"
@@ -52,20 +60,19 @@ msgstr "Maispflanze"
 
 #: init.lua
 msgid "Defaulting to \"normal\" difficulty settings"
-msgstr "Benutze standard Schwierigkeitsgrad \"normal\""
+msgstr "Benutze Standard-Schwierigkeitsgrad \"normal\""
 
 #: init.lua
 msgid "Hydration and dehydration mechanics are enabled."
 msgstr "Hydrierungs- und Dehydrierungsmechaniken sind aktiviert."
 
 #: init.lua
-#, fuzzy
 msgid "Unable to find plant \"@1\" in crops table"
-msgstr "Konnte Pflanze \"@1\" nicht in der Tabelle finden"
+msgstr "Konnte Pflanze \"@1\" nicht in der Saatguttabelle finden"
 
 #: init.lua
 msgid "Loaded!"
-msgstr ""
+msgstr "Geladen!"
 
 #: melon.lua
 msgid "Melon seed"
@@ -85,7 +92,7 @@ msgstr "Melone"
 
 #: polebean.lua
 msgid "Green Bean"
-msgstr "Grne Bohne"
+msgstr "Grüne Bohne"
 
 #: polebean.lua
 msgid "Beanpoles"
@@ -93,11 +100,11 @@ msgstr "Bohnenstangen"
 
 #: polebean.lua
 msgid "Green bean seed"
-msgstr "Samen einer Grnen Bohne"
+msgstr "Samen einer Grünen Bohne"
 
 #: polebean.lua
 msgid "Green Bean plant"
-msgstr "Grne Bohnenpflanze"
+msgstr "Grüne Bohnenpflanze"
 
 #: potato.lua
 msgid "Potato eyes"
@@ -117,19 +124,19 @@ msgstr "Acker mit Kartoffeln"
 
 #: pumpkin.lua
 msgid "Pumpkin seed"
-msgstr "Krbissamen"
+msgstr "Kürbissamen"
 
 #: pumpkin.lua
 msgid "Pumpkin plant"
-msgstr "Krbispflanze"
+msgstr "Kürbispflanze"
 
 #: pumpkin.lua
 msgid "Roasted pumpkin"
-msgstr "Gersteter Krbis"
+msgstr "Gerösteter Kürbis"
 
 #: pumpkin.lua
 msgid "Pumpkin"
-msgstr "Krbis"
+msgstr "Kürbis"
 
 #: tomato.lua
 msgid "Tomato seed"
@@ -139,13 +146,25 @@ msgstr "Tomatensamen"
 msgid "Tomato plant"
 msgstr "Tomatenpflanze"
 
+#: eggfruit.lua
+msgid "Eggfruit"
+msgstr "Aubergine"
+
+#: eggfruit.lua
+msgid "Eggfruit seed"
+msgstr "Auberginensamen"
+
+#: eggfruit.lua
+msgid "Eggfruit plant"
+msgstr "Auberginenpflanze"
+
 #: tomato.lua
 msgid "Tomato"
 msgstr "Tomate"
 
 #: tools.lua
 msgid "Watering Can"
-msgstr "Giekanne"
+msgstr "Gießkanne"
 
 #: tools.lua
 msgid "Hydrometer"

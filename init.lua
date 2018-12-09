@@ -117,8 +117,10 @@ crops.plant = function(pos, node)
 	minetest.set_node(pos, node)
 	local meta = minetest.get_meta(pos)
 	local plant = find_plant(node)
-	meta:set_int("crops_water", math.max(plant.properties.waterstart, 1))
-	meta:set_int("crops_damage", 0)
+	if plant ~= nil then
+		meta:set_int("crops_water", math.max(plant.properties.waterstart, 1))
+		meta:set_int("crops_damage", 0)
+	end
 end
 
 crops.can_grow = function(pos)
@@ -304,6 +306,7 @@ dofile(modpath .. "/corn.lua")
 dofile(modpath .. "/tomato.lua")
 dofile(modpath .. "/potato.lua")
 dofile(modpath .. "/polebean.lua")
+dofile(modpath .. "/eggfruit.lua")
 
 local nodenames = {}
 for i = 1,table.getn(crops.plants) do
