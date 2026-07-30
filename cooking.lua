@@ -1,4 +1,3 @@
-
 --[[
 
 Copyright (C) 2015 - Auke Kok <sofar@foo-projects.org>
@@ -19,57 +18,57 @@ of the license, or (at your option) any later version.
 -- Intllib
 local S = crops.intllib
 
-minetest.register_craftitem("crops:unbaked_clay_bowl", {
+core.register_craftitem("crops:unbaked_clay_bowl", {
 	description = S("Unbaked clay bowl"),
 	inventory_image = "crops_unbaked_clay_bowl.png",
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "crops:unbaked_clay_bowl",
 	recipe = {
 		{ "", "", "" },
 		{ "default:clay_lump", "", "default:clay_lump" },
-		{ "", "default:clay_lump", "" }
-	}
+		{ "", "default:clay_lump", "" },
+	},
 })
 
-minetest.register_craftitem("crops:clay_bowl", {
+core.register_craftitem("crops:clay_bowl", {
 	description = S("Clay bowl"),
 	inventory_image = "crops_clay_bowl.png",
-	groups = { food_bowl=1 }
+	groups = { food_bowl = 1 },
 })
 
-minetest.register_craft({
+core.register_craft({
 	type = "cooking",
 	output = "crops:clay_bowl",
-	recipe = "crops:unbaked_clay_bowl"
+	recipe = "crops:unbaked_clay_bowl",
 })
 
-minetest.register_craftitem("crops:vegetable_stew", {
+core.register_craftitem("crops:vegetable_stew", {
 	description = S("Bowl of vegetable stew"),
 	inventory_image = "crops_bowl_vegetable_stew.png",
-	groups = { eatable=1 },
-	on_use = minetest.item_eat(8, "crops:clay_bowl"),
+	groups = { eatable = 1 },
+	on_use = core.item_eat(8, "crops:clay_bowl"),
 })
 
-minetest.register_craft({
+core.register_craft({
 	type = "cooking",
 	output = "crops:vegetable_stew",
-	recipe = "crops:uncooked_vegetable_stew"
+	recipe = "crops:uncooked_vegetable_stew",
 })
 
-minetest.register_craftitem("crops:uncooked_vegetable_stew", {
+core.register_craftitem("crops:uncooked_vegetable_stew", {
 	description = S("Bowl of uncooked vegetable stew"),
 	inventory_image = "crops_bowl_uncooked_vegetable_stew.png",
-	groups = { eatable=1 },
-	on_use = minetest.item_eat(2, "crops:clay_bowl")
+	groups = { eatable = 1 },
+	on_use = core.item_eat(2, "crops:clay_bowl"),
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "crops:uncooked_vegetable_stew",
 	recipe = {
 		{ "", "", "" },
 		{ "crops:green_bean", "crops:potato", "crops:tomato" },
-		{ "", "group:food_bowl", "" }
-	}
+		{ "", "group:food_bowl", "" },
+	},
 })

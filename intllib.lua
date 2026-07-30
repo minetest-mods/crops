@@ -10,18 +10,18 @@ local function format(str, ...)
 		if escape == "" then
 			local replacement = tostring(args[tonumber(num)])
 			if open == "" then
-				replacement = replacement..close
+				replacement = replacement .. close
 			end
 			return replacement
 		else
-			return "@"..open..num..close
+			return "@" .. open .. num .. close
 		end
 	end
 	return (str:gsub("(@?)@(%(?)(%d+)(%)?)", repl))
 end
 
 local gettext, ngettext
-if minetest.get_modpath("intllib") then
+if core.get_modpath("intllib") then
 	if intllib.make_gettext_pair then
 		-- New method using gettext.
 		gettext, ngettext = intllib.make_gettext_pair()
@@ -38,7 +38,7 @@ gettext = gettext or function(msgid, ...)
 end
 
 ngettext = ngettext or function(msgid, msgid_plural, n, ...)
-	return format(n==1 and msgid or msgid_plural, ...)
+	return format(n == 1 and msgid or msgid_plural, ...)
 end
 
 return gettext, ngettext
