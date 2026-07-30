@@ -123,7 +123,7 @@ core.register_abm({
 		if not crops.can_grow(pos) then
 			return
 		end
-		if not core.get_node({ x = pos.x, y = pos.y + 1, z = pos.z }).name == "air" then
+		if core.get_node({ x = pos.x, y = pos.y + 1, z = pos.z }).name ~= "air" then
 			return
 		end
 		core.swap_node(pos, { name = "crops:corn_base_2", param2 = 3 })
@@ -153,7 +153,7 @@ core.register_node("crops:corn_base_2", {
 			core.remove_node(pos)
 			return
 		end
-		if not core.get_node(above).name == "crops:corn_top_3" then
+		if core.get_node(above).name ~= "crops:corn_top_3" then
 			core.remove_node(pos)
 		end
 
@@ -208,7 +208,7 @@ core.register_node("crops:corn_top_1", {
 	sounds = default.node_sound_leaves_defaults(),
 	on_dig = function(pos, node, digger)
 		local below = { x = pos.x, y = pos.y - 1, z = pos.z }
-		if not core.get_node(below).name == "crops:base_2" then
+		if core.get_node(below).name ~= "crops:base_2" then
 			return
 		end
 		core.remove_node(below)
@@ -245,7 +245,7 @@ core.register_node("crops:corn_top_2", {
 
 	on_dig = function(pos, node, digger)
 		local below = { x = pos.x, y = pos.y - 1, z = pos.z }
-		if not core.get_node(below).name == "crops:base_2" then
+		if core.get_node(below).name ~= "crops:base_2" then
 			return
 		end
 		core.remove_node(below)
