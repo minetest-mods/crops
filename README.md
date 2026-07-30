@@ -1,8 +1,9 @@
-## Crops - more farming crops mod for minetest
+# Crops
 
-Copyright (C) 2015 - Auke Kok <sofar@foo-projects.org>
+[![ContentDB](https://content.luanti.org/packages/sofar/crops/shields/downloads/)](https://content.luanti.org/packages/sofar/crops/)
+*[Forum Topic](https://forum.luanti.org/viewtopic.php?t=11795)*
 
-This minetest mod expands the basic set of farming-related crops that
+This Luanti/Minetest mod expands the basic set of farming-related crops that
 `minetest_game` offers. A list of crops/crafts is below.
 
 ## Configuration
@@ -44,7 +45,7 @@ are listed below.
 
 ## Plants
 
-1. Melons and pumpkins
+### Melons and Pumpkins
 
 Melon plants grow from melon seeds. Once a plant is mature (there
 are 5 stages) it will spawn a melon block adjacent to the plant.
@@ -57,7 +58,7 @@ roast pumpkin chunks, which can be eaten. You can also craft
 the blocks to seeds. A pumpkin plant will only yield limited amounts
 of pumpkins. After a while they automatically wither.
 
-2. Corn.
+### Corn
 
 Corn plants are 2 blocks high, and yield corn cobs. These can be
 cooked to corn-on-the-cob, or processed to make corn seed (corn
@@ -68,7 +69,7 @@ Digging a mature plant yields the corn cob. A harvested corn plant
 be left as ornamental 2-block plant. Digging either top or bottom
 block works in all cases.
 
-3. Tomatoes.
+### Tomatoes
 
 Tomatoes appear to work simple enough, until you harvest them
 the first time: The plant stays! However, after the 3rd to 5th
@@ -77,7 +78,7 @@ tomatoes will grow on the plant. Per harvest you can get 1-2
 tomatoes only. You can craft the tomatoes to tomato seeds, as
 expected.
 
-4. Potatoes.
+### Potatoes
 
 The plants themselves don't drop anything. Only if the plant matures
 can you dig potatoes from the soil. If you can reach the soil from the
@@ -90,18 +91,22 @@ which are the clones that can grow back to potatoes. Be careful not
 to dig the plant when there's flowers! You have to wait until the soil
 below shows potatoes. It's fairly easy to see the difference, though.
 
-5. Green Beans
+### Green Beans
 
 These green beans are unnaturally green, but there's so many
 of them that grow on a vine! Sadly, these beans don't grow beans
 unsupported, so you stick some sticks together to make a beanpole,
 something like this way:
 
-empty empty empty
-stick empty stick
-stick empty stick
+```txt
+_________________________
+|       |       |       |
+| stick |       | stick |
+| stick |       | stick |
+‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+```
 
-There, that should help the viney bean plant to grow to 2 meters
+There, that should help the bean plant to grow to 2 meters
 high. It has remarkable purple flowers, that pop all over the plant
 just before the beans grow.
 
@@ -111,7 +116,6 @@ so you salvage the beanpole's sticks after harvesting in order to
 make more beanpoles again. It's a bit of work, but worth it, these
 beans are delicious!
 
-
 ## Cooking / Crafting
 
 The corn cobs can be cooked directly to make Corn-on-the-Cob.
@@ -120,9 +124,13 @@ This mod includes a bowl recipe. The bowl is made from clay lumps,
 which results in an unbaked clay bowl that needs to be baked in an
 oven to be usable:
 
-empty     empty     empty
-clay_lump empty     clay_lump
-empty     clay_lump empty
+```txt
+_____________________________________
+|           |           |           |
+| clay_lump |           | clay_lump |
+|           | clay_lump |           |
+‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+```
 
 Pumpkin blocks can be cooked whole, and yield roasted pumpkin. It's
 okay as food, but it takes a lot of work.
@@ -130,9 +138,13 @@ okay as food, but it takes a lot of work.
 You can fill these bowls (or any group:food_bowl) with vegetables to
 craft an uncooked vegetable stew:
 
-empty       empty     empty
-grean_beans potato    tomato
-empty       clay_bowl empty
+```txt
+____________________________________
+|             |           |        |
+| grean_beans |  potato   | tomato |
+|             | clay_bowl |        |
+‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+```
 
 The uncooked vegetable stew obviously needs to be cooked as well in
 an oven. The resulting Vegetable Stew bowl gives a lot of hears back,
@@ -140,9 +152,13 @@ which is worth the effort.
 
 The watering can can be made as follows:
 
-steel_ingot empty       empty
-steel_ingot empty       steel_ingot
-empty       steel_ingot empty
+```txt
+___________________________________________
+| steel_ingot |             |             |
+| steel_ingot |             | steel_ingot |
+|             | steel_ingot |             |
+‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+```
 
 To fill the watering can, left click any block of water. To use,
 left click a plant. The damage bar on the icon indicates the fill
@@ -150,9 +166,13 @@ level of the watering can.
 
 The hydrometer can be crafted like this:
 
-mese_crystal_fragment empty         empty
-empty                 steel_ingot   empty
-empty                 empty         steel_ingot
+```txt
+_____________________________________________________
+| mese_crystal_fragment |             |             |
+|                       | steel_ingot |             |
+|                       |             | steel_ingot |
+‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+```
 
 Left-click any plant with the hydrometer, and the charge bar indicates
 the humidity level of the plant: a dry plant will have 0% humidity
@@ -160,3 +180,14 @@ and be a small red bar or no bar at all, and a soaked plant will
 have a full green bar. Be careful though! Some plants prefer to be
 at mid-level (yellow) instead of full wetness!
 
+## Dependencies
+
+* Luanti/Minetest v5.10
+* MTG mods `default` and `farming`
+
+## License
+
+Copyright (C) 2015 - Auke Kok <sofar@foo-projects.org>
+
+* Code & Translations: LGPL-2.0+
+* Textures & Models: CC-BY-SA-3.0
