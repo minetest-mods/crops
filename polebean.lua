@@ -184,7 +184,7 @@ core.register_node("crops:beanpoles", {
 			return
 		end
 		local top = { x = pointed_thing.above.x, y = pointed_thing.above.y + 1, z = pointed_thing.above.z }
-		if not core.get_node(top).name == "air" then
+		if core.get_node(top).name ~= "air" then
 			return
 		end
 		core.set_node(pointed_thing.above, { name = "crops:beanpole_base" })

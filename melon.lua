@@ -14,9 +14,9 @@ local S = crops.intllib
 
 local faces = {
 	[1] = { x = -1, z = 0, r = 3, o = 1, m = 14 },
-	[2] = { x = 1, z = 0, r = 1, o = 3, m = 16 },
-	[3] = { x = 0, z = -1, r = 2, o = 0, m = 5 },
-	[4] = { x = 0, z = 1, r = 0, o = 2, m = 11 },
+	[2] = { x = 1, z = 0, r = 1, o = 3,  m = 16 },
+	[3] = { x = 0, z = -1, r = 2, o = 0, m = 5  },
+	[4] = { x = 0, z = 1, r = 0, o = 2,  m = 11 },
 }
 
 core.register_node("crops:melon_seed", {

@@ -141,7 +141,7 @@ crops.can_grow = function(pos)
 
 	-- damaged plants are less likely to grow
 	local damage = meta:get_int("crops_damage")
-	if not damage == 0 then
+	if damage ~= 0 then
 		if math.random(math.min(50, damage), 100) > 75 then
 			return false
 		end
@@ -326,11 +326,11 @@ if crops.settings.hydration then
 
 			-- increase water for nearby water sources
 			local f = core.find_node_near(pos, 1, { "default:water_source", "default:water_flowing" })
-			if not f == nil then
+			if f ~= nil then
 				water = math.min(100, water + 2)
 			else
 				f = core.find_node_near(pos, 2, { "default:water_source", "default:water_flowing" })
-				if not f == nil then
+				if f ~= nil then
 					water = math.min(100, water + 1)
 				end
 			end
@@ -346,7 +346,7 @@ if crops.settings.hydration then
 			meta:set_int("crops_water", water)
 
 			-- for convenience, copy water attribute to top half
-			if not plant.properties.doublesize == nil and plant.properties.doublesize then
+			if plant.properties.doublesize ~= nil and plant.properties.doublesize then
 				local above = { x = pos.x, y = pos.y + 1, z = pos.z }
 				local abovemeta = core.get_meta(above)
 				abovemeta:set_int("crops_water", water)
