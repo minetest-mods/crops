@@ -1,14 +1,17 @@
 unused_args = false
+max_line_length = 120
 
-read_globals = {
-	"DIR_DELIM",
-	"minetest", "core",
-	"dump",
-	"vector", "nodeupdate",
-	"VoxelManip", "VoxelArea",
-	"PseudoRandom", "ItemStack",
-	"intllib",
-	"default",
-	table = { fields = { "copy", "getn" } }
+globals = {
+	"crops",
 }
 
+read_globals = {
+	table = { fields = { "copy", "getn" } },
+	"core",
+	"dump",
+	"vector",
+	"ItemStack",
+
+	"intllib",
+	"default",
+}
