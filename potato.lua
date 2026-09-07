@@ -101,6 +101,7 @@ core.register_node("crops:soil_with_potatoes", {
 		},
 	},
 	sounds = default.node_sound_dirt_defaults(),
+	node_dig_prediction = "farming:soil",
 	on_dig = function(pos, node, digger)
 		local drops = {}
 		-- damage 0   = drops 3-5

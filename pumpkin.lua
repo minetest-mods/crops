@@ -14,12 +14,7 @@ local S = crops.intllib
 local ALPHA_CLIP = core.features.use_texture_alpha_string_modes and "clip" or true
 local ALPHA_OPAQUE = core.features.use_texture_alpha_string_modes and "opaque" or false
 
-local faces = {
-	[1] = { x = -1, z = 0, r = 3, o = 1, m = 14 },
-	[2] = { x = 1, z = 0, r = 1, o = 3, m = 16 },
-	[3] = { x = 0, z = -1, r = 2, o = 0, m = 5 },
-	[4] = { x = 0, z = 1, r = 0, o = 2, m = 11 },
-}
+local faces = crops.faces
 
 core.register_node("crops:pumpkin_seed", {
 	description = S("Pumpkin seed"),
@@ -164,52 +159,31 @@ core.register_abm({
 	interval = crops.settings.interval,
 	chance = crops.settings.chance,
 	action = function(pos, node, active_object_count, active_object_count_wider)
-		if not crops.can_grow(pos) then
-			return
-		end
-		for face = 1, 4 do
-			local t = { x = pos.x + faces[face].x, y = pos.y, z = pos.z + faces[face].z }
-			if core.get_node(t).name == "crops:pumpkin" then
-				return
-			end
-		end
-		local r = math.random(1, 4)
-		local t = { x = pos.x + faces[r].x, y = pos.y, z = pos.z + faces[r].z }
-		local n = core.get_node(t)
-		if n.name == "ignore" then
+		local t, face = crops.find_random_4f_neighbour(pos, "crops:pumpkin")
+		if not t then
 			return
 		end
 
-		if core.registered_nodes[core.get_node({ x = t.x, y = t.y - 1, z = t.z }).name].walkable == false then
-			return
-		end
+		core.set_node(t, { name = "crops:pumpkin", param2 = face.m })
 
-		if
-			core.registered_nodes[n.name].drawtype == "plantlike"
-			or core.registered_nodes[n.name].groups.flora == 1
-			or n.name == "air"
-		then
-			core.set_node(t, { name = "crops:pumpkin", param2 = faces[r].m })
-
-			local meta = core.get_meta(pos)
-			local ttl = meta:get_int("crops_pumpkin_ttl")
-			local damage = meta:get_int("crops_damage")
-			if ttl == 0 then
-				-- damage 0   - regrows 3-4
-				-- damage 50  - drops 1-2
-				-- damage 100 - drops 0-1
-				ttl = math.random(3 - (3 * (damage / 100)), 4 - (3 * (damage / 100)))
-			end
-			if ttl > 1 then
-				core.swap_node(pos, { name = "crops:pumpkin_plant_5_attached", param2 = faces[r].r })
-				meta:set_int("crops_pumpkin_ttl", ttl - 1)
-			else
-				crops.die(pos)
-			end
-			local water = meta:get_int("crops_water")
-			-- growing a pumpkin costs 25 water!
-			meta:set_int("crops_water", math.max(0, water - 25))
+		local meta = core.get_meta(pos)
+		local ttl = meta:get_int("crops_pumpkin_ttl")
+		local damage = meta:get_int("crops_damage")
+		if ttl == 0 then
+			-- damage 0   - regrows 3-4
+			-- damage 50  - drops 1-2
+			-- damage 100 - drops 0-1
+			ttl = math.random(3 - (3 * (damage / 100)), 4 - (3 * (damage / 100)))
 		end
+		if ttl > 1 then
+			core.swap_node(pos, { name = "crops:pumpkin_plant_5_attached", param2 = face.r })
+			meta:set_int("crops_pumpkin_ttl", ttl - 1)
+		else
+			crops.die(pos)
+		end
+		local water = meta:get_int("crops_water")
+		-- growing a pumpkin costs 25 water!
+		meta:set_int("crops_water", math.max(0, water - 25))
 	end,
 })
 

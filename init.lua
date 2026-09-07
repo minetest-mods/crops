@@ -151,6 +151,62 @@ crops.can_grow = function(pos)
 	return true
 end
 
+
+
+local faces = {
+	[1] = { x = -1, z = 0, r = 3, o = 1, m = 14 },
+	[2] = { x = 1, z = 0, r = 1, o = 3, m = 16 },
+	[3] = { x = 0, z = -1, r = 2, o = 0, m = 5 },
+	[4] = { x = 0, z = 1, r = 0, o = 2, m = 11 },
+}
+crops.faces = faces
+
+local function try_get_nodedef(name)
+	return core.registered_nodes[name] or core.registered_nodes["ignore"]
+end
+
+--- Returns the node position or <none> on failure
+--- @param stop_if_neighbour (optional) Node name to abort on match
+crops.find_random_4f_neighbour = function(pos, stop_if_neighbour)
+	if not crops.can_grow(pos) then
+		return
+	end
+	if stop_if_neighbour then
+		for face = 1, 4 do
+			local t = { x = pos.x + faces[face].x, y = pos.y, z = pos.z + faces[face].z }
+			if core.get_node(t).name == stop_if_neighbour then
+				return
+			end
+		end
+	end
+
+	local face = faces[math.random(1, 4)]
+	local t = { x = pos.x + face.x, y = pos.y, z = pos.z + face.z }
+	local n = core.get_node(t)
+	if n.name == "ignore" then
+		return
+	end
+
+	local n_below = core.get_node({ x = t.x, y = t.y - 1, z = t.z }).name
+	if try_get_nodedef(n_below).walkable == false then
+		return
+	end
+
+	if n.name == "air" then
+		return t, face
+	end
+
+	local ndef = try_get_nodedef(n.name)
+	if
+		ndef.drawtype == "plantlike"
+		or ndef.groups.flora == 1
+	then
+		return t, face
+	end
+end
+
+
+
 crops.particles = function(pos, flag)
 	if flag == 0 then
 		-- wither (0)
