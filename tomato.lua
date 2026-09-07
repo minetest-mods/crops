@@ -11,6 +11,7 @@ of the license, or (at your option) any later version.
 
 -- Intllib
 local S = crops.intllib
+local ALPHA_CLIP = core.features.use_texture_alpha_string_modes and "clip" or true
 
 core.register_node("crops:tomato_seed", {
 	description = S("Tomato seed"),
@@ -21,7 +22,7 @@ core.register_node("crops:tomato_seed", {
 	paramtype2 = "meshoptions",
 	waving = 1,
 	sunlight_propagates = true,
-	use_texture_alpha = true,
+	use_texture_alpha = ALPHA_CLIP,
 	walkable = false,
 	paramtype = "light",
 	node_placement_prediction = "crops:tomato_plant_1",
@@ -50,7 +51,7 @@ for stage = 1, 4 do
 		paramtype2 = "meshoptions",
 		waving = 1,
 		sunlight_propagates = true,
-		use_texture_alpha = true,
+		use_texture_alpha = ALPHA_CLIP,
 		walkable = false,
 		paramtype = "light",
 		groups = { snappy = 3, flammable = 3, flora = 1, attached_node = 1, not_in_creative_inventory = 1 },
@@ -70,7 +71,7 @@ core.register_node("crops:tomato_plant_5", {
 	paramtype2 = "meshoptions",
 	waving = 1,
 	sunlight_propagates = true,
-	use_texture_alpha = true,
+	use_texture_alpha = ALPHA_CLIP,
 	walkable = false,
 	paramtype = "light",
 	groups = { snappy = 3, flammable = 3, flora = 1, attached_node = 1, not_in_creative_inventory = 1 },
@@ -105,7 +106,7 @@ core.register_node("crops:tomato_plant_6", {
 	paramtype2 = "meshoptions",
 	waving = 1,
 	sunlight_propagates = true,
-	use_texture_alpha = true,
+	use_texture_alpha = ALPHA_CLIP,
 	walkable = false,
 	paramtype = "light",
 	groups = { snappy = 3, flammable = 3, flora = 1, attached_node = 1, not_in_creative_inventory = 1 },

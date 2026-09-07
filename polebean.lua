@@ -11,6 +11,7 @@ of the license, or (at your option) any later version.
 
 -- Intllib
 local S = crops.intllib
+local ALPHA_CLIP = core.features.use_texture_alpha_string_modes and "clip" or true
 
 core.register_craft({
 	output = "crops:beanpoles",
@@ -140,7 +141,7 @@ core.register_node("crops:beanpole_base", {
 	description = "",
 	drawtype = "plantlike",
 	tiles = { "crops_beanpole_base.png" },
-	use_texture_alpha = true,
+	use_texture_alpha = ALPHA_CLIP,
 	walkable = true,
 	sunlight_propagates = true,
 	paramtype = "light",
@@ -154,7 +155,7 @@ core.register_node("crops:beanpole_top", {
 	description = "",
 	drawtype = "plantlike",
 	tiles = { "crops_beanpole_top.png" },
-	use_texture_alpha = true,
+	use_texture_alpha = ALPHA_CLIP,
 	walkable = true,
 	sunlight_propagates = true,
 	paramtype = "light",
@@ -171,7 +172,7 @@ core.register_node("crops:beanpoles", {
 	tiles = { "crops_beanpole_base.png" },
 	drawtype = "plantlike",
 	sunlight_propagates = true,
-	use_texture_alpha = true,
+	use_texture_alpha = ALPHA_CLIP,
 	paramtype = "light",
 	groups = { snappy = 3, flammable = 3, flora = 1, attached_node = 1 },
 	drop = {},
@@ -234,7 +235,7 @@ for stage = 1, 6 do
 		tiles = { "crops_beanpole_plant_base_" .. stage .. ".png" },
 		drawtype = "plantlike",
 		sunlight_propagates = true,
-		use_texture_alpha = true,
+		use_texture_alpha = ALPHA_CLIP,
 		paramtype = "light",
 		walkable = false,
 		groups = { snappy = 3, flammable = 3, flora = 1, attached_node = 1, not_in_creative_inventory = 1 },
@@ -250,7 +251,7 @@ for stage = 1, 4 do
 		tiles = { "crops_beanpole_plant_top_" .. stage .. ".png" },
 		drawtype = "plantlike",
 		sunlight_propagates = true,
-		use_texture_alpha = true,
+		use_texture_alpha = ALPHA_CLIP,
 		paramtype = "light",
 		walkable = true,
 		groups = { snappy = 3, flammable = 3, flora = 1, not_in_creative_inventory = 1 },

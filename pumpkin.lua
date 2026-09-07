@@ -11,6 +11,8 @@ of the license, or (at your option) any later version.
 
 -- Intllib
 local S = crops.intllib
+local ALPHA_CLIP = core.features.use_texture_alpha_string_modes and "clip" or true
+local ALPHA_OPAQUE = core.features.use_texture_alpha_string_modes and "opaque" or false
 
 local faces = {
 	[1] = { x = -1, z = 0, r = 3, o = 1, m = 14 },
@@ -27,7 +29,7 @@ core.register_node("crops:pumpkin_seed", {
 	drawtype = "plantlike",
 	waving = 1,
 	sunlight_propagates = false,
-	use_texture_alpha = true,
+	use_texture_alpha = ALPHA_CLIP,
 	walkable = false,
 	paramtype = "light",
 	node_placement_prediction = "crops:pumpkin_plant_1",
@@ -53,7 +55,7 @@ for stage = 1, 6 do
 		drawtype = "plantlike",
 		waving = 1,
 		sunlight_propagates = true,
-		use_texture_alpha = true,
+		use_texture_alpha = ALPHA_CLIP,
 		walkable = false,
 		paramtype = "light",
 		groups = { snappy = 3, flammable = 3, flora = 1, attached_node = 1, not_in_creative_inventory = 1 },
@@ -74,7 +76,7 @@ core.register_node("crops:pumpkin_plant_5_attached", {
 	drawtype = "mesh",
 	paramtype2 = "facedir",
 	sunlight_propagates = true,
-	use_texture_alpha = true,
+	use_texture_alpha = ALPHA_CLIP,
 	walkable = false,
 	paramtype = "light",
 	groups = { snappy = 3, flammable = 3, flora = 1, attached_node = 1, not_in_creative_inventory = 1 },
@@ -111,7 +113,7 @@ core.register_node("crops:pumpkin", {
 		"crops_pumpkin.png",
 	},
 	sunlight_propagates = false,
-	use_texture_alpha = false,
+	use_texture_alpha = ALPHA_OPAQUE,
 	walkable = true,
 	groups = { snappy = 3, flammable = 3, oddly_breakable_by_hand = 2 },
 	paramtype2 = "facedir",
